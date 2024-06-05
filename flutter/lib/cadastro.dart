@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/login.dart';
 
 
 class Cadastrar extends StatefulWidget {
@@ -32,10 +33,16 @@ class _CadastrarState extends State<Cadastrar> {
           TextField(decoration: InputDecoration(labelText: "Nome"),),
           TextField(decoration: InputDecoration(labelText: "Sobrenome"),),
           TextField(decoration: InputDecoration(labelText: "E-mail"),),
-          TextField(decoration: InputDecoration(labelText: "Senha"),),
-          TextField(decoration: InputDecoration(labelText: "Confirmar Senha"),),
+          TextField(decoration: InputDecoration(labelText: "Senha"),
+          obscureText: true,
+          ),
+
+          TextField(decoration: InputDecoration(labelText: "Confirmar Senha"),
+          obscureText: true,),
           SizedBox(height: 20,),
-          Center(child: ElevatedButton(onPressed: (){}, child: Text("Enviar"), style: ButtonStyle(),)),
+          Center(child: ElevatedButton(onPressed: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context) =>  Login()),);
+          }, child: Text("Cadastrar"), style: ButtonStyle(),)),
         ],
       ),
     

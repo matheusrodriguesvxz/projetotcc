@@ -46,13 +46,13 @@ class _LoginState extends State<Login> {
             TextField(decoration: InputDecoration(labelText: "Senha"),
             obscureText: true,
             
-              
-          
             ),
             SizedBox(height: 30,),
             ElevatedButton(onPressed: (){}, child: Text("Login"), style: ButtonStyle(),),
             SizedBox(height: 15,),
-            GestureDetector(child: Text("Esqueci minha senha"),),
+            GestureDetector(child: Text("Esqueci minha senha"),onTap: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context) =>  Cadastrar()),);
+            },),
             SizedBox(height: 30,),
             Text("Ainda não é um membro? Clique no botão e se cadastre."),
             SizedBox(height: 15,),

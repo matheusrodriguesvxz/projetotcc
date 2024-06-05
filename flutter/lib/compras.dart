@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/menu.dart';
 
 void main() {
   runApp(const Lista());
@@ -26,7 +27,7 @@ class _ComprasState extends State<Compras> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(),
+      drawer: Menu(),
       appBar: AppBar(
     backgroundColor: const Color.fromARGB(255, 135, 26, 154),
         title: Center(child: Padding(
