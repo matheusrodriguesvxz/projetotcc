@@ -7,7 +7,7 @@ class Menu extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer(
       child: Material(
-        color: Color.fromARGB(255,135,26,154),
+        color: Color(0xff33007e),
         child: ListView(
           padding: EdgeInsets.symmetric(horizontal: 20),
           children: [
@@ -19,48 +19,49 @@ class Menu extends StatelessWidget {
              ),
 
             const SizedBox(
-              height: 20,
+              height: 40,
             ),
 
             itemmenu(texto: "Home", icone: Icons.home),
             const SizedBox(
-              height: 16,
+              height: 2,
             ),
 
            itemmenu(texto: "Calendário", icone:Icons.calendar_month),
             const SizedBox(
-              height: 16,
+              height: 2,
             ),
 
             itemmenu(texto: "Lista de Convidados", icone:Icons.format_list_numbered),
             const SizedBox(
-              height: 16,
+              height: 2,
             ),
 
             itemmenu(texto: "Criar convite", icone:Icons.add_box),
             const SizedBox(
-              height: 16,
+              height: 2,
             ),
 
             itemmenu(texto: "Orçamento", icone:Icons.monetization_on),
             const SizedBox(
-              height: 16,
+              height: 2,
             ),
 
              itemmenu(texto: "Lista de Compras", icone:Icons.inventory_outlined),
             const SizedBox(
-              height: 16,
+              height: 2,
             ),
 
              itemmenu(texto: "Vaquinha", icone:Icons.attach_money_sharp),
             const SizedBox(
-              height: 16,
+              height: 2,
             ),
 
             itemmenu(texto: "Playlist", icone:Icons.queue_music),
             const SizedBox(
-              height: 16,
+              height: 70,
             ),
+            itemmenu(texto: "Sair", icone: Icons.exit_to_app),
           ],
         ),
       ),
@@ -73,7 +74,7 @@ Widget itemmenu({
 }){
   return ListTile(
     leading: Icon(icone, color: Colors.white),
-    title: Text(texto, style:TextStyle(color: Colors.white),
+    title: Text(texto, style:TextStyle(color:Colors.white),
     ),
     hoverColor: Colors.white70,
   );
@@ -95,9 +96,9 @@ cabecalho({
           const SizedBox(width: 20,),
           Column(
             children: [
-              Text(nome, style: TextStyle(fontSize: 10, color: Colors.white),),
+              Text(nome, style: TextStyle(fontSize: 10, color: Colors.white,),),
               const SizedBox(height: 4,),
-              Text(email, style: TextStyle(fontSize: 10, color: Colors.white),),
+              Text(email, style: TextStyle(fontSize: 10, color:Colors.white),),
               ],)
         ],
       ),

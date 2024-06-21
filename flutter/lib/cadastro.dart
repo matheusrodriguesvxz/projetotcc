@@ -13,18 +13,19 @@ class _CadastrarState extends State<Cadastrar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+    
       appBar: AppBar(title: Center(child: Padding(
         padding: const EdgeInsets.fromLTRB(0,0,65,0),
         child: Text("EventEasy",
-        style: TextStyle(color: Colors.black, fontFamily: "Arial")),
+        style: TextStyle(color: Color.fromARGB(255, 255, 255, 255), fontFamily: "Arial")),
+        
       )),
-      backgroundColor: const Color.fromARGB(255, 215, 131, 236)),
+      backgroundColor: const Color(0xff33007e)),
       
       body: 
-      
        Container(
         
-        color: Color.fromARGB(255, 215, 131, 236),
+        color: Color.fromARGB(255, 255, 255, 255),
         child:Column(
           
         children: <Widget>[
@@ -47,6 +48,7 @@ class _CadastrarState extends State<Cadastrar> {
       ),
     
      )
+     
     );
   }
 }
