@@ -46,56 +46,48 @@ class VaquinhaScreen extends StatelessWidget {
               leading: Icon(Icons.home, color: customColor),
               title: Text('Home'),
               onTap: () {
-                // Ação ao clicar
               },
             ),
             ListTile(
               leading: Icon(Icons.calendar_today, color: customColor),
               title: Text('Calendário'),
               onTap: () {
-                // Ação ao clicar
               },
             ),
             ListTile(
               leading: Icon(Icons.group, color: customColor),
               title: Text('Lista de Convidados'),
               onTap: () {
-                // Ação ao clicar
               },
             ),
             ListTile(
               leading: Icon(Icons.add, color: customColor),
               title: Text('Criar convite'),
               onTap: () {
-                // Ação ao clicar
               },
             ),
             ListTile(
               leading: Icon(Icons.attach_money, color: customColor),
               title: Text('Orçamento'),
               onTap: () {
-                // Ação ao clicar
               },
             ),
             ListTile(
               leading: Icon(Icons.shopping_cart, color: customColor),
               title: Text('Lista de Compras'),
               onTap: () {
-                // Ação ao clicar
               },
             ),
             ListTile(
               leading: Icon(Icons.money, color: customColor),
               title: Text('Vaquinha'),
               onTap: () {
-                // Ação ao clicar
               },
             ),
             ListTile(
               leading: Icon(Icons.playlist_play, color: customColor),
               title: Text('Playlist'),
               onTap: () {
-                // Ação ao clicar
               },
             ),
           ],
@@ -165,7 +157,6 @@ class VaquinhaScreen extends StatelessWidget {
                 ),
                 child: ListView(
                   children: [
-                    // Pagamentos de exemplo, substitua pelos seus dados reais
                     ListTile(
                       leading: Icon(Icons.payment, color: customColor),
                       title: Text('Pagamento 1'),
@@ -176,7 +167,6 @@ class VaquinhaScreen extends StatelessWidget {
                       title: Text('Pagamento 2'),
                       subtitle: Text('R\$ 70,00'),
                     ),
-                    // Adicione mais ListTiles aqui
                   ],
                 ),
               ),
