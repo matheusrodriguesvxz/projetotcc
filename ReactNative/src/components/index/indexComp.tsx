@@ -17,7 +17,7 @@ export default function FundoDaTela() {
 
 export function ButaoLogin() {
   return (
-    <TouchableOpacity style={style.butao}>
+    <TouchableOpacity onPress={() => {router.push("/homePage")}} style={style.butao}>
       <Text style={style.Textobutao}>Entrar</Text>
     </TouchableOpacity>
   );

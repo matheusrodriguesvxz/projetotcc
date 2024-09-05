@@ -117,7 +117,6 @@ export function Invites() {
       <Text
         style={{ fontFamily: "Poppins", fontWeight: "bold", color: "#BFBFBF", letterSpacing:0.5, marginTop:5 }}
       >
-        Convidados
       </Text>
     </View>
   );
@@ -134,7 +133,6 @@ export function Comprinhas() {
       <Text
         style={{ fontFamily: "Poppins", fontWeight: "bold", color: "#BFBFBF", letterSpacing:0.5, marginTop:5 }}
       >
-        Compras
       </Text>
     </View>
   );
@@ -151,7 +149,6 @@ export function Payment() {
       <Text
         style={{ fontFamily: "Poppins", fontWeight: "bold", color: "#BFBFBF", letterSpacing:0.5, marginTop:5 }}
       >
-        Orçamento
       </Text>
     </View>
   );
@@ -168,7 +165,6 @@ export function Playlist() {
       <Text
         style={{ fontFamily: "Poppins", fontWeight: "bold", color: "#BFBFBF", letterSpacing:0.5, marginTop:5 }}
       >
-        Playlist
       </Text>
     </View>
   );
