@@ -6,7 +6,7 @@ export default function RegisterPage(){
     return (
         <SafeAreaView>
             <View>
-                <Image source={require("../../assets/purplebg ")} className="h-100 w-100"/>
+                <Image source={require("../../assets/purplebg.png")} className="h-100 w-100"/>
                 <View className="mt-40 items-center flex">
                     <Logo/>
                 </View>
