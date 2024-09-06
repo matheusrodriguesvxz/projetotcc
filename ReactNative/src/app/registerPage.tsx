@@ -14,8 +14,8 @@ export default function RegisterPage() {
 
     const [checked, setChecked] = useState(false);
 
-    // const 
     return (
+
         <View className="h-full bg-white">
             <Image source={require("../../assets/purplebg.png")} className="h-100 w-100 z-index -1 right-[7] bottom-1" />
             <View className=" w-full h-52 absolute items-center mt-28">

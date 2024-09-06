@@ -1,5 +1,5 @@
-import { Text , View , StyleSheet , Dimensions , LayoutChangeEvent , Pressable } from "react-native";
-import { ButaoLogin, ButaoRegistro} from "../components/index/indexComp";
+import { Text, View, StyleSheet, Dimensions, LayoutChangeEvent, Pressable } from "react-native";
+import { ButaoLogin, ButaoRegistro } from "../components/index/indexComp";
 import { useFonts } from "expo-font";
 import FundoDaTela from "../components/index/indexComp";
 import { ImageInicialPage } from "../components/Svgs";
@@ -17,7 +17,7 @@ export default function Index() {
         EventEasy
       </Text>
       <View className="absolute top-44 z-50">
-        <ImageInicialPage/>
+        <ImageInicialPage />
       </View>
       <View className="absolute top-96 mt-56  font-semibold z-50 ">
         <Text
