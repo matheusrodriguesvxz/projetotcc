@@ -8,14 +8,14 @@ export default function LoginPage() {
         Poppins: require("../../assets/fonts/Poppins-Bold.ttf"),
     });
     return (
-        <View className="bg-white">
+        <View className="bg-white ">
             <View className="bg-black">
                 <RoxoLogin />
             </View>
             <View className="h-[50%] w-full justify-center items-center mt-3">
                 <Logo />
             </View>
-            <View className="flex relative w-[100] mt-9 ml-6">
+            <View className="flex relative w-[300] mt-9 ml-6">
                 <Text className="" style={{ fontSize: 25, fontFamily: "Poppins", fontWeight: "bold", color: "#000000", letterSpacing: 0.5, marginTop: 5 }}
                 >Vamos Começar!</Text>
                 <Text style={{ fontSize: 15, fontFamily: "Poppins", fontWeight: "bold", color: "#B0B0B0", letterSpacing: 0.5, marginTop: 5 }}> Entre em sua conta para continuar</Text>
