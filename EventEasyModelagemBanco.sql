@@ -1,41 +1,18 @@
 create database EventEasy;
 
 use EventEasy;
-
-
-
 create table Endereco (
     id integer auto_increment,
     cep varchar(8) ,
     rua varchar(100),
     cidade varchar(45),
-    estado char(2),  SELECT 
-    Eventos.nome,
-    Eventos.tipo ,
-    Eventos.descricao,
-    Eventos.data_inicial,
-    Eventos.data_final,
-    Eventos.orcamento,
-    Eventos.pix,
-    Eventos.maiorDeIdade,
-    Endereco.id,
-    Endereco.cep,
-    Endereco.rua,
-    Endereco.cidade,
-    Endereco.estado,
-    Endereco.complemento,
-    Endereco.pais
-  FROM 
-    Eventos 
-  JOIN 
-    Endereco ON Eventos.id_endereco = Endereco.id;
+    estado char(2),
     complemento varchar(20),
     bairro char(15),
     pais varchar(30),
     primary key (id)
 );
 
-drop datatabas
 
 create table Eventos (
     id integer auto_increment,
@@ -68,29 +45,6 @@ create table Vaquinha (
     primary key (id)
 );
 
-select *from `Eventos`;
-
-UPDATE Eventos SET nome = "?",tipo = "?",descricao = "?",orcamento = "?",pix = "?", maiorDeIdade = 1 where id = 8;
-
-select
-    `Eventos`.id,
-    Eventos.data_inicial as Inicio,
-    Eventos.data_final as Fim,
-    Eventos.nome,
-    Eventos.tipo,
-    Eventos.descricao,
-    Eventos.orcamento,
-    Eventos.pix,
-    Eventos.maiorDeIdade,
-    Endereco.cep,
-    Endereco.rua,
-    Endereco.cidade,
-    Endereco.estado,
-    Endereco.bairro,
-    Endereco.complemento,
-    Endereco.pais
-from Eventos
-    join `Endereco` ON `Eventos`.id_endereco = `Endereco`.id;
 
 INSERT INTO Endereco (cep, rua, cidade, estado, complemento, bairro, pais)
 VALUES
