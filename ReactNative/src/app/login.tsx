@@ -1,5 +1,5 @@
 import { SafeAreaView } from "react-native-safe-area-context";
-import { LoginGoogle, Logo, RoxoLogin } from "../components/Svgs";
+import { LoginApple, Logo, RoxoLogin } from "../components/Svgs";
 import { View, Text, TextInput, Pressable } from "react-native";
 import { useFonts } from "expo-font";
 import { ButaoRegistro } from "../components/index/indexComp";
@@ -35,16 +35,18 @@ export default function LoginPage() {
 
         </View>
         <View className="h-[50%] w-full items-center mt-[-60]">
-            <Text className="mb-4"   style={{ fontFamily: "Poppins", color: "#B0B0B0", fontWeight: "bold"}}>Ou entre com:</Text>
             <ButaoLogar/>
+            <Text className="mb-4"   style={{ fontFamily: "Poppins", color: "#B0B0B0", fontWeight: "bold"}}>Ou entre com:</Text>
 
             <Pressable onPress={() => {router.push("/homePage")} }>
                 <Text className=""  style={{ fontFamily: "Poppins", color: "#B0B0B0", fontWeight: "bold"}}>Esqueceu sua Senha? Clique aqui para Redefinir</Text>
             </Pressable>
-
-            <LoginGoogle/>
+            <View className="justify-center items-center h-[50%] absolute">
+                <Pressable onPress={()=>{router.push("/placeholder")}}>
+                    <LoginApple/>
+                </Pressable>
+            </View>
         </View>
         </>
-
     );
 }

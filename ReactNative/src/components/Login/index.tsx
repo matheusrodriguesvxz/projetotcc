@@ -15,7 +15,6 @@ export function LoginPage(){
     )
 }
 
-
 export function ButaoLogar() {
     return (
       <TouchableOpacity  onPress={() => {router.push("/homePage")}} style={style.butaoLogar}>
