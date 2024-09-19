@@ -46,7 +46,7 @@ export default function HomePage() {
       >
         <WelcomeEventEasy />
         <View className="items-center" style={{ marginBottom: 20 }}>
-          <BarraDePesquisa />
+          <BarraDePesquisa placeholder="Procurar" />
         </View>
         <View className="items-center justify-center">
           <CarosselImages />

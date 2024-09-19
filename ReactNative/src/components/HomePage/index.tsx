@@ -66,13 +66,13 @@ export default function WelcomeEventEasy() {
   );
 }
 
-export function BarraDePesquisa() {
+export function BarraDePesquisa({...rest}) {
   return (
     <View style={styles.container}>
       <Ionicons name="search" size={20} color="#909090" style={styles.icon} />
       <TextInput
+        {...rest}
         style={styles.input}
-        placeholder="Procurar"
         placeholderTextColor="#909090"
       />
     </View>
