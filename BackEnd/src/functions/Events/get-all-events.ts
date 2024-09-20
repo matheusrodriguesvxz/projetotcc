@@ -13,8 +13,6 @@ export const getAllEvents = async () => {
     .select({
       id: Events.id,
       name: Events.name,
-      id_adress: Events.id_adress,
-      id_kitty: Events.id_kitty,
       description: Events.description,
       pix: Events.pix,
       type: Events.type,
@@ -34,9 +32,8 @@ export const getAllEvents = async () => {
       country: Adress.complement,
     })
     .from(Events)
-    .innerJoin(Adress, eq(Events.id_adress, Adress.id))
+    .innerJoin(Adress, eq(Events.id_adress, Adress.id)) 
     .leftJoin(Kitty, eq(Events.id_kitty, Kitty.id))
 
-    JSON.stringify(getAllEvent)
   return getAllEvent
 }

@@ -11,6 +11,6 @@ export const Adress = pgTable('Endereco', {
   city: text('cidade').notNull(),
   state: text('estado').notNull(),
   complement: text('complemento'),
-  neighborhood: text('bairro'),
-  country: text('pais'),
+  neighborhood: text('bairro').notNull(),
+  country: text('pais').notNull(),
 })

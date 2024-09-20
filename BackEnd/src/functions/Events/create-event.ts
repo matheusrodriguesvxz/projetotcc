@@ -3,7 +3,7 @@ import { Events } from '../../db/schemas/events'
 
 interface CreateEventRequest {
   id_adress: string
-  id_kitty: string
+  id_kitty?: string 
   initial_date: Date
   final_date: Date
   name: string
@@ -26,8 +26,7 @@ export async function createEvents({
   pix,
   type,
 }: CreateEventRequest) {
-  const resultEvent = await db
-    .insert(Events)
+  const resultEvent = await db.insert(Events)
     .values({
       id_adress,
       id_kitty,
@@ -42,7 +41,7 @@ export async function createEvents({
     })
     .returning()
 
-  const event = resultEvent[0]
+  const event = resultEvent[0].id
   return {
     event,
   }

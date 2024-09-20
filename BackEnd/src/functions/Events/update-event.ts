@@ -4,8 +4,6 @@ import { Events } from '../../db/schemas/events'
 
 interface CreateEventRequest {
   id : string
-  id_adress: string
-  id_kitty: string
   initial_date: Date
   final_date: Date
   name: string
@@ -19,8 +17,6 @@ interface CreateEventRequest {
 export async function UpdateEvents(
   {
     id,
-    id_adress,
-    id_kitty,
     budget,
     description,
     final_date,
@@ -35,8 +31,6 @@ export async function UpdateEvents(
   const resultEvent = await db
     .update(Events)
     .set({
-      id_adress,
-      id_kitty,
       name,
       description,
       final_date,

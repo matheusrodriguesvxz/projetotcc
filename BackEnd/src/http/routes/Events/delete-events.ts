@@ -12,10 +12,12 @@ export const DeleteEvent = async () => {
 				}),
 			},
 		},
-		async request => {
+		async (request, reply) => {
 			const { id } = request.params;
 			const deletedEvent = await deleteEvent(id);
+			reply.send("Deletado com Sucesso");
       return deletedEvent;
+
 		},
 	);
 };

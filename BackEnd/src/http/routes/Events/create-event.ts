@@ -9,7 +9,7 @@ export const createEvent = async () => {
       schema: {
         body: z.object({
           id_adress: z.string(),
-          id_kitty: z.string(),
+          id_kitty: z.string().optional(),
           initial_date: z.preprocess(arg => {
             if (typeof arg === 'string') {
               const date = new Date(arg)
@@ -17,8 +17,8 @@ export const createEvent = async () => {
                 return date
               }
             }
-            return arg 
-          }, z.date()), 
+            return arg
+          }, z.date()),
           final_date: z.preprocess(arg => {
             if (typeof arg === 'string') {
               const date = new Date(arg)
@@ -37,7 +37,7 @@ export const createEvent = async () => {
         }),
       },
     },
-    async request => {
+    async (request, reply) => {
       const {
         name,
         budget,
@@ -51,7 +51,7 @@ export const createEvent = async () => {
         type,
       } = request.body
 
-      await createEvents({
+      const idEvent = await createEvents({
         id_adress,
         id_kitty,
         name,
@@ -63,6 +63,8 @@ export const createEvent = async () => {
         type,
         olderOfAge,
       })
+
+      reply.send(`Evento criado com Sucesso\nID:${idEvent.event}`)
     }
   )
 }

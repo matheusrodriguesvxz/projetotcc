@@ -2,7 +2,6 @@ import { Image, View, Text, StyleSheet } from "react-native";
 import { useFonts } from "expo-font";
 import { CheckBox } from "@rneui/themed";
 import { useState } from "react";
-import { TouchableOpacity } from "react-native";
 import {
   ButaoRegistro,
   RegisterInputs,
@@ -31,8 +30,6 @@ export default function RegisterPage() {
     watch,
     formState: { errors },
   } = useForm<NewRegisterFormData>();
-
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [checked, setChecked] = useState(false);
 
   const password = watch("password");
@@ -51,7 +48,7 @@ export default function RegisterPage() {
   };
 
   const onSubmit: SubmitHandler<NewRegisterFormData> = (data) => {
-    submitDataToFirestore(data); 
+    submitDataToFirestore(data);
   };
   return (
     <View className="h-full bg-white">
@@ -68,7 +65,9 @@ export default function RegisterPage() {
           <Controller
             control={control}
             name="name"
-            rules={{ required: "Nome é obrigatório" }}
+            rules={{
+              required: "Nome é obrigatório",
+            }}
             render={({ field: { onChange, onBlur, value } }) => (
               <RegisterInputs
                 placeholder="Nome completo"
@@ -112,8 +111,8 @@ export default function RegisterPage() {
             rules={{
               required: "Senha é obrigatória",
               minLength: {
-                value: 6,
-                message: "A senha deve ter no mínimo 6 caracteres",
+                value: 8,
+                message: "A senha deve ter no mínimo 8 caracteres",
               },
             }}
             render={({ field: { onChange, onBlur, value } }) => (

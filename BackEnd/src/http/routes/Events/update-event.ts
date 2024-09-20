@@ -11,8 +11,6 @@ export const updateEvent = async () => {
           id: z.string(),
         }),
         body: z.object({
-          id_adress: z.string(),
-          id_kitty: z.string(),
           initial_date: z.preprocess(arg => {
             if (typeof arg === 'string') {
               const date = new Date(arg)
@@ -47,8 +45,6 @@ export const updateEvent = async () => {
         budget,
         description,
         final_date,
-        id_adress,
-        id_kitty,
         initial_date,
         olderOfAge,
         pix,
@@ -58,8 +54,6 @@ export const updateEvent = async () => {
       await UpdateEvents(
         {
           id,
-          id_adress,
-          id_kitty,
           name,
           description,
           final_date,
