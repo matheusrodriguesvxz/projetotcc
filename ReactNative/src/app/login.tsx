@@ -1,5 +1,5 @@
 import { SafeAreaView } from "react-native-safe-area-context";
-import { LoginApple, Logo, RoxoLogin } from "../components/Svgs";
+import { LoginApple, LoginFacebook, LoginGoogle, Logo, RoxoLogin } from "../components/Svgs";
 import { View, Text, TextInput, Pressable } from "react-native";
 import { useFonts } from "expo-font";
 import { ButaoRegistro } from "../components/index/indexComp";
@@ -36,14 +36,27 @@ export default function LoginPage() {
         </View>
         <View className="h-[50%] w-full items-center mt-[-60]">
             <ButaoLogar/>
-            <Text className="mb-4"   style={{ fontFamily: "Poppins", color: "#B0B0B0", fontWeight: "bold"}}>Ou entre com:</Text>
 
-            <Pressable onPress={() => {router.push("/homePage")} }>
+            <Pressable onPress={() => {router.push("/placeholder")} }>
                 <Text className=""  style={{ fontFamily: "Poppins", color: "#B0B0B0", fontWeight: "bold"}}>Esqueceu sua Senha? Clique aqui para Redefinir</Text>
             </Pressable>
-            <View className="justify-center items-center h-[50%] absolute">
+            <View className="justify-center flex flex-row h-[100]">
                 <Pressable onPress={()=>{router.push("/placeholder")}}>
-                    <LoginApple/>
+                    <View>
+                        <Pressable onPress={() => {router.push("/placeholder")} }>
+                            <LoginApple/>
+                        </Pressable>
+                    </View>
+                    <View>
+                        <Pressable onPress={() => {router.push("/placeholder")} }>
+                            <LoginGoogle/>
+                        </Pressable>
+                    </View>
+                    <View>
+                        <Pressable onPress={() => {router.push("/placeholder")} }>
+                            <LoginFacebook/>
+                        </Pressable>
+                    </View>
                 </Pressable>
             </View>
         </View>
