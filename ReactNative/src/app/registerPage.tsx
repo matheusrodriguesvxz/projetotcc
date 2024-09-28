@@ -1,4 +1,4 @@
-import { Image, View, Text, StyleSheet } from "react-native";
+import { Image, View, Text, StyleSheet, Alert } from "react-native";
 import { useFonts } from "expo-font";
 import { CheckBox } from "@rneui/themed";
 import { useState } from "react";
@@ -9,8 +9,10 @@ import {
 } from "../components/RegisterPage/RegisterPageComp";
 import { useForm, type SubmitHandler, Controller } from "react-hook-form";
 import { Logo } from "../components/Svgs";
-import { db } from "../services/firebaseConfig";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth, db } from "../services/firebaseConfig";
 import { addDoc, collection } from "firebase/firestore";
+import { router } from "expo-router";
 
 type NewRegisterFormData = {
   name: string;
@@ -20,7 +22,6 @@ type NewRegisterFormData = {
 };
 
 export default function RegisterPage() {
-  const [checked, setChecked] = useState(false);
   const [loaded] = useFonts({
     PoppinsBold: require("../../assets/fonts/Poppins-Bold.ttf"),
   });
@@ -37,14 +38,29 @@ export default function RegisterPage() {
 
   const submitDataToFirestore = async (data: NewRegisterFormData) => {
     try {
-      const docRef = await addDoc(collection(db, "Usuários"), {
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        data.email,
+        data.password
+      );
+      const user = userCredential.user;
+
+      console.log("Usuário registrado com sucesso:", user);
+
+      await addDoc(collection(db, "Usuários"), {
+        uid: user.uid,
         nome: data.name,
         email: data.email,
-        senha: data.password,
       });
-      console.log("Documento: ", docRef.id);
-    } catch (e) {
-      console.error("Erro:", e);
+
+      console.log("Usuário adicionado com sucesso!");
+      router.replace("/homePage");
+    } catch (error) {
+      Alert.alert(
+        "Erro ao registrar usuário",
+        "Verifique os dados e tente novamente"
+      );
+      console.error("Erro ao registrar usuário:", error);
     }
   };
 

@@ -1,24 +1,55 @@
 import { Logo, RoxoLogin } from "../components/Svgs";
+import { View, Text, Pressable, Alert } from "react-native";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../services/firebaseConfig";
+import { StyleSheet } from "react-native";
+import { useForm, Controller } from "react-hook-form";
 import {
-  View,
-  Text,
-  TextInput,
-  Pressable,
-  SafeAreaView,
-  Image,
-} from "react-native";
-import { useFonts } from "expo-font";
-import { ButaoRegistro } from "../components/index/indexComp";
-import { ButaoLogar } from "../components/Login";
+  AppleAccount,
+  ButaoLogar,
+  EntreNaSuaConta,
+  FaceAccount,
+  ForgotPassword,
+  GoogleAccount,
+  LoginInputs,
+  VamosComecarText,
+} from "../components/Login";
 import { router } from "expo-router";
-import React from "react";
-import FastImage from "react-native-fast-image";
+import { useFonts } from "expo-font";
+
+type NewLoginFormData = {
+  email: string;
+  password: string;
+};
+
+const onSubmit = async (data: NewLoginFormData) => {
+  try {
+    const userCredential = await signInWithEmailAndPassword(
+      auth,
+      data.email,
+      data.password
+    );
+    const user = userCredential.user;
+    console.log("Usuário logado com sucesso:", user);
+    router.push("/homePage");
+  } catch (error) {
+    Alert.alert(
+      "Erro ao logar",
+      "Verifique se o e-mail e a senha estão corretos"
+    );
+  }
+};
 
 export default function LoginPage() {
+  const {
+    control,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<NewLoginFormData>();
   const [loaded] = useFonts({
     Poppins: require("../../assets/fonts/Poppins-Bold.ttf"),
   });
-
   return (
     <>
       <View className="bg-white">
@@ -29,118 +60,88 @@ export default function LoginPage() {
           <Logo />
         </View>
         <View className="flex relative w-[300] mt-9 ml-6">
-          <Text
-            className=""
-            style={{
-              fontSize: 25,
-              fontFamily: "Poppins",
-              fontWeight: "bold",
-              color: "#000000",
-              letterSpacing: 0.5,
-              marginTop: -30,
-            }}
-          >
-            Vamos Começar!
-          </Text>
-          <Text
-            style={{
-              fontSize: 15,
-              fontFamily: "Poppins",
-              fontWeight: "bold",
-              color: "#B0B0B0",
-              letterSpacing: 0.5,
-              marginTop: 10,
-            }}
-          >
-            {" "}
-            Entre em sua conta para continuar
-          </Text>
+          <VamosComecarText />
+          <EntreNaSuaConta />
         </View>
 
-        <TextInput
-          className="mt-8 border-1 border-b-4  py-2 w-[315]  ml-6 border-purple-800"
-          placeholder="Usuario"
-          placeholderTextColor="#909090"
-          style={{
-            fontFamily: "Poppins",
-            fontWeight: "bold",
-            color: "#760BFF",
-            letterSpacing: 0.5,
-            marginTop: 25,
-            fontSize: 16,
-            borderColor: "#760BFF",
+        <Controller
+          control={control}
+          name="email"
+          rules={{
+            required: "E-mail é obrigatório",
+            pattern: {
+              value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
+              message: "Digite um e-mail válido",
+            },
           }}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <LoginInputs
+              placeholder="E-mail"
+              onBlur={onBlur}
+              onChangeText={onChange}
+              value={value}
+              keyboardType="email-address"
+            />
+          )}
         />
-        <TextInput
-          className="mt-20 border-1 border-b-4 py-2 w-[315] ml-6 border-purple-800   "
-          placeholder="Senha"
-          secureTextEntry
-          placeholderTextColor="#909090"
-          style={{
-            fontFamily: "Poppins",
-            fontWeight: "bold",
-            color: "#000000",
-            letterSpacing: 0.5,
-            marginTop: 55,
-            fontSize: 16,
-            borderColor: "#760bFF",
+        {errors.email && (
+          <Text style={styles.error}>{errors.email.message}</Text>
+        )}
+
+        <Controller
+          control={control}
+          name="password"
+          rules={{
+            required: "Senha é obrigatória",
+            minLength: {
+              value: 8,
+              message: "A senha deve ter no mínimo 8 caracteres",
+            },
           }}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <LoginInputs
+              placeholder="Senha"
+              onBlur={onBlur}
+              onChangeText={onChange}
+              value={value}
+              secureTextEntry
+            />
+          )}
         />
+        {errors.password && (
+          <Text style={styles.error}>{errors.password.message}</Text>
+        )}
       </View>
       <View className="h-[50%] w-full items-center mt-[-60]">
-        <ButaoLogar />
+        <ButaoLogar onPress={handleSubmit(onSubmit)} />
 
-        <Pressable>
-          <Text
-            className=""
-            style={{
-              fontFamily: "Poppins",
-              color: "#B0B0B0",
-              fontWeight: "bold",
-            }}
-          >
-            Esqueceu sua Senha? Clique aqui para Redefinir
-          </Text>
-        </Pressable>
+        <ForgotPassword />
         <View className="justify-center items-center flex ">
           <Pressable className=" flex-row gap-20 mt-6 items-center">
             <View>
-              <Pressable>
-
-                <Image
-                style={{width: 50, height: 50}}
-                  source={{
-                    uri: "https://cdn-icons-png.flaticon.com/128/0/747.png",
-                  }
-                  }
-                />
-              </Pressable>
+              <AppleAccount />
             </View>
             <View>
-              <Pressable>
-                <Image
-                style={{width: 48, height: 48}}
-                  source={{
-                    uri: "https://cdn-icons-png.flaticon.com/128/2875/2875404.png",
-                  }
-                  }
-                />
-                
-              </Pressable>
+              <GoogleAccount />
             </View>
             <View>
-              <Pressable>
-                <Image
-                style={{width: 48, height: 48}}
-                  source={{
-                    uri: "https://cdn-icons-png.flaticon.com/128/733/733547.png",
-                  }
-                  }
-                />
-              </Pressable>
+              <FaceAccount />
             </View>
           </Pressable>
         </View>
       </View>
     </>
   );
+}
+
+const styles = StyleSheet.create({
+  error: {
+    color: "red",
+    marginBottom: 8,
+    textAlign: "left",
+    marginLeft: 20,
+    fontFamily: "Poppins",
+    fontWeight: "bold",
+    letterSpacing: 0.5,
+  },
+});

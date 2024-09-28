@@ -123,15 +123,7 @@ export function Invites() {
       >
         <IconPeople />
       </View>
-      <Text
-        style={{
-          fontFamily: "Poppins",
-          fontWeight: "bold",
-          color: "#BFBFBF",
-          letterSpacing: 0.5,
-          marginTop: 5,
-        }}
-      ></Text>
+
     </View>
   );
 }
@@ -146,15 +138,7 @@ export function Comprinhas() {
       >
         <Compras />
       </View>
-      <Text
-        style={{
-          fontFamily: "Poppins",
-          fontWeight: "bold",
-          color: "#BFBFBF",
-          letterSpacing: 0.5,
-          marginTop: 5,
-        }}
-      ></Text>
+
     </View>
     </Pressable>
 
@@ -169,15 +153,7 @@ export function Payment() {
       >
         <Hand />
       </View>
-      <Text
-        style={{
-          fontFamily: "Poppins",
-          fontWeight: "bold",
-          color: "#BFBFBF",
-          letterSpacing: 0.5,
-          marginTop: 5,
-        }}
-      ></Text>
+
     </View>
   );
 }
@@ -198,7 +174,9 @@ export function Playlist() {
           letterSpacing: 0.5,
           marginTop: 5,
         }}
-      ></Text>
+      >
+        Playlist
+      </Text>
     </View>
   );
 }
