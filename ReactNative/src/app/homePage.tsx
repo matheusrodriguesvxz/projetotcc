@@ -1,5 +1,22 @@
-import {View,Image,Text,StyleSheet,Pressable,FlatList,Dimensions,} from "react-native";
-import WelcomeEventEasy, {BarraDePesquisa,CarosselImages,Comprinhas,HappyHour,Invites,Payment,Playlist,Viagens} from "../components/HomePage";
+import {
+  View,
+  Image,
+  Text,
+  StyleSheet,
+  Pressable,
+  FlatList,
+  Dimensions,
+} from "react-native";
+import WelcomeEventEasy, {
+  BarraDePesquisa,
+  CarosselImages,
+  Comprinhas,
+  HappyHour,
+  Invites,
+  Payment,
+  Playlist,
+  Viagens,
+} from "../components/HomePage";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { EvilIcons, Ionicons } from "@expo/vector-icons";
 import { ScrollView } from "react-native-gesture-handler";
@@ -29,7 +46,7 @@ export default function HomePage() {
       >
         <WelcomeEventEasy />
         <View className="items-center" style={{ marginBottom: 20 }}>
-          <BarraDePesquisa />
+          <BarraDePesquisa placeholder="Procurar" />
         </View>
         <View className="items-center justify-center">
           <CarosselImages />
@@ -42,13 +59,21 @@ export default function HomePage() {
           <Playlist />
         </View>
 
-          <Text style={{fontFamily:"Poppins", fontWeight:"bold", letterSpacing:1}} className="text-2xl mt-1 mr-72">Populares</Text>
+        <Text
+          style={{
+            fontFamily: "Poppins",
+            fontWeight: "bold",
+            letterSpacing: 1,
+          }}
+          className="text-2xl mt-1 mr-72"
+        >
+          Populares
+        </Text>
         <View className="flex flex-row gap-14 mt-2">
-          <Viagens/>
-          <HappyHour/>
+          <Viagens />
+          <HappyHour />
         </View>
       </View>
-      
     </SafeAreaView>
   );
 }

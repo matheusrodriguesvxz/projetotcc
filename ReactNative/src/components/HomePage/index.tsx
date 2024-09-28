@@ -11,7 +11,14 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as Svg from "react-native-svg";
-import { Carossel1, Compras, Hand, IconPeople, ImagemWelcomeEventEasy, Music } from "../Svgs";
+import {
+  Carossel1,
+  Compras,
+  Hand,
+  IconPeople,
+  ImagemWelcomeEventEasy,
+  Music,
+} from "../Svgs";
 import { Ionicons } from "@expo/vector-icons";
 import React from "react";
 import PagerView from "react-native-pager-view";
@@ -61,13 +68,13 @@ export default function WelcomeEventEasy() {
   );
 }
 
-export function BarraDePesquisa() {
+export function BarraDePesquisa({...rest}) {
   return (
     <View style={styles.container}>
       <Ionicons name="search" size={20} color="#909090" style={styles.icon} />
       <TextInput
+        {...rest}
         style={styles.input}
-        placeholder="Procurar"
         placeholderTextColor="#909090"
       />
     </View>
@@ -117,9 +124,14 @@ export function Invites() {
         <IconPeople />
       </View>
       <Text
-        style={{ fontFamily: "Poppins", fontWeight: "bold", color: "#BFBFBF", letterSpacing:0.5, marginTop:5 }}
-      >
-      </Text>
+        style={{
+          fontFamily: "Poppins",
+          fontWeight: "bold",
+          color: "#BFBFBF",
+          letterSpacing: 0.5,
+          marginTop: 5,
+        }}
+      ></Text>
     </View>
   );
 }
@@ -129,13 +141,20 @@ export function Comprinhas() {
     <View className="items-center">
       <View
         className="w-20 h-20 items-center justify-center"
-        style={{ backgroundColor: "#F0F0F0", borderRadius: 20 }}>
-        <Compras/>
+
+        style={{ backgroundColor: "#F0F0F0", borderRadius: 20 }}
+      >
+        <Compras />
       </View>
       <Text
-        style={{ fontFamily: "Poppins", fontWeight: "bold", color: "#BFBFBF", letterSpacing:0.5, marginTop:5 }}
-      >
-      </Text>
+        style={{
+          fontFamily: "Poppins",
+          fontWeight: "bold",
+          color: "#BFBFBF",
+          letterSpacing: 0.5,
+          marginTop: 5,
+        }}
+      ></Text>
     </View>
     </Pressable>
 
@@ -148,12 +167,17 @@ export function Payment() {
         className="w-20 h-20 items-center justify-center"
         style={{ backgroundColor: "#F0F0F0", borderRadius: 20 }}
       >
-        <Hand/>
+        <Hand />
       </View>
       <Text
-        style={{ fontFamily: "Poppins", fontWeight: "bold", color: "#BFBFBF", letterSpacing:0.5, marginTop:5 }}
-      >
-      </Text>
+        style={{
+          fontFamily: "Poppins",
+          fontWeight: "bold",
+          color: "#BFBFBF",
+          letterSpacing: 0.5,
+          marginTop: 5,
+        }}
+      ></Text>
     </View>
   );
 }
@@ -164,32 +188,46 @@ export function Playlist() {
         className="w-20 h-20 items-center justify-center"
         style={{ backgroundColor: "#F0F0F0", borderRadius: 20 }}
       >
-        <Music/>
+        <Music />
       </View>
       <Text
-        style={{ fontFamily: "Poppins", fontWeight: "bold", color: "#BFBFBF", letterSpacing:0.5, marginTop:5 }}
-      >
-      </Text>
+        style={{
+          fontFamily: "Poppins",
+          fontWeight: "bold",
+          color: "#BFBFBF",
+          letterSpacing: 0.5,
+          marginTop: 5,
+        }}
+      ></Text>
     </View>
   );
 }
 
-
-export function Viagens(){
-  return(
+export function Viagens() {
+  return (
     <View>
-      <Image source={require("../../../assets/image7.png")}/>
-      <Text className="text-center text-lg" style={{fontFamily:"Poppins", fontWeight:"bold"}}>Viagens</Text>
+      <Image source={require("../../../assets/image7.png")} />
+      <Text
+        className="text-center text-lg"
+        style={{ fontFamily: "Poppins", fontWeight: "bold" }}
+      >
+        Viagens
+      </Text>
     </View>
-  )
+  );
 }
-export function HappyHour(){
-  return(
+export function HappyHour() {
+  return (
     <View>
-      <Image source={require("../../../assets/image8.png")}/>
-      <Text className="text-center text-lg" style={{fontFamily:"Poppins", fontWeight:"bold" }}>Happy Hour</Text>
+      <Image source={require("../../../assets/image8.png")} />
+      <Text
+        className="text-center text-lg"
+        style={{ fontFamily: "Poppins", fontWeight: "bold" }}
+      >
+        Happy Hour
+      </Text>
     </View>
-  )
+  );
 }
 const styles = StyleSheet.create({
   container: {

@@ -1,8 +1,18 @@
 import { useFonts } from "expo-font";
 import * as Svg from "react-native-svg";
-import { View, Image, StyleSheet, Pressable, Text, TouchableOpacity } from "react-native";
-import { router } from "expo-router";
+import {
+  View,
+  Image,
+  StyleSheet,
+  Pressable,
+  Text,
+  TouchableOpacity,
+  TextInput,
+  type TextInputProps,
+} from "react-native";
+import { router, type Href, type Router } from "expo-router";
 import { BackgroundPurple } from "../Svgs";
+import { forwardRef } from "react";
 
 export default function FundoDaTela() {
   const [loaded, arial] = useFonts({
@@ -10,14 +20,17 @@ export default function FundoDaTela() {
   });
   return (
     <View style={{ backgroundColor: "white" }}>
-      <BackgroundPurple/>
+      <BackgroundPurple />
     </View>
   );
 }
+interface RouterRequest {
+  rota: Href;
+}
 
-export function ButaoRegistro() {
+export function ButaoRegistro({ ...rest }) {
   return (
-    <TouchableOpacity  onPress={() => {router.push("/homePage")}} style={style.butaoRegistro}>
+    <TouchableOpacity style={style.butaoRegistro} {...rest}>
       <Text style={style.TextobutaoRegistro}>Cadastrar-Se</Text>
     </TouchableOpacity>
   );
@@ -56,3 +69,41 @@ const style = StyleSheet.create({
     letterSpacing: 1,
   },
 });
+
+export const RegisterInputs = forwardRef<TextInput, TextInputProps>(
+  ({ style, ...rest }, ref) => {
+    return (
+      <TextInput
+        {...rest}
+        placeholderTextColor="#909090"
+        className="mt-8 border-1 border-b-4 py-2 w-[315] border-purple-800"
+        style={{
+          fontFamily: "Poppins",
+          fontWeight: "bold",
+          color: "#000000",
+          letterSpacing: 0.5,
+          marginTop: 25,
+          fontSize: 16,
+          borderColor: "#760bFF",
+        }}
+      />
+    );
+  }
+);
+
+export function TitleRegister() {
+  return (
+    <Text
+      style={{
+        fontFamily: "Poppins",
+        fontWeight: "bold",
+        color: "#760FFF",
+        letterSpacing: 0.5,
+        marginTop: 5,
+        fontSize: 23,
+      }}
+    >
+      Criar Conta
+    </Text>
+  );
+}
