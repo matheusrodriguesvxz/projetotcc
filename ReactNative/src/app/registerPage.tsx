@@ -20,6 +20,7 @@ type NewRegisterFormData = {
 };
 
 export default function RegisterPage() {
+  const [checked, setChecked] = useState(false);
   const [loaded] = useFonts({
     PoppinsBold: require("../../assets/fonts/Poppins-Bold.ttf"),
   });

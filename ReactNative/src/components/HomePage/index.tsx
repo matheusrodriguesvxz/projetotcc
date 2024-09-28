@@ -7,6 +7,7 @@ import {
   StyleSheet,
   FlatList,
   Dimensions,
+  Pressable,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as Svg from "react-native-svg";
@@ -22,6 +23,7 @@ import { Ionicons } from "@expo/vector-icons";
 import React from "react";
 import PagerView from "react-native-pager-view";
 import { useFonts } from "expo-font";
+import { router } from "expo-router";
 export default function WelcomeEventEasy() {
   const [loaded] = useFonts({
     Poppins: require("../../../assets/fonts/Poppins-Bold.ttf"),
@@ -135,9 +137,11 @@ export function Invites() {
 }
 export function Comprinhas() {
   return (
+    <Pressable onPress={ () => router.push("/shoppingPage")}> 
     <View className="items-center">
       <View
         className="w-20 h-20 items-center justify-center"
+
         style={{ backgroundColor: "#F0F0F0", borderRadius: 20 }}
       >
         <Compras />
@@ -152,6 +156,8 @@ export function Comprinhas() {
         }}
       ></Text>
     </View>
+    </Pressable>
+
   );
 }
 export function Payment() {
