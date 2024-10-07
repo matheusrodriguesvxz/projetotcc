@@ -9,10 +9,7 @@ import {
   Dimensions,
   Pressable,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import * as Svg from "react-native-svg";
 import {
-  Carossel1,
   Compras,
   Hand,
   IconPeople,
@@ -21,9 +18,7 @@ import {
 } from "../Svgs";
 import { Ionicons } from "@expo/vector-icons";
 import React from "react";
-import PagerView from "react-native-pager-view";
 import { useFonts } from "expo-font";
-import { router } from "expo-router";
 export default function WelcomeEventEasy() {
   const [loaded] = useFonts({
     Poppins: require("../../../assets/fonts/Poppins-Bold.ttf"),
@@ -68,7 +63,7 @@ export default function WelcomeEventEasy() {
   );
 }
 
-export function BarraDePesquisa({...rest}) {
+export function BarraDePesquisa({ ...rest }) {
   return (
     <View style={styles.container}>
       <Ionicons name="search" size={20} color="#909090" style={styles.icon} />
@@ -123,25 +118,21 @@ export function Invites() {
       >
         <IconPeople />
       </View>
-
     </View>
   );
 }
 export function Comprinhas() {
   return (
-    <Pressable onPress={ () => router.push("/shoppingPage")}> 
-    <View className="items-center">
-      <View
-        className="w-20 h-20 items-center justify-center"
-
-        style={{ backgroundColor: "#F0F0F0", borderRadius: 20 }}
-      >
-        <Compras />
+    <Pressable>
+      <View className="items-center">
+        <View
+          className="w-20 h-20 items-center justify-center"
+          style={{ backgroundColor: "#F0F0F0", borderRadius: 20 }}
+        >
+          <Compras />
+        </View>
       </View>
-
-    </View>
     </Pressable>
-
   );
 }
 export function Payment() {
@@ -153,7 +144,6 @@ export function Payment() {
       >
         <Hand />
       </View>
-
     </View>
   );
 }
@@ -166,17 +156,6 @@ export function Playlist() {
       >
         <Music />
       </View>
-      <Text
-        style={{
-          fontFamily: "Poppins",
-          fontWeight: "bold",
-          color: "#BFBFBF",
-          letterSpacing: 0.5,
-          marginTop: 5,
-        }}
-      >
-        Playlist
-      </Text>
     </View>
   );
 }

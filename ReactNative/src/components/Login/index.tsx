@@ -1,7 +1,4 @@
-import { useFonts } from "expo-font";
-import * as Svg from "react-native-svg";
 import {
-  View,
   Image,
   StyleSheet,
   Pressable,
@@ -9,8 +6,6 @@ import {
   TouchableOpacity,
   TextInput,
 } from "react-native";
-import { router } from "expo-router";
-import { BackgroundPurple } from "../Svgs";
 
 export function ButaoLogar({ ...rest }) {
   return (

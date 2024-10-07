@@ -1,4 +1,4 @@
-import { Text, View, StyleSheet, Dimensions, LayoutChangeEvent, Pressable } from "react-native";
+import { Text, View,  Dimensions} from "react-native";
 import { ButaoLogin, ButaoRegistro } from "../components/index/indexComp";
 import { useFonts } from "expo-font";
 import FundoDaTela from "../components/index/indexComp";

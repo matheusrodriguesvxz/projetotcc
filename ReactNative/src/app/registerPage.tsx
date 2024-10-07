@@ -65,7 +65,11 @@ export default function RegisterPage() {
   };
 
   const onSubmit: SubmitHandler<NewRegisterFormData> = (data) => {
-    submitDataToFirestore(data);
+    if (!checked) {
+      Alert.alert("Aceite os termos para continuar");
+    } else {
+      submitDataToFirestore(data);
+    }
   };
   return (
     <View className="h-full bg-white">

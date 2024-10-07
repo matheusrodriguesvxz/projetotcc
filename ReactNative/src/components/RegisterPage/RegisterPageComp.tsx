@@ -1,16 +1,12 @@
 import { useFonts } from "expo-font";
-import * as Svg from "react-native-svg";
 import {
   View,
-  Image,
   StyleSheet,
-  Pressable,
   Text,
   TouchableOpacity,
   TextInput,
   type TextInputProps,
 } from "react-native";
-import { router, type Href, type Router } from "expo-router";
 import { BackgroundPurple } from "../Svgs";
 import { forwardRef } from "react";
 
@@ -24,9 +20,7 @@ export default function FundoDaTela() {
     </View>
   );
 }
-interface RouterRequest {
-  rota: Href;
-}
+
 
 export function ButaoRegistro({ ...rest }) {
   return (

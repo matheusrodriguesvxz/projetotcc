@@ -1,4 +1,4 @@
-import { View, Image } from "react-native";
+import { View } from "react-native";
 import * as Svg from "react-native-svg";
 
 export function ImagemWelcomeEventEasy() {

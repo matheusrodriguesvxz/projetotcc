@@ -94,7 +94,7 @@ export default function LoginPage() {
           rules={{
             required: "Senha é obrigatória",
             minLength: {
-              value: 8,
+              value: 6,
               message: "A senha deve ter no mínimo 8 caracteres",
             },
           }}

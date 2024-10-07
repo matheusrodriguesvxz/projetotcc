@@ -1,12 +1,4 @@
-import {
-  View,
-  Image,
-  Text,
-  StyleSheet,
-  Pressable,
-  FlatList,
-  Dimensions,
-} from "react-native";
+import { View, Text } from "react-native";
 import WelcomeEventEasy, {
   BarraDePesquisa,
   CarosselImages,
@@ -18,11 +10,7 @@ import WelcomeEventEasy, {
   Viagens,
 } from "../components/HomePage";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { EvilIcons, Ionicons } from "@expo/vector-icons";
-import { ScrollView } from "react-native-gesture-handler";
-import * as Svg from "react-native-svg";
-import { IconDrawer, IconMessage, IconPeople } from "../components/Svgs";
-import PagerView from "react-native-pager-view";
+import { IconDrawer, IconMessage} from "../components/Svgs";
 
 export default function HomePage() {
   return (

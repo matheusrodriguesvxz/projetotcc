@@ -1,6 +1,6 @@
 import { useFonts } from "expo-font";
 import * as Svg from "react-native-svg";
-import { View, Image, StyleSheet, Pressable, Text, TouchableOpacity } from "react-native";
+import { View,  StyleSheet, Text, TouchableOpacity } from "react-native";
 import { router } from "expo-router";
 import { BackgroundPurple } from "../Svgs";
 
