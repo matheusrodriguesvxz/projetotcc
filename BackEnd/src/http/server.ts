@@ -10,6 +10,8 @@ import {updateEvent} from './routes/Events/update-event'
 import {DeleteEvent} from './routes/Events/delete-events'
 import {getGuests} from "./routes/Guests/get-all-guests-route";
 import {createsGuest} from "./routes/Guests/create-guests-route";
+import { updatesGuests } from './routes/Guests/update-guest-route'
+import { DeleteGuests } from './routes/Guests/delete-guest-route'
 
 export const app = fastify().withTypeProvider<ZodTypeProvider>()
 app
@@ -31,3 +33,5 @@ app.register(DeleteEvent)
 // Guests / Convidados
 app.register(getGuests)
 app.register(createsGuest);
+app.register(updatesGuests);
+app.register(DeleteGuests);
