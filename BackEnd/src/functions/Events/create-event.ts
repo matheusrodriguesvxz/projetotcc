@@ -26,7 +26,7 @@ export async function createEvents({
   pix,
   type,
 }: CreateEventRequest) {
-  const resultEvent = await db.insert(Events)
+  const [resultEvent] = await db.insert(Events)
     .values({
       id_adress,
       id_kitty,
@@ -41,8 +41,7 @@ export async function createEvents({
     })
     .returning()
 
-  const event = resultEvent[0].id
-  return {
-    event,
-  }
+ 
+  return resultEvent.id
+
 }

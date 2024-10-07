@@ -21,7 +21,7 @@ export const createsGuest = async () => {
                 const createdGuest = await createGuest({name, age, contact, sexy});
                 reply.status(201).send({
                     message: "Convidado criado com sucesso",
-                    data: createdGuest,
+                    id: createdGuest,
                 });
         }
     )

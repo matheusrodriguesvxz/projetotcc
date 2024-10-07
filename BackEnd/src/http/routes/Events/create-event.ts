@@ -64,7 +64,10 @@ export const createEvent = async () => {
         olderOfAge,
       })
 
-      reply.send(`Evento criado com Sucesso\nID:${idEvent.event}`)
+      reply.status(201).send({
+        message: 'Evento criado com sucesso',
+        id: idEvent,
+      })
     }
   )
 }

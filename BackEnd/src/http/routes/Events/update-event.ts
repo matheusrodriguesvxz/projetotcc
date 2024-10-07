@@ -51,19 +51,17 @@ export const updateEvent = async () => {
         type,
       } = request.body
 
-      await UpdateEvents(
-        {
-          id,
-          name,
-          description,
-          final_date,
-          initial_date,
-          budget,
-          pix,
-          type,
-          olderOfAge,
-        },
-      )
+      await UpdateEvents({
+        id,
+        name,
+        description,
+        final_date,
+        initial_date,
+        budget,
+        pix,
+        type,
+        olderOfAge,
+      })
     }
   )
 }
