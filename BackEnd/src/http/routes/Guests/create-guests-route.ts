@@ -3,7 +3,7 @@ import {app} from '../../server'
 import {createGuest} from "../../../functions/Guests/create-guest";
 
 export const createsGuest = async () => {
-    app.post("/guests", {
+    app.post("/guest", {
         schema: {
             body: z.object({
                 name: z.string({message: 'Guest name is required'}),

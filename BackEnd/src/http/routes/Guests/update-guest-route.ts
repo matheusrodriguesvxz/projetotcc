@@ -4,7 +4,7 @@ import { updateGuest } from '../../../functions/Guests/update-guests'
 
 export const updatesGuests = async () => {
   app.put(
-    '/UpdateGuests/:id',
+    '/guest/:id',
     {
       schema: {
         params: z.object({

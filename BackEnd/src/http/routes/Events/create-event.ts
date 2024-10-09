@@ -4,7 +4,7 @@ import { app } from '../../server'
 
 export const createEvent = async () => {
   app.post(
-    '/createEvent',
+    '/event',
     {
       schema: {
         body: z.object({

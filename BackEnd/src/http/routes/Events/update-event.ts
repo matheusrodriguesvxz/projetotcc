@@ -4,7 +4,7 @@ import { app } from '../../server'
 
 export const updateEvent = async () => {
   app.put(
-    '/updateEvent/:id',
+    '/event/:id',
     {
       schema: {
         params: z.object({

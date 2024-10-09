@@ -4,7 +4,7 @@ import deleteEvent from "../../../functions/Events/delete-events";
 
 export const DeleteEvent = async () => {
 	app.delete(
-		"/deleteEvent/:id",
+		"/event/:id",
 		{
 			schema: {
 				params: z.object({

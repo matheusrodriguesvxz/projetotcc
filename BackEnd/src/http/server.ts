@@ -14,6 +14,8 @@ import { updatesGuests } from './routes/Guests/update-guest-route'
 import { DeleteGuests } from './routes/Guests/delete-guest-route'
 import { getKittys } from './routes/Kitty/get-all-kittys-route'
 import { createKittys } from './routes/Kitty/create-kitty-route'
+import { updatesKitty } from './routes/Kitty/update-kitty-route'
+import { DeleteKitty } from './routes/Kitty/delete-kitty-router'
 
 export const app = fastify().withTypeProvider<ZodTypeProvider>()
 app
@@ -41,3 +43,5 @@ app.register(DeleteGuests)
 // Kitts / Vaquinha
 app.register(getKittys)
 app.register(createKittys)
+app.register(updatesKitty)
+app.register(DeleteKitty)

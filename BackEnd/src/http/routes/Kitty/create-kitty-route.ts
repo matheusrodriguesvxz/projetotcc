@@ -4,7 +4,7 @@ import { createKitty } from '../../../functions/Kitty/create-kitty'
 
 export const createKittys: FastifyPluginAsyncZod = async app => {
   app.post(
-    '/createKitty',
+    '/Kitty',
     {
       schema: {
         body: z.object({

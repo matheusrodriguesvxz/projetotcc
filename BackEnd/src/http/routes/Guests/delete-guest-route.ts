@@ -4,7 +4,7 @@ import { deleteGuest } from "../../../functions/Guests/delete-guest";
 
 export const DeleteGuests = async () => {
     app.delete(
-        "/deleteGuests/:id",
+        "/guest/:id",
         {
             schema: {
                 params: z.object({
