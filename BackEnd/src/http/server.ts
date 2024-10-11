@@ -17,6 +17,10 @@ import { createKittys } from './routes/Kitty/create-kitty-route'
 import { updatesKitty } from './routes/Kitty/update-kitty-route'
 import { DeleteKitty } from './routes/Kitty/delete-kitty-router'
 import { createId } from '@paralleldrive/cuid2'
+import { CreateAdresss } from './routes/Adress/create-adress-router'
+import { getAdresss } from './routes/Adress/get-all-adress-route'
+import { UpdateAdress } from './routes/Adress/update-adress-route'
+import { DeleteAdress } from './routes/Adress/delete-adress-route'
 
 export const app = fastify().withTypeProvider<ZodTypeProvider>()
 app
@@ -46,3 +50,8 @@ app.register(getKittys)
 app.register(createKittys)
 app.register(updatesKitty)
 app.register(DeleteKitty)
+
+// Adress / Endereco
+app.register(getAdresss);
+app.register(CreateAdresss);
+app.register(UpdateAdress);

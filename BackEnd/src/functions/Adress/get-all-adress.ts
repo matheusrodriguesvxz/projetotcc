@@ -9,7 +9,16 @@ import { Adress } from '../../db/schemas/adress'
 export const getAllAdress = async () => {
     const getAllAdress = await db
         .select({
-            id:Adress.id
-            
-        })
+            id:Adress.id,
+            cep: Adress.cep,
+            street:Adress.street, 
+            number:Adress.number, 
+            city:Adress.city,
+            state:Adress.state,
+            complement:Adress.complement,
+            neighborhood: Adress.neighborhood,
+            country:Adress.country,
+        }).from(Adress)
+
+        return getAllAdress;
 }
