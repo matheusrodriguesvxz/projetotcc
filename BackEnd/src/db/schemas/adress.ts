@@ -1,6 +1,8 @@
 import { pgTable, text, integer } from 'drizzle-orm/pg-core'
 import { createId } from '@paralleldrive/cuid2'
 
+
+
 export const Adress = pgTable('Endereco', {
   id: text('id')
     .primaryKey()

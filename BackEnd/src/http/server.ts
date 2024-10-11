@@ -16,6 +16,7 @@ import { getKittys } from './routes/Kitty/get-all-kittys-route'
 import { createKittys } from './routes/Kitty/create-kitty-route'
 import { updatesKitty } from './routes/Kitty/update-kitty-route'
 import { DeleteKitty } from './routes/Kitty/delete-kitty-router'
+import { createId } from '@paralleldrive/cuid2'
 
 export const app = fastify().withTypeProvider<ZodTypeProvider>()
 app

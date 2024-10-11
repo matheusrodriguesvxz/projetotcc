@@ -1,3 +1,4 @@
+-- SQLBook: Code
 CREATE TABLE IF NOT EXISTS "Endereco" (
 	"id" text PRIMARY KEY NOT NULL,
 	"cep" text NOT NULL,

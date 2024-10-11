@@ -14,3 +14,9 @@ export const getAllGuests = async () => {
 
 	return getAllGuestData;
 };
+
+
+
+
+
+

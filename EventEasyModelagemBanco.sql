@@ -1,3 +1,4 @@
+-- SQLBook: Code
 create database EventEasy;
 
 use EventEasy;
