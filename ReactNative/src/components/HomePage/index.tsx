@@ -19,6 +19,7 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import React from "react";
 import { useFonts } from "expo-font";
+import { router } from "expo-router";
 export default function WelcomeEventEasy() {
   const [loaded] = useFonts({
     Poppins: require("../../../assets/fonts/Poppins-Bold.ttf"),
@@ -149,13 +150,16 @@ export function Payment() {
 }
 export function Playlist() {
   return (
+    
     <View className="items-center">
+      <Pressable onPress={() => router.push('/playlistPage')}>
       <View
         className="w-20 h-20 items-center justify-center"
         style={{ backgroundColor: "#F0F0F0", borderRadius: 20 }}
-      >
+        >
         <Music />
       </View>
+        </Pressable>
     </View>
   );
 }
