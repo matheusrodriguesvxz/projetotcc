@@ -1,13 +1,13 @@
 import fastify from "fastify";
-import { getEvents } from "./routes/Events/get-all-events";
+import { getEvents } from "./routes/Events/get-all-events-route";
 import {
 	serializerCompiler,
 	validatorCompiler,
 	type ZodTypeProvider,
 } from "fastify-type-provider-zod";
-import { createEvent } from "./routes/Events/create-event";
-import { updateEvent } from "./routes/Events/update-event";
-import { DeleteEvent } from "./routes/Events/delete-events";
+import { createEvent } from "./routes/Events/create-event-route";
+import { updateEvent } from "./routes/Events/update-event-route";
+import { DeleteEvent } from "./routes/Events/delete-events-route";
 import { getGuests } from "./routes/Guests/get-all-guests-route";
 import { createsGuest } from "./routes/Guests/create-guests-route";
 import { updatesGuests } from "./routes/Guests/update-guest-route";
@@ -25,6 +25,9 @@ import { createdAdress } from "./routes/Adress/create-adress-router";
 import { getAdress } from "./routes/Adress/get-all-adress-route";
 import { updatesAdress } from "./routes/Adress/update-adress-route";
 import deletesAdress from "./routes/Adress/delete-adress-route";
+import { getEventsAndGuests } from "./routes/EventAndGuests/get-all-event-and-guests";
+
+
 export const app = fastify().withTypeProvider<ZodTypeProvider>();
 app.listen({ port: 3333, host: "0.0.0.0" }, (err, address) => {
 	if (err) {
@@ -68,6 +71,11 @@ app.register(getBuyLists);
 app.register(createBuyLists);
 app.register(updateBuyLists);
 app.register(deleteBuyLists);
+
+
+// EventAndGuests / Eventos e Convidados
+app.register(getEventsAndGuests);
+
 
 //Spotify
 app.register(getTokenSpotifyy);
