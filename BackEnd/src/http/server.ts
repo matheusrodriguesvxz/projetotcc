@@ -17,7 +17,14 @@ import { createKittys } from "./routes/Kitty/create-kitty-route";
 import { updatesKitty } from "./routes/Kitty/update-kitty-route";
 import { DeleteKitty } from "./routes/Kitty/delete-kitty-router";
 import { getTokenSpotifyy } from "./routes/SpotifyToken/token_permission";
-
+import { getBuyLists } from "./routes/BuyList/get-all-buyList-route";
+import { createBuyLists } from "./routes/BuyList/create-buyList-route";
+import { updateBuyLists } from "./routes/BuyList/update-buyList-route";
+import { deleteBuyLists } from "./routes/BuyList/delete-buyList";
+import { createdAdress } from "./routes/Adress/create-adress-router";
+import { getAdress } from "./routes/Adress/get-all-adress-route";
+import { updatesAdress } from "./routes/Adress/update-adress-route";
+import deletesAdress from "./routes/Adress/delete-adress-route";
 export const app = fastify().withTypeProvider<ZodTypeProvider>();
 app.listen({ port: 3333, host: "0.0.0.0" }, (err, address) => {
 	if (err) {
@@ -29,6 +36,15 @@ app.listen({ port: 3333, host: "0.0.0.0" }, (err, address) => {
 
 app.setValidatorCompiler(validatorCompiler);
 app.setSerializerCompiler(serializerCompiler);
+
+//Adress / Endereços
+app.register(getAdress);
+app.register(createdAdress);
+app.register(updatesAdress);
+app.register(deletesAdress);
+
+
+
 // Events / Eventos
 app.register(getEvents);
 app.register(createEvent);
@@ -47,7 +63,11 @@ app.register(createKittys);
 app.register(updatesKitty);
 app.register(DeleteKitty);
 
+//BuyList / Lista de Compras
+app.register(getBuyLists);
+app.register(createBuyLists);
+app.register(updateBuyLists);
+app.register(deleteBuyLists);
+
 //Spotify
 app.register(getTokenSpotifyy);
-
-

@@ -1,7 +1,7 @@
 import { db } from '../../db'
 import { Adress } from '../../db/schemas/adress'
 
-interface CreateAdressRequest {
+export interface AdressRequest {
   cep: string
   street: string
   number: number
@@ -20,8 +20,8 @@ export async function createAdress({
   complement,
   neighborhood,
   country,
-}: CreateAdressRequest){
-  const resultAdress = await db
+}: AdressRequest){
+  const [resultAdress] = await db
     .insert(Adress)
     .values({
       cep,
@@ -35,8 +35,5 @@ export async function createAdress({
     })
     .returning()
 
-  const adress = resultAdress[0]
-  return {
-    adress,
-  }
+  return resultAdress.id
 }

@@ -1,12 +1,15 @@
 import z from "zod";
-import { createAdress } from "../../../functions/Adress/create-adress";
 import { app } from "../../server";
+import { updateAdress } from "../../../functions/Adress/update-all-adress";
 
-export const createdAdress = async () => {
-	app.post(
-		"/adress",
+export const updatesAdress = async () => {
+	app.put(
+		"/adress/:id",
 		{
 			schema: {
+				params: z.object({
+					id: z.string({ message: "id is required" }),
+				}),
 				body: z.object({
 					cep: z.string({ message: "cep is required" }),
 					street: z.string({ message: "street is required" }),
@@ -19,7 +22,8 @@ export const createdAdress = async () => {
 				}),
 			},
 		},
-		async (req, reply) => {
+		async (request, reply) => {
+			const { id } = request.params;
 			const {
 				cep,
 				street,
@@ -29,20 +33,16 @@ export const createdAdress = async () => {
 				complement,
 				neighborhood,
 				country,
-			} = req.body;
-			const createdAdress = await createAdress({
-				cep,
-				street,
-				number,
-				city,
-				state,
-				complement,
-				neighborhood,
-				country,
-			});
-			reply
-				.status(201)
-				.send({ message: "Adress created successfully", id: createdAdress });
+			} = request.body;
+			const updatedAdress = await updateAdress(
+				{ cep, street, number, city, state, complement, neighborhood, country },
+				id,
+			);
+
+      reply.status(204).send({
+        message: "Endereco atualizado com sucesso",
+        data: updatedAdress,
+      });
 		},
 	);
 };
