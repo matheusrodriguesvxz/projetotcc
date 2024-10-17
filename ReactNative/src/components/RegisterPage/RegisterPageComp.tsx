@@ -11,8 +11,8 @@ import { BackgroundPurple } from "../Svgs";
 import { forwardRef } from "react";
 
 export default function FundoDaTela() {
-  const [loaded, arial] = useFonts({
-    PoppinsBold: require("../../../assets/fonts/Poppins-Bold.ttf"),
+  const [loaded] = useFonts({
+    Poppins: require("../../../assets/fonts/Poppins-Bold.ttf"),
   });
   return (
     <View style={{ backgroundColor: "white" }}>
@@ -23,6 +23,9 @@ export default function FundoDaTela() {
 
 
 export function ButaoRegistro({ ...rest }) {
+   const [loaded] = useFonts({
+    Poppins: require("../../../assets/fonts/Poppins-Bold.ttf"),
+  });
   return (
     <TouchableOpacity style={style.butaoRegistro} {...rest}>
       <Text style={style.TextobutaoRegistro}>Cadastrar-Se</Text>
@@ -64,7 +67,7 @@ const style = StyleSheet.create({
   },
 });
 
-export const RegisterInputs = forwardRef<TextInput, TextInputProps>(
+export const ResetInputs = forwardRef<TextInput, TextInputProps>(
   ({ style, ...rest }, ref) => {
     return (
       <TextInput
@@ -85,19 +88,3 @@ export const RegisterInputs = forwardRef<TextInput, TextInputProps>(
   }
 );
 
-export function TitleRegister() {
-  return (
-    <Text
-      style={{
-        fontFamily: "Poppins",
-        fontWeight: "bold",
-        color: "#760FFF",
-        letterSpacing: 0.5,
-        marginTop: 5,
-        fontSize: 23,
-      }}
-    >
-      Criar Conta
-    </Text>
-  );
-}

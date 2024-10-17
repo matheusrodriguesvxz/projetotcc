@@ -24,13 +24,13 @@ export function ButaoLogin() {
 }
 export function ButaoRegistro() {
   return (
-    <TouchableOpacity  onPress={() => {router.push("/registerPage")}} style={style.butaoRegistro}>
+    <TouchableOpacity  onPress={() => {router.push("/resetPasswordPage")}} style={style.butaoRegistro}>
       <Text style={style.TextobutaoRegistro}>Registrar-Se</Text>
     </TouchableOpacity>
   );
 }
 
-const style = StyleSheet.create({
+  const style = StyleSheet.create({
   butao: {
     justifyContent: "center",
     position: "relative",
