@@ -72,10 +72,10 @@ export default function RegisterPage() {
     }
   };
   return (
-    <View className="h-full bg-white">
+    <View className="h-full bg-white flex-1">
       <Image
         source={require("../../assets/purplebg.png")}
-        className="h-100 w-100 z-index -1 right-[7] bottom-1"
+        className="h-100 w-[450] z-index -1 right-[7] bottom-1"
       />
       <View className="w-full h-52 absolute items-center mt-28">
         <Logo />
