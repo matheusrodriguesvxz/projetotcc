@@ -321,18 +321,13 @@ export function Logo() {
 export function RoxoLogin() {
   return (
     <View className="absolute">
-      <Svg.Svg width="397" height="854" viewBox="0 0 397 854" fill="none">
-        <Svg.Path d="M261 284H393V390H261V284Z" fill="#760BFF" />
-        <Svg.Path
-          d="M0 0H368C384.016 0 397 12.9837 397 29V284H92C41.1898 284 0 242.81 0 192V0Z"
-          fill="#760BFF"
-        />
-        <Svg.Path
-          d="M0 284H264C337.454 284 397 343.546 397 417V854H0V284Z"
-          fill="white"
-        />
-      </Svg.Svg>
+<Svg.Svg width="466" height="937" viewBox="0 0 466 937" fill="none">
+<Svg.Path d="M306.363 311.602H466V427.904H306.363V311.602Z" fill="#760BFF"/>
+<Svg.Path d="M0 0H437C453.016 0 466 12.9837 466 29V311.602H92C41.1898 311.602 0 270.412 0 219.602V0Z" fill="#760BFF"/>
+<Svg.Path d="M0 311.602H333C406.454 311.602 466 371.148 466 444.602V937H0V311.602Z" fill="white"/>
+</Svg.Svg>
+
+
     </View>
   );
 }
-
