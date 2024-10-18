@@ -39,7 +39,7 @@ export default function HomePage() {
         <View className="items-center justify-center">
           <CarosselImages />
         </View>
-
+        
         <View className="flex flex-row gap-6 mt-1">
           <Invites />
           <Comprinhas />

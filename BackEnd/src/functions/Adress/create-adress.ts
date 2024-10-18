@@ -20,7 +20,11 @@ export async function createAdress({
   complement,
   neighborhood,
   country,
+<<<<<<< HEAD
+}: CreateAdressRequest){
+=======
 }: AdressRequest){
+>>>>>>> dc06e18e60f99ca0b38636969b89dcdf26ec82ae
   const [resultAdress] = await db
     .insert(Adress)
     .values({
@@ -35,5 +39,10 @@ export async function createAdress({
     })
     .returning()
 
+<<<<<<< HEAD
+  const adress = resultAdress
+  return adress.id
+=======
   return resultAdress.id
+>>>>>>> dc06e18e60f99ca0b38636969b89dcdf26ec82ae
 }

@@ -1,3 +1,4 @@
+import { router } from "expo-router";
 import {
   Image,
   StyleSheet,
