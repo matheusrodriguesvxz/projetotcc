@@ -10,8 +10,7 @@ import WelcomeEventEasy, {
   Viagens,
 } from "../components/HomePage";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { IconDrawer, IconMessage} from "../components/Svgs";
-import { router } from "expo-router";
+import { IconDrawer, IconMessage } from "../components/Svgs";
 
 export default function HomePage() {
   return (
@@ -45,7 +44,7 @@ export default function HomePage() {
           <Invites />
           <Comprinhas />
           <Payment />
-          <Playlist/>
+          <Playlist />
         </View>
 
         <Text
