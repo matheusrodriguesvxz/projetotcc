@@ -1,5 +1,3 @@
-import axios from "axios";
-
 // biome-ignore lint/style/noVar: <explanation>
 var client_id = '9e98697b9bf4450b8db0df626dbf24c0';
 // biome-ignore lint/style/noVar: <explanation>

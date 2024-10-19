@@ -88,3 +88,19 @@ export const ResetInputs = forwardRef<TextInput, TextInputProps>(
   }
 );
 
+export function TitleRegister() {
+  return (
+    <Text
+      style={{
+        fontFamily: "Poppins",
+        fontWeight: "bold",
+        color: "#760FFF",
+        letterSpacing: 0.5,
+        marginTop: 5,
+        fontSize: 23,
+      }}
+    >
+      Criar Conta
+    </Text>
+  );
+}

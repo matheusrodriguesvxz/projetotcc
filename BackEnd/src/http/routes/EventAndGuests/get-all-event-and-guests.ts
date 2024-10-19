@@ -5,6 +5,6 @@ export const getEventsAndGuests: FastifyPluginAsyncZod = async (app) => {
 	app.get("/eventsAndGuests", async (_req, res) => {
 		const getAllEventAndGuestss = await getAllEventAndGuests();
 
-    res.status(200).send(getAllEventAndGuestss);
+		res.status(200).send(getAllEventAndGuestss);
 	});
 };

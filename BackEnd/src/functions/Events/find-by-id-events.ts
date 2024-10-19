@@ -1,13 +1,13 @@
-import { and, eq } from "drizzle-orm";
-import { db } from "../../db";
+import { client, db } from "../../db/index";
 import { Adress } from "../../db/schemas/adress";
 import { Events } from "../../db/schemas/events";
-import { eventsAndGuests } from "../../db/schemas/eventsAndGuests";
-import { Guests } from "../../db/schemas/guests";
+import { Kitty } from "../../db/schemas/kitty";
+import { eq } from "drizzle-orm";
 
-export const getAllEventAndGuests = async () => {
-	const dataEventAndGuests = await db
+export const findEventById = async (id: string) => {
+	const event = await db
 		.select({
+			id: Events.id,
 			name: Events.name,
 			description: Events.description,
 			pix: Events.pix,
@@ -16,6 +16,8 @@ export const getAllEventAndGuests = async () => {
 			final_date: Events.final_date,
 			budget: Events.budget,
 			olderOfAge: Events.olderOfAge,
+			goal: Kitty.goal,
+			descriptions: Kitty.descriptions,
 			cep: Adress.cep,
 			street: Adress.street,
 			number: Adress.number,
@@ -24,15 +26,11 @@ export const getAllEventAndGuests = async () => {
 			complement: Adress.complement,
 			neighborhood: Adress.complement,
 			country: Adress.complement,
-			nameGuest: Guests.name,
-			age: Guests.age,
-			contact: Guests.contact,
-			sexy: Guests.sexy,
 		})
-		.from(eventsAndGuests)
-		.innerJoin(Events, eq(Events.id, eventsAndGuests.id_events))
+		.from(Events)
 		.innerJoin(Adress, eq(Events.id_adress, Adress.id))
-		.innerJoin(Guests, eq(Guests.id, eventsAndGuests.id_guests));
+		.leftJoin(Kitty, eq(Events.id_kitty, Kitty.id))
+		.where(eq(Events.id, id));
 
-	return dataEventAndGuests;
+    return event;
 };

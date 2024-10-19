@@ -4,7 +4,7 @@ import { CheckBox } from "@rneui/themed";
 import { useState } from "react";
 import {
   ButaoRegistro,
-  RegisterInputs,
+  ResetInputs,
   TitleRegister,
 } from "../components/RegisterPage/RegisterPageComp";
 import { useForm, type SubmitHandler, Controller } from "react-hook-form";
@@ -90,7 +90,7 @@ export default function RegisterPage() {
               required: "Nome é obrigatório",
             }}
             render={({ field: { onChange, onBlur, value } }) => (
-              <RegisterInputs
+              <ResetInputs
                 placeholder="Nome completo"
                 onBlur={onBlur}
                 onChangeText={onChange}
@@ -113,7 +113,7 @@ export default function RegisterPage() {
               },
             }}
             render={({ field: { onChange, onBlur, value } }) => (
-              <RegisterInputs
+              <ResetInputs
                 placeholder="E-mail"
                 onBlur={onBlur}
                 onChangeText={onChange}
@@ -137,7 +137,7 @@ export default function RegisterPage() {
               },
             }}
             render={({ field: { onChange, onBlur, value } }) => (
-              <RegisterInputs
+              <ResetInputs
                 placeholder="Senha"
                 onBlur={onBlur}
                 onChangeText={onChange}
@@ -159,7 +159,7 @@ export default function RegisterPage() {
                 value === password || "As senhas não coincidem",
             }}
             render={({ field: { onChange, onBlur, value } }) => (
-              <RegisterInputs
+              <ResetInputs
                 placeholder="Confirme sua senha"
                 secureTextEntry
                 onChangeText={onChange}
