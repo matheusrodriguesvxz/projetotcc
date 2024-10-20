@@ -1,10 +1,11 @@
 import type { Guests } from "../entity/Guests";
-import type { GuestsRepository } from "../repository/GuestsRepository";
+import { GuestsRepository } from "../repository/GuestsRepository";
 
-export class GuestsServices  {
+export class GuestsServices extends GuestsRepository {
 	private guestsRespository: GuestsRepository;
 
 	constructor(guestsRespository: GuestsRepository) {
+		super();
 		this.guestsRespository = guestsRespository;
 	}
 
@@ -13,7 +14,7 @@ export class GuestsServices  {
 		if (existingGuests) {
 			throw new Error("Guests already exists");
 		}
-		return this.guestsRespository.create(guests);
+		return  this.guestsRespository.create(guests);
 	}
 
 	async update(guests: Guests, id: string): Promise<Guests> {
@@ -21,7 +22,7 @@ export class GuestsServices  {
 		if (!existingGuests) {
 			throw new Error("Guests not found");
 		}
-		return this.guestsRespository.update(guests, id);
+		return  this.guestsRespository.update(guests, id);
 	}
 
 	async delete(id: string): Promise<Guests | true> {
@@ -29,11 +30,11 @@ export class GuestsServices  {
 		if (!existingGuests) {
 			throw new Error("Guests not found");
 		}
-		return this.guestsRespository.delete(id);
+		return  this.guestsRespository.delete(id);
 	}
 
 	async getAll(): Promise<Guests[]> {
-		return this.guestsRespository.getAll();
+		return await this.guestsRespository.getAll();
 	}
 
 	async findById(id: string): Promise<Guests> {

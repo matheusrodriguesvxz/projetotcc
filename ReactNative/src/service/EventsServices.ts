@@ -1,10 +1,11 @@
 import type { Events } from "../entity/Event";
-import type { EventsRepository } from "../repository/EventsRepository";
+import { EventsRepository } from "../repository/EventsRepository";
 
-export class EventsServices {
+export class EventsServices extends EventsRepository {
 	private eventsRepository: EventsRepository;
 
 	constructor(eventsRepository: EventsRepository) {
+		super();
 		this.eventsRepository = eventsRepository;
 	}
 

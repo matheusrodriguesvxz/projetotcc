@@ -1,10 +1,11 @@
 import type { Adress } from "../entity/Adress";
-import type { AdressRepository } from "../repository/AdressRepository";
+import { AdressRepository } from "../repository/AdressRepository";
 
-export class AdressServices implements AdressRepository {
+export class AdressServices extends AdressRepository {
 	private adressRepository: AdressRepository;
 
 	constructor(adressRepository: AdressRepository) {
+		super();
 		this.adressRepository = adressRepository;
 	}
 
