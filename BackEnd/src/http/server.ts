@@ -28,6 +28,7 @@ import { createdAdress } from "./routes/Adress/create-adress-router";
 import { updatesAdress } from "./routes/Adress/update-adress-route";
 import deletesAdress from "./routes/Adress/delete-adress-route";
 import { getGuestsByID } from "./routes/Guests/find-by-id-guests-route";
+import { getAdressByID } from "./routes/Adress/find-by-id-adress-route";
 
 export const app = fastify().withTypeProvider<ZodTypeProvider>();
 app.listen({ port: 3333, host: "0.0.0.0" }, (err, address) => {
@@ -65,6 +66,7 @@ app.register(getAdress);
 app.register(createdAdress);
 app.register(updatesAdress);
 app.register(deletesAdress);
+app.register(getAdressByID);
 //BuyList / Lista de Compras
 app.register(getBuyLists);
 app.register(createBuyLists);

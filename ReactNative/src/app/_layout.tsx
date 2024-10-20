@@ -1,5 +1,6 @@
 import { Stack } from "expo-router";
 import "../style/global.css"
+import { GuestsServices } from "../service/GuestsServices";
 
 export default function RootLayout() {
   return (
@@ -13,4 +14,5 @@ export default function RootLayout() {
       <Stack.Screen name="resetPasswordPage" options={{headerShown:false}}/>
     </Stack>
   );
+
 }

@@ -27,10 +27,7 @@ type SpotifyResponse = {
   }[];
 };
 
-
 export default function PlaylistPage() {
-
-
   const [getMusic, setGetMusic] = useState<Music[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [randomMusics, setRandomMusics] = useState<Music[]>([]);
@@ -61,6 +58,7 @@ export default function PlaylistPage() {
     }
   }
 
+
   const getRandomMusics = (musicTracks: Music[]) => {
     if (musicTracks.length > 0) {
       const shuffled = musicTracks.sort(() => 0.5 - Math.random());
@@ -85,7 +83,7 @@ export default function PlaylistPage() {
   return (
     <SafeAreaView style={{ backgroundColor: "#760BFF", height: "100%" }}>
       <View className="mt-10 flex ">
-
+        
       </View>
       <View
         className="items-center"
