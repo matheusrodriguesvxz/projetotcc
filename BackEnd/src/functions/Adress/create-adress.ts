@@ -7,6 +7,7 @@ export interface AdressRequest {
   number: number
   city: string
   state: string
+  userID: string
   complement: string
   neighborhood: string
   country: string
@@ -17,6 +18,7 @@ export async function createAdress({
   number, 
   city,
   state,
+  userID,
   complement,
   neighborhood,
   country,
@@ -29,6 +31,7 @@ export async function createAdress({
       number, 
       city,
       state,
+      userID,
       complement,
       neighborhood,
       country,

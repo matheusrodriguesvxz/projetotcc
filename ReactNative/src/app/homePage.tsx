@@ -11,6 +11,10 @@ import WelcomeEventEasy, {
 } from "../components/HomePage";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { IconDrawer, IconMessage } from "../components/Svgs";
+import { AdressRepository } from "../repository/AdressRepository";
+import { AdressServices } from "../service/AdressServices";
+
+
 
 export default function HomePage() {
   return (
@@ -39,7 +43,7 @@ export default function HomePage() {
         <View className="items-center justify-center">
           <CarosselImages />
         </View>
-        
+
         <View className="flex flex-row gap-6 mt-1">
           <Invites />
           <Comprinhas />

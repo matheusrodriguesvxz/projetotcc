@@ -9,20 +9,24 @@ export const createBuyLists = async () => {
 			schema: {
 				body: z.object({
 					name: z.string({ message: "name is required" }),
+					userID: z.string({ message: "userID is required" }),
 					status: z.string({ message: "status is required" }),
 					id_events: z.string({ message: "id_events is required" }),
 				}),
 			},
 		},
 		async (request, reply) => {
-			const { name, status, id_events } = request.body;
-			const createdbuyLists = await createBuyList({ name, status, id_events });
-			reply
-				.status(201)
-				.send({
-					message: "Lista de Compras criado com sucesso",
-					id: createdbuyLists,
-				});
+			const { name, status, id_events, userID } = request.body;
+			const createdbuyLists = await createBuyList({
+				name,
+				status,
+				id_events,
+				userID,
+			});
+			reply.status(201).send({
+				message: "Lista de Compras criado com sucesso",
+				id: createdbuyLists,
+			});
 		},
 	);
 };

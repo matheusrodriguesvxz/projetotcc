@@ -1,6 +1,8 @@
 import type { Adress } from "../entity/Adress";
 import type { IBaseRepository } from "./IBaseRepository";
 
+
+
 export class AdressRepository implements IBaseRepository<Adress> {
 	async create(adress: Adress): Promise<Adress> {
 		const response = await fetch("localhost:3333/adress", {
@@ -10,6 +12,7 @@ export class AdressRepository implements IBaseRepository<Adress> {
 			},
 			body: JSON.stringify(adress),
 		});
+
 		if (!response.ok) {
 			throw new Error(`Erro na Requisição,status: ${response.status}`);
 		}

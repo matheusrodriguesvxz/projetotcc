@@ -5,6 +5,7 @@ import { Guests } from './guests'
 
 export const eventsAndGuests = pgTable('Eventos_Convidados', {
   id: text('id').primaryKey().$defaultFn(() => createId()),
-  id_events: text('id_evento').references(() => Events.id),
-  id_guests: text('id_convidados').references(() => Guests.id),
+  userID: text("usuario_id").notNull(),
+  id_events: text('id_evento').references(() => Events.id, { onDelete: 'cascade' }).notNull(),
+  id_guests: text('id_convidados').references(() => Guests.id, { onDelete: 'cascade' }).notNull(),
 })

@@ -6,7 +6,6 @@ import { eventsAndGuests } from "../../db/schemas/eventsAndGuests"
 
 
 export const deleteGuest = async (id: string) => {
-    await db.delete(eventsAndGuests).where(eq(eventsAndGuests.id_guests, id));
     await db.delete(Guests).where(eq(Guests.id, id));
 }
 
