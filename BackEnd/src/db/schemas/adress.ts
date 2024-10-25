@@ -9,6 +9,7 @@ export const Adress = pgTable('Endereco', {
     .$defaultFn(() => createId()),
   cep: text('cep').notNull(),
   street: text('rua').notNull(),
+  userID: text('usuario_id').notNull(),
   number: integer('numero').notNull(),
   city: text('cidade').notNull(),
   state: text('estado').notNull(),

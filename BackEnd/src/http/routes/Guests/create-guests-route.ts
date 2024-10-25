@@ -10,6 +10,7 @@ export const createsGuest = async () => {
 				body: z.object({
 					name: z.string({ message: "Guest name is required" }),
 					age: z.number({ message: "Age is required" }),
+					userID: z.string({ message: "User ID is required" }),
 					contact: z.string({ message: "Contact is required" }),
 					sexy: z.enum(["M", "F"], {
 						invalid_type_error: "Sexo é obrigatório",
@@ -19,8 +20,14 @@ export const createsGuest = async () => {
 			},
 		},
 		async (request, reply) => {
-			const { name, age, contact, sexy } = request.body;
-			const createdGuest = await createGuest({ name, age, contact, sexy });
+			const { name, age, contact, sexy, userID } = request.body;
+			const createdGuest = await createGuest({
+				name,
+				age,
+				contact,
+				sexy,
+				userID,
+			});
 			reply.status(201).send({
 				message: "Convidado criado com sucesso",
 				id: createdGuest,

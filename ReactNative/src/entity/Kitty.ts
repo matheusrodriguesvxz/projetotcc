@@ -1,6 +1,7 @@
 export class Kitty {
 	public id!: string;
 	public goal!: string;
+	public userID!: string;
 	public descriptions!: string;
 
 	constructor(props: Omit<Kitty, "id">, id?: string) {

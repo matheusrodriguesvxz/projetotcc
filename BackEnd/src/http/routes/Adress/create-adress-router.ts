@@ -13,6 +13,7 @@ export const createdAdress = async () => {
 					number: z.number({ message: "number is required" }),
 					city: z.string({ message: "city is required" }),
 					state: z.string({ message: "state is required" }),
+					userID: z.string({ message: "userID is required" }),
 					complement: z.string({ message: "complement is required" }),
 					neighborhood: z.string({ message: "neighborhood is required" }),
 					country: z.string({ message: "country is required" }),
@@ -27,6 +28,7 @@ export const createdAdress = async () => {
 				city,
 				state,
 				complement,
+				userID,
 				neighborhood,
 				country,
 			} = req.body;
@@ -36,6 +38,7 @@ export const createdAdress = async () => {
 				number,
 				city,
 				state,
+				userID,
 				complement,
 				neighborhood,
 				country,
