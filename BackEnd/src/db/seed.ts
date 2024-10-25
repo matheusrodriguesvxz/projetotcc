@@ -27,7 +27,8 @@ async function seed() {
         cep: '16015-145',
         city: 'Sao Paulo',
         number: 110,
-        state: 'Sao Paulo',
+        state: 'Sao Paulo', 
+        userID:"If01rBv6vraMm4XUH4lgQjIA3Rs2",
         street: 'Avenida dos Araçás',
         country: 'Brasil',
         complement: 'Casa',
@@ -40,6 +41,7 @@ async function seed() {
     .values([
       {
         goal: '1900',
+        userID:"If01rBv6vraMm4XUH4lgQjIA3Rs2",
         descriptions: 'Vaquinha Pra ajudar um cabaco',
       },
     ])
@@ -54,6 +56,7 @@ async function seed() {
         id_kitty: ResultIdKitty[0].id,
         description: 'Evento de Role',
         pix: '123712893712',
+        userID:"If01rBv6vraMm4XUH4lgQjIA3Rs2",
         type: 'Role',
         initial_date: lasyDayofWeek.toDate(),
         final_date: lasyDayofMouth.toDate(),
@@ -69,6 +72,7 @@ async function seed() {
       {
         name: 'Ronaldo Fenomeno',
         age: 20,
+        userID:"If01rBv6vraMm4XUH4lgQjIA3Rs2",
         contact: '11-939282007',
         sexy: 'M',
       },
@@ -79,11 +83,15 @@ async function seed() {
     {
       id_events: resultIdEvents[0].id,
       id_guests: resultIdGuests[0].id,
+      userID:"If01rBv6vraMm4XUH4lgQjIA3Rs2",
+
     },
   ])
 
   await db.insert(buyList).values([
     {
+      userID:"If01rBv6vraMm4XUH4lgQjIA3Rs2",
+
       id_events: resultIdEvents[0].id,
       name: 'Coca Cola Zero',
       status: 'A comprar',

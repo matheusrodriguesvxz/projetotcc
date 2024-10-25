@@ -10,4 +10,5 @@ export const Guests = pgTable('Convidados', {
   contact: text('contato').notNull(),
   sexy: char('sexo', 
   { length: 1 }).notNull(),
+  userID: text("usuario_id").notNull(),
 })
