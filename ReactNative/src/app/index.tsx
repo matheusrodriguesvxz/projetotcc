@@ -8,6 +8,7 @@ export default function Index() {
   const { width, height } = Dimensions.get("window");
   const [loaded] = useFonts({
     Poppins: require("../../assets/fonts/Poppins-ExtraLight.ttf"),
+
   });
 
   return (
