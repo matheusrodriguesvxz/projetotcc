@@ -4,7 +4,7 @@
 
 <script>
 export default {
-    name: 'ConfirmacaoPage'
+    name: 'ConfirmadoPage'
 }
 </script>
 

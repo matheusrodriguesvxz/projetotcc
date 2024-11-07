@@ -1,7 +1,8 @@
 <template>  
 <header>
     <nav>
-       <h2>EventEasy</h2>
+        <img src="@/assets/logo.svg">
+        <h2>EventEasy</h2>
     </nav>
 </header>
 </template>
@@ -11,18 +12,29 @@ export default {
 }
 </script>
 
-<style >
-*{
-    margin: 0;
-    padding: 0;
-}
+<style scoped>
+
 header{
-    background-image: url("https://t3.ftcdn.net/jpg/03/58/82/46/360_F_358824602_iAyjwiB8xFIuZZOlzJhXFGvpkuuRDiVl.jpg");
+    background-image: url(../assets/PurpleWallpaper.png);
     /* background-repeat: no-repeat; */
     padding-top: 20px;
     padding-bottom: 20px;
+    padding: 20px;
+    
 }
 h2{
-    color: black;
+    color: white;
+    justify-content: center;
+    margin: auto;
+    margin-bottom: 30px;
+}
+nav{
+    display: flex;
+    align-items: center;
+
+}
+img{
+    width: 5%;  
+    position: fixed;
 }
 </style>
