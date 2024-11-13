@@ -20,7 +20,7 @@ export default function BuyList() {
                 marginTop: 50,
                 borderRadius: 35
             }}>
-                <View className="mt-5 ml-5 w-">
+                <View className="mt-5 ml-5 ">
                     <CheckBox
                         title="Leite"
                         checked={checked}

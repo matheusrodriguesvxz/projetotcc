@@ -98,7 +98,7 @@ export function LoginInputs({ ...rest }) {
 
 export function ForgotPassword({ ...rest }) {
   return (
-    <Pressable>
+    <Pressable onPress={() => {router.push('/resetPasswordEmail')}}>
       <Text
         className=""
         style={{

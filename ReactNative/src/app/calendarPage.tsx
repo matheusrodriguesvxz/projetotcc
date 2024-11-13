@@ -1,7 +1,8 @@
 import { View } from "react-native";
 import { SafeAreaView } from "react-native";
 import { Calendar, LocaleConfig } from "react-native-calendars";
-import React, { useState } from "react";
+import type React from "react";
+import { useState } from "react";
 import day from "react-native-calendars/src/calendar/day";
 
 
@@ -13,10 +14,7 @@ export default function CalendarPage() {
 
     return (
         <SafeAreaView style={{ backgroundColor: "#760BFF", height: "100%", }}>
-            <View style={{
-                marginTop: 10
-            }}
-            ></View>
+  
 
             <View style={{
                 backgroundColor: "white",

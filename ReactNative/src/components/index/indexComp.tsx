@@ -17,14 +17,14 @@ export default function FundoDaTela() {
 
 export function ButaoLogin() {
   return (
-    <TouchableOpacity onPress={() => {router.push("/calendarPage")}} style={style.butao}>
+    <TouchableOpacity onPress={() => {router.push("/login")}} style={style.butao}>
       <Text style={style.Textobutao}>Entrar</Text>
     </TouchableOpacity>
   );
 }
 export function ButaoRegistro() {
   return (
-    <TouchableOpacity  onPress={() => {router.push("/kittyPage")}} style={style.butaoRegistro}>
+    <TouchableOpacity  onPress={() => {router.push("/registerPage")}} style={style.butaoRegistro}>
       <Text style={style.TextobutaoRegistro}>Registrar-Se</Text>
     </TouchableOpacity>
   );
