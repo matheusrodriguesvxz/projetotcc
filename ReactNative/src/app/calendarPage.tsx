@@ -1,13 +1,34 @@
-import { View } from "react-native";
+import { View, Text } from "react-native";
 import { SafeAreaView } from "react-native";
 import { Calendar, LocaleConfig } from "react-native-calendars";
 import React, { useState } from "react";
-import day from "react-native-calendars/src/calendar/day";
+//import day from "react-native-calendars/src/calendar/day";
 
 
 
 export default function CalendarPage() {
-
+    
+    LocaleConfig.locales['pt'] = {
+        monthNames: [
+          'Janeiro',
+          'Fevereiro',
+          'Março',
+          'Abril',
+          'Maio',
+          'Junho',
+          'Julho',
+          'Agosto',
+          'Setembro',
+          'Outubro',
+          'Novembro',
+          'Dezembro'
+        ],
+        monthNamesShort: ['Jan.', 'Fev.', 'Mar.', 'Abr.', 'Mai.', 'Jun.', 'Jul.', 'Ago.', 'Set.', 'Out.', 'Nov.', 'Dez.'],
+        dayNames: ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'],
+        dayNamesShort: ['Dom.', 'Seg.', 'Ter.', 'Qua.', 'Qui.', 'Sex.', 'Sáb.'],
+        today: 'Hoje'
+    };
+    LocaleConfig.defaultLocale = 'pt';
     const [selected, setSelected] = useState('');
 
 
@@ -35,7 +56,7 @@ export default function CalendarPage() {
                     }}
 
                     theme={{
-
+                        LocaleConfig:'pt',
                         backgroundColor: '#ffffff',
                         calendarBackground: '#f1f1f1',
                         textSectionTitleColor: '#b6c1cd',
@@ -52,10 +73,16 @@ export default function CalendarPage() {
                         setSelected(day.dateString);
                     }}
                     markedDates={{
-                        [selected]: { selected: true, disableTouchEvent: true, selectedDotColor: 'orange' }
+                        [selected]: { selected: true, disableTouchEvent: true }
                     }}
+
+                    
+
                 />
+                
             </View>
+            <Text> Gerencie seus Planos </Text>
+            
 
         </SafeAreaView>
     )
