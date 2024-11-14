@@ -1,12 +1,52 @@
 import { SafeAreaView, Text, Image, View } from "react-native";
 import EditButton, { ImageInicialPage } from "../../components/Svgs";
 import { Icon } from "@rneui/base";
+import { auth, db } from "@/src/services/firebaseConfig";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { useEffect, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+type User = {
+  name: string;
+  email: string;
+  userID: string;
+};
+
+const fetchDataFromFirestore = async () => {
+  try {
+    const userID = await AsyncStorage.getItem("user");
+    
+    if (!userID) {
+      console.log("Id do Usuario nao encontrado");
+      return;
+    }
+    const queryName = query(collection(db, "Usuários"), where("uid", "==", userID));
+    const response = await getDocs(queryName);
+
+    const userData = response.docs.map((doc) => doc.data().nome);
+
+    return userData.toString();
+  } catch (error) {
+    console.log(error);
+  }
+
+};
 
 
-export const Header = () => null;
 
 export default function Perfil() {
+  const [name, setName] = useState("");
+  
+
+  useEffect(() => {
+    fetchDataFromFirestore().then((nome) => {
+      if (nome) {
+        setName(nome);
+      }
+    });
+  }, []);
   return (
+
     <View className="mb-10">
       <Image
         className="w-full  bottom-32 rounded-[45px]"
@@ -34,9 +74,11 @@ export default function Perfil() {
             backgroundColor: "#D9D9D9",
           }}
         >
-          <View className="">
-            <View className="ml-4 flex flex-row ">
-              <Image source={require("../../../assets/image 23.png")} />
+          <View className="flex">
+            <View className="ml-4 flex flex-row gap-20">
+              <Image style={{
+                position: "absolute",
+              }} source={require("../../../assets/image 23.png")} />
               <View>
                 <Text
                   style={{
@@ -44,11 +86,14 @@ export default function Perfil() {
                     fontWeight: "bold",
                     color: "black",
                     letterSpacing: 0.7,
-                    marginLeft: 10,
-                    fontSize: 22,
+                    marginLeft: 80,
+                    fontSize: 20,
+                    position: "relative",
+                    width: 140,
+                    maxWidth: 140,
                   }}
                 >
-                  Olá User!
+                  {`Ola, ${name}`}
                 </Text>
                 <Text
                   style={{
@@ -56,7 +101,7 @@ export default function Perfil() {
                     fontWeight: "bold",
                     color: "#909090",
                     letterSpacing: 0.5,
-                    marginLeft: 12,
+                    marginLeft: 80,
                     fontSize: 14,
                   }}
                 >
@@ -64,7 +109,7 @@ export default function Perfil() {
                 </Text>
               </View>
 
-              <View className="ml-28 justify-center mb-4">
+              <View className="  justify-center  max-w-72">
                 <EditButton />
               </View>
             </View>
@@ -137,9 +182,7 @@ export default function Perfil() {
                 fontSize: 16,
               }}
               className="pb-3"
-            >
-
-            </Text>
+            ></Text>
           </View>
           <View
             className="w-96 "
@@ -162,9 +205,7 @@ export default function Perfil() {
                 fontSize: 16,
               }}
               className="pb-3"
-            >
-
-            </Text>
+            ></Text>
           </View>
         </View>
 
@@ -206,9 +247,7 @@ export default function Perfil() {
                   fontSize: 16,
                 }}
                 className="pb-3"
-              >
-
-              </Text>
+              ></Text>
             </View>
             <View
               className="w-96 "
@@ -232,9 +271,7 @@ export default function Perfil() {
                   fontSize: 16,
                 }}
                 className="pb-3"
-              >
-
-              </Text>
+              ></Text>
             </View>
             <View
               className="w-96 "
@@ -257,9 +294,7 @@ export default function Perfil() {
                   fontSize: 16,
                 }}
                 className="pb-3"
-              >
-
-              </Text>
+              ></Text>
             </View>
           </View>
         </View>
@@ -302,9 +337,7 @@ export default function Perfil() {
                   fontSize: 16,
                 }}
                 className="pb-3"
-              >
-
-              </Text>
+              ></Text>
             </View>
             <View
               className="w-96 "
@@ -328,9 +361,7 @@ export default function Perfil() {
                   fontSize: 16,
                 }}
                 className="pb-3"
-              >
-
-              </Text>
+              ></Text>
             </View>
             <View
               className="w-96 "
@@ -353,9 +384,7 @@ export default function Perfil() {
                   fontSize: 16,
                 }}
                 className="pb-3"
-              >
-
-              </Text>
+              ></Text>
             </View>
           </View>
         </View>

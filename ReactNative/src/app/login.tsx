@@ -16,6 +16,7 @@ import {
 } from "../components/Login";
 import { router } from "expo-router";
 import { useFonts } from "expo-font";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 type NewLoginFormData = {
   email: string;
@@ -30,7 +31,8 @@ const onSubmit = async (data: NewLoginFormData) => {
       data.password
     );
     const user = userCredential.user;
-    console.log("Usuário logado com sucesso:", user);
+    console.log("Usuário logado com sucesso:", user.uid);
+    AsyncStorage.setItem("user", user.uid);
     router.push("/(tabs)");
   } catch (error) {
     Alert.alert(
