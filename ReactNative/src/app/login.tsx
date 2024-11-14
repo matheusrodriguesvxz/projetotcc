@@ -31,7 +31,7 @@ const onSubmit = async (data: NewLoginFormData) => {
     );
     const user = userCredential.user;
     console.log("Usuário logado com sucesso:", user);
-    router.push("/homePage");
+    router.push("/(tabs)");
   } catch (error) {
     Alert.alert(
       "Erro ao logar",

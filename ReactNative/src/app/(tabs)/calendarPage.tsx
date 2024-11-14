@@ -6,6 +6,7 @@ import { useState } from "react";
 import day from "react-native-calendars/src/calendar/day";
 
 
+export const Header = () => null;
 
 export default function CalendarPage() {
 

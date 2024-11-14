@@ -1,6 +1,8 @@
 import { SafeAreaView, View, Text, Pressable, Image } from "react-native";
 import * as Progress from 'react-native-progress';
-import { ProfileImage } from "../components/Svgs";
+import { ProfileImage } from "../../components/Svgs";
+
+export const Header = () => null;
 
 export default function KittyPage() {
     return (

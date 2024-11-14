@@ -17,9 +17,12 @@ import {
   Music,
 } from "../Svgs";
 import { Ionicons } from "@expo/vector-icons";
-import React from "react";
 import { useFonts } from "expo-font";
 import { router } from "expo-router";
+import { Rating } from "@rneui/themed";
+import React, { useState } from "react";
+import StarRating from "react-native-star-rating-widget";
+
 export default function WelcomeEventEasy() {
   const [loaded] = useFonts({
     Poppins: require("../../../assets/fonts/Poppins-Bold.ttf"),
@@ -150,33 +153,57 @@ export function Payment() {
 }
 export function Playlist() {
   return (
-    
     <View className="items-center">
-      <Pressable onPress={() => router.push('/playlistPage')}>
-      <View
-        className="w-20 h-20 items-center justify-center"
-        style={{ backgroundColor: "#F0F0F0", borderRadius: 20 }}
+      <Pressable onPress={() => router.push("/playlistPage")}>
+        <View
+          className="w-20 h-20 items-center justify-center"
+          style={{ backgroundColor: "#F0F0F0", borderRadius: 20 }}
         >
-        <Music />
-      </View>
-        </Pressable>
+          <Music />
+        </View>
+      </Pressable>
     </View>
   );
 }
 
 export function Viagens() {
+  const [rating, setRating] = useState(4);
+
   return (
-    <View>
-      <Image source={require("../../../assets/image7.png")} />
-      <Text
-        className="text-center text-lg"
-        style={{ fontFamily: "Poppins", fontWeight: "bold" }}
-      >
-        Viagens
-      </Text>
+    <View className="flex flex-row gap-5">
+        <Image className="mt-3" source={require("../../../assets/image7.png")}  />
+      <View >
+        <View className="flex flex-row justify-center items-center gap-5 mt-2">
+
+        <Text
+          className="text-left text-lg"
+          style={{ fontFamily: "Poppins", fontWeight: "bold" }}
+          >
+          Praia de Cambuco
+        </Text>
+          </View>
+        <View className="items-center ">
+          <StarRating rating={rating} onChange={(newRating) => setRating(Math.round(newRating))} starSize={20}  />
+        </View>
+        <Text
+          className="text-center text-lg "
+          style={{  fontWeight: "200" }}
+        >
+          Praia Gostosa,igual o Fontes
+        </Text>
+        <Text
+          className="text-center text-lg m-2 "
+          style={{ fontFamily: "Poppins", fontWeight: "bold" }}
+        >
+         Canhema, Diadema
+        </Text>
+        <View>
+        </View>
+      </View>
     </View>
   );
 }
+
 export function HappyHour() {
   return (
     <View>

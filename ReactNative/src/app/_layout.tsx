@@ -1,21 +1,24 @@
 import { Stack } from "expo-router";
-import "../style/global.css"
+import "../style/global.css";
 import { GuestsServices } from "../service/GuestsServices";
+import { Tabs } from "expo-router";
 
 export default function RootLayout() {
   return (
-    <Stack>
-      <Stack.Screen name="index"  options={{headerShown:false}}/>
-      <Stack.Screen name="homePage" options={{headerShown:false}}/>
-      <Stack.Screen name="registerPage" options={{headerShown:false}}/>
-      <Stack.Screen name="login" options={{headerShown:false}}/>
-      <Stack.Screen name="playlistPage" options={{headerShown:false}}/>
-      <Stack.Screen name="buyList" options={{headerShown:false}}/>
-      <Stack.Screen name="calendarPage" options={{headerShown:false}}/>
-      <Stack.Screen name="profilePage" options={{headerShown:false}}/>
-      <Stack.Screen name="kittyPage" options={{headerShown:false}}/>
-      <Stack.Screen name="resetPasswordEmail" options={{headerShown:false}}/>
-    </Stack>
-  );
+    <>
+      <Stack screenOptions={{headerShown:false}}>
+        <Stack.Screen name="index" options={{ headerShown: false }} />
+        <Stack.Screen name="registerPage" options={{ headerShown: false }} />
+        <Stack.Screen name="login" options={{ headerShown: false }} />
+        <Tabs.Screen name="playlistPage" options={{ headerShown: false }} />
+        <Tabs.Screen name="buyList" options={{ headerShown: false }} />
 
+        <Tabs.Screen
+          name="resetPasswordEmail"
+          options={{ headerShown: false }}
+        />
+      </Stack>
+
+    </>
+  );
 }
