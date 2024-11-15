@@ -1,3 +1,4 @@
+import { CreateEventIcon } from "@/src/components/Svgs";
 import { Icon } from "@rneui/base";
 import { Tabs } from "expo-router";
 import { Image } from "react-native";
@@ -8,7 +9,7 @@ export default function TabLayout() {
       screenOptions={{
         headerShown: false,
         headerStyle: {
-          display: "none", 
+          display: "none",
         },
       }}
     >
@@ -24,7 +25,7 @@ export default function TabLayout() {
             backgroundColor: "#F0F0F0",
             borderTopColor: "transparent",
             height: 65,
-            borderTopWidth: 0, 
+            borderTopWidth: 0,
             borderTopLeftRadius: 20,
             borderTopRightRadius: 20,
           },
@@ -53,7 +54,7 @@ export default function TabLayout() {
             backgroundColor: "#F0F0F0",
             borderTopColor: "transparent",
             height: 65,
-            borderTopWidth: 0, 
+            borderTopWidth: 0,
             borderTopLeftRadius: 20,
             borderTopRightRadius: 20,
           },
@@ -71,6 +72,21 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="planPageWelcome"
+        options={{
+          headerStyle: {
+            opacity: 0,
+            display: "none",
+          },
+          tabBarShowLabel: false,
+          tabBarStyle: {
+            display: "none",
+          },
+          tabBarIcon: ({ focused }) => <CreateEventIcon />,
+          headerShown: false,
+        }}
+      />
+      <Tabs.Screen
         name="kittyPage"
         options={{
           headerStyle: {
@@ -82,7 +98,7 @@ export default function TabLayout() {
             backgroundColor: "#F0F0F0",
             borderTopColor: "transparent",
             height: 65,
-            borderTopWidth: 0, 
+            borderTopWidth: 0,
             borderTopLeftRadius: 20,
             borderTopRightRadius: 20,
           },
@@ -111,7 +127,7 @@ export default function TabLayout() {
             backgroundColor: "#F0F0F0",
             borderTopColor: "transparent",
             height: 65,
-            borderTopWidth: 0, 
+            borderTopWidth: 0,
             borderTopLeftRadius: 20,
             borderTopRightRadius: 20,
           },

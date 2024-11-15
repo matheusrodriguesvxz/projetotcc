@@ -1,11 +1,9 @@
-import { SafeAreaView, Text, Image, View } from "react-native";
+import { SafeAreaView, Text, Image, View, Pressable } from "react-native";
 import EditButton, { ImageInicialPage } from "../../components/Svgs";
-import { Icon } from "@rneui/base";
-import { auth, db } from "@/src/services/firebaseConfig";
+import { db } from "@/src/services/firebaseConfig";
 import { collection, getDocs, query, where } from "firebase/firestore";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
 type User = {
   name: string;
   email: string;
@@ -15,12 +13,15 @@ type User = {
 const fetchDataFromFirestore = async () => {
   try {
     const userID = await AsyncStorage.getItem("user");
-    
+
     if (!userID) {
       console.log("Id do Usuario nao encontrado");
       return;
     }
-    const queryName = query(collection(db, "Usuários"), where("uid", "==", userID));
+    const queryName = query(
+      collection(db, "Usuários"),
+      where("uid", "==", userID)
+    );
     const response = await getDocs(queryName);
 
     const userData = response.docs.map((doc) => doc.data().nome);
@@ -29,14 +30,10 @@ const fetchDataFromFirestore = async () => {
   } catch (error) {
     console.log(error);
   }
-
 };
-
-
 
 export default function Perfil() {
   const [name, setName] = useState("");
-  
 
   useEffect(() => {
     fetchDataFromFirestore().then((nome) => {
@@ -45,8 +42,8 @@ export default function Perfil() {
       }
     });
   }, []);
-  return (
 
+  return (
     <View className="mb-10">
       <Image
         className="w-full  bottom-32 rounded-[45px]"
@@ -76,9 +73,12 @@ export default function Perfil() {
         >
           <View className="flex">
             <View className="ml-4 flex flex-row gap-20">
-              <Image style={{
-                position: "absolute",
-              }} source={require("../../../assets/image 23.png")} />
+              <Image
+                style={{
+                  position: "absolute",
+                }}
+                source={require("../../../assets/image 23.png")}
+              />
               <View>
                 <Text
                   style={{
@@ -154,7 +154,6 @@ export default function Perfil() {
                 marginLeft: 32,
                 fontSize: 16,
               }}
-              className="pb-3"
             >
               Detalhes da Conta
             </Text>
@@ -181,8 +180,9 @@ export default function Perfil() {
                 marginLeft: 32,
                 fontSize: 16,
               }}
-              className="pb-3"
-            ></Text>
+            >
+              Segurança
+            </Text>
           </View>
           <View
             className="w-96 "
@@ -204,8 +204,9 @@ export default function Perfil() {
                 marginLeft: 32,
                 fontSize: 16,
               }}
-              className="pb-3"
-            ></Text>
+            >
+              Preferências
+            </Text>
           </View>
         </View>
 
@@ -246,8 +247,9 @@ export default function Perfil() {
                   marginLeft: 32,
                   fontSize: 16,
                 }}
-                className="pb-3"
-              ></Text>
+              >
+                Notificações
+              </Text>
             </View>
             <View
               className="w-96 "
@@ -270,8 +272,9 @@ export default function Perfil() {
                   marginLeft: 32,
                   fontSize: 16,
                 }}
-                className="pb-3"
-              ></Text>
+              >
+                Emails de Notificação
+              </Text>
             </View>
             <View
               className="w-96 "
@@ -293,8 +296,9 @@ export default function Perfil() {
                   marginLeft: 32,
                   fontSize: 16,
                 }}
-                className="pb-3"
-              ></Text>
+              >
+                Notificações de SMS
+              </Text>
             </View>
           </View>
         </View>
@@ -336,8 +340,9 @@ export default function Perfil() {
                   marginLeft: 32,
                   fontSize: 16,
                 }}
-                className="pb-3"
-              ></Text>
+              >
+                Termos e Condições
+              </Text>
             </View>
             <View
               className="w-96 "
@@ -360,8 +365,9 @@ export default function Perfil() {
                   marginLeft: 32,
                   fontSize: 16,
                 }}
-                className="pb-3"
-              ></Text>
+              >
+                Política de Privacidade
+              </Text>
             </View>
             <View
               className="w-96 "
@@ -384,7 +390,9 @@ export default function Perfil() {
                   fontSize: 16,
                 }}
                 className="pb-3"
-              ></Text>
+              >
+                Sair
+              </Text>
             </View>
           </View>
         </View>
