@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import WelcomeEventEasy, {
   BarraDePesquisa,
   CarosselImages,
@@ -21,45 +21,33 @@ export default function HomePage() {
   const [index, setIndex] = useState(0);
   return (
     <ScrollView>
-      <SafeAreaView style={{ backgroundColor: "#760BFF", height: "100%" }}>
-        <View
-          className="items-center"
-          style={{
-            marginTop: 40,
-            backgroundColor: "white",
-            width: "100%",
-            height: "100%",
-            borderTopEndRadius: 25,
-            borderTopStartRadius: 25,
-          }}
-        >
+      <SafeAreaView style={style.areaRoxa}>
+        <View className="items-center" style={style.areaBranca}>
           <WelcomeEventEasy />
-          <View className="items-center" style={{ marginBottom: 20, }}>
+          <View className="items-center" style={{ marginBottom: 20 }}>
             <BarraDePesquisa placeholder="Procurar" />
           </View>
           <View className="items-center justify-center">
             <CarosselImages />
           </View>
-
           <View className="flex flex-row gap-6 mt-1">
             <Invites />
             <Comprinhas />
             <Payment />
             <Playlist />
           </View>
-
           <View>
-          <Text
-            style={{
-              fontFamily: "Poppins",
-              fontWeight: "bold",
-              letterSpacing: 1,
-            }}
-            className="text-2xl mt-6 ml-7 "
-          >
-            Destinos
-          </Text>
-          <Tab
+            <Text
+              style={{
+                fontFamily: "Poppins",
+                fontWeight: "bold",
+                letterSpacing: 1,
+              }}
+              className="text-2xl mt-6 ml-7 "
+            >
+              Destinos
+            </Text>
+            <Tab
               value={index}
               onChange={setIndex}
               scrollable
@@ -144,3 +132,19 @@ export default function HomePage() {
     </ScrollView>
   );
 }
+
+const style = StyleSheet.create({
+  areaRoxa: {
+    backgroundColor: "#760BFF",
+    height: "100%",
+  },
+
+  areaBranca: {
+    marginTop: 40,
+    backgroundColor: "white",
+    width: "100%",
+    height: "100%",
+    borderTopEndRadius: 25,
+    borderTopStartRadius: 25,
+  },
+});

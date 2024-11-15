@@ -4,11 +4,6 @@ import { db } from "@/src/services/firebaseConfig";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-type User = {
-  name: string;
-  email: string;
-  userID: string;
-};
 
 const fetchDataFromFirestore = async () => {
   try {
@@ -34,7 +29,6 @@ const fetchDataFromFirestore = async () => {
 
 export default function Perfil() {
   const [name, setName] = useState("");
-
   useEffect(() => {
     fetchDataFromFirestore().then((nome) => {
       if (nome) {

@@ -43,17 +43,7 @@ export default function planPageWelcome() {
                   source={require("../../assets/Group 2.png")}
                   style={style.image}
                 />
-                <Text
-                  className="absolute"
-                  style={{
-                    fontFamily: "Poppins",
-                    color: "#ffffff",
-                    fontWeight: "900",
-                    fontSize: 17,
-                    marginLeft: 10,
-                    letterSpacing: 1,
-                  }}
-                >
+                <Text className="absolute" style={style.categorias}>
                   Casamento
                 </Text>
               </View>
@@ -68,17 +58,7 @@ export default function planPageWelcome() {
                   source={require("../../assets/Group 3.png")}
                   style={style.image}
                 />
-                <Text
-                  className="absolute"
-                  style={{
-                    fontFamily: "Poppins",
-                    color: "#ffffff",
-                    fontWeight: "900",
-                    fontSize: 17,
-                    marginLeft: 10,
-                    letterSpacing: 1,
-                  }}
-                >
+                <Text className="absolute" style={style.categorias}>
                   Aniversário
                 </Text>
               </View>
@@ -95,17 +75,7 @@ export default function planPageWelcome() {
                   source={require("../../assets/Group 4.png")}
                   style={style.image}
                 />
-                <Text
-                  className="absolute"
-                  style={{
-                    fontFamily: "Poppins",
-                    color: "#ffffff",
-                    fontWeight: "900",
-                    fontSize: 17,
-                    marginLeft: 10,
-                    letterSpacing: 1,
-                  }}
-                >
+                <Text className="absolute" style={style.categorias}>
                   Viagem
                 </Text>
               </View>
@@ -120,17 +90,7 @@ export default function planPageWelcome() {
                   source={require("../../assets/Group 5.png")}
                   style={style.image}
                 />
-                <Text
-                  className="absolute"
-                  style={{
-                    fontFamily: "Poppins",
-                    color: "#ffffff",
-                    fontWeight: "900",
-                    fontSize: 17,
-                    marginLeft: 10,
-                    letterSpacing: 1,
-                  }}
-                >
+                <Text className="absolute" style={style.categorias}>
                   Rolê/Festa
                 </Text>
               </View>
@@ -192,6 +152,15 @@ const style = StyleSheet.create({
     textAlign: "center",
     fontSize: 20,
     fontWeight: "bold",
+    letterSpacing: 1,
+  },
+
+  categorias: {
+    fontFamily: "Poppins",
+    color: "#ffffff",
+    fontWeight: "900",
+    fontSize: 17,
+    marginLeft: 10,
     letterSpacing: 1,
   },
 });

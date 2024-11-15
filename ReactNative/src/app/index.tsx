@@ -1,4 +1,4 @@
-import { Text, View,  Dimensions} from "react-native";
+import { Text, View, Dimensions, StyleSheet } from "react-native";
 import { ButaoLogin, ButaoRegistro } from "../components/index/indexComp";
 import { useFonts } from "expo-font";
 import FundoDaTela from "../components/index/indexComp";
@@ -12,23 +12,15 @@ export default function Index() {
 
   return (
     <View className="bg-white w-full h-full items-center">
-      <Text className=" z-50 text-center mt-14 text-4xl"
-        style={{ color: "#760BFF", fontFamily: "Poppins", fontWeight: "bold" }}>
+      <Text className=" z-50 text-center mt-14 text-4xl" style={styles.title}>
         EventEasy
       </Text>
       <View className="absolute top-44 z-50">
         <ImageInicialPage />
       </View>
       <View className="absolute top-96 mt-56  font-semibold z-50 ">
-        <Text
-          style={{
-            color: "white",
-            fontFamily: "Poppins",
-            fontWeight: "ultralight",
-            fontSize: 25,
-            width: 325,
-          }}
-        >Organize seus eventos de forma fácil e eficiente. Vamos começar!
+        <Text style={styles.Paragrafo}>
+          Organize seus eventos de forma fácil e eficiente. Vamos começar!
         </Text>
       </View>
       <View className="z-50 absolute top-96 mt-56 items-center right-32 ">
@@ -41,3 +33,19 @@ export default function Index() {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  title: {
+    color: "#760BFF",
+    fontFamily: "Poppins",
+    fontWeight: "bold",
+  },
+
+  Paragrafo: {
+    color: "white",
+    fontFamily: "Poppins",
+    fontWeight: "ultralight",
+    fontSize: 25,
+    width: 325,
+  },
+});

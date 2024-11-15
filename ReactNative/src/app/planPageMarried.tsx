@@ -1,5 +1,5 @@
 import { router } from "expo-router";
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, StyleSheet } from "react-native";
 import { NextButton } from "../components/PlanPageWelcomeComponent/planPageWelcomeComponent";
 import { LogoWithoutName } from "../components/Svgs";
 import { CheckBox } from "@rneui/base";
@@ -45,19 +45,7 @@ export default function PlanPageMarried() {
       <View className="w-full rounded-[45] bg-white h-[800] items-center top-72 absolute">
         <View className="flex flex-row  mt-8">
           <View className="w-1/2 justify-left flex items-center">
-            <Text
-              style={{
-                fontFamily: "Poppins",
-                color: "#760BFF",
-                marginRight: 40,
-                fontWeight: "900",
-                fontSize: 24,
-                marginLeft: 10,
-                letterSpacing: 1,
-              }}
-            >
-              Bebidas
-            </Text>
+            <Text style={styles.categorias}>Bebidas</Text>
 
             <View className="flex flex-col">
               <CheckBox
@@ -97,66 +85,55 @@ export default function PlanPageMarried() {
             </View>
           </View>
           <View className="">
-            <Text
-              style={{
-                fontFamily: "Poppins",
-                color: "#760BFF",
-                fontWeight: "900",
-                fontSize: 24,
-                marginLeft: 10,
-                letterSpacing: 1,
-              }}
-            >
-              Comidas
-            </Text>
+            <Text style={styles.categorias}>Comidas</Text>
             <View className="flex flex-col">
               <CheckBox
                 title="Arroz"
                 checked={checkedItems.arroz}
                 checkedColor="#760FFF"
-                onPress={ () => toggleCheckbox("arroz")}
+                onPress={() => toggleCheckbox("arroz")}
               />
               <CheckBox
                 className="bottom-6"
                 title="Carnes"
                 checked={checkedItems.carnes}
                 checkedColor="#760FFF"
-                onPress={ () => toggleCheckbox("carnes")}
+                onPress={() => toggleCheckbox("carnes")}
               />
               <CheckBox
                 className="bottom-12"
                 title="Saladas"
                 checked={checkedItems.saladas}
                 checkedColor="#760FFF"
-                onPress={ () => toggleCheckbox("saladas")}
+                onPress={() => toggleCheckbox("saladas")}
               />
               <CheckBox
                 className="bottom-[65]"
                 title="Farofa"
                 checked={checkedItems.farofa}
                 checkedColor="#760FFF"
-                onPress={ () => toggleCheckbox("farofa")}
+                onPress={() => toggleCheckbox("farofa")}
               />
               <CheckBox
                 className="bottom-24"
                 title="Peixes"
                 checked={checkedItems.peixes}
                 checkedColor="#760FFF"
-                onPress={ () => toggleCheckbox("peixes")}
+                onPress={() => toggleCheckbox("peixes")}
               />
               <CheckBox
                 className="bottom-28"
                 title="Frango"
                 checked={checkedItems.frango}
                 checkedColor="#760FFF"
-                onPress={ () => toggleCheckbox("frango")}
+                onPress={() => toggleCheckbox("frango")}
               />
               <CheckBox
                 className="bottom-32"
                 title="Crustaceo"
                 checked={checkedItems.crustaceo}
                 checkedColor="#760FFF"
-                onPress={ () => toggleCheckbox("crustaceo")}
+                onPress={() => toggleCheckbox("crustaceo")}
               />
             </View>
           </View>
@@ -164,19 +141,7 @@ export default function PlanPageMarried() {
         <View className="flex flex-row bottom-32 ">
           <View className="w-[210] left-6 justify-left flex items-center">
             <View className="bottom-24">
-              <Text
-                style={{
-                  fontFamily: "Poppins",
-                  color: "#760BFF",
-                  marginRight: 40,
-                  fontWeight: "900",
-                  fontSize: 24,
-                  marginLeft: 10,
-                  letterSpacing: 1,
-                }}
-              >
-                Descartavel
-              </Text>
+              <Text style={styles.categorias}>Descartavel</Text>
 
               <View className="flex flex-col">
                 <CheckBox
@@ -217,18 +182,7 @@ export default function PlanPageMarried() {
             </View>
           </View>
           <View className="">
-            <Text
-              style={{
-                fontFamily: "Poppins",
-                color: "#760BFF",
-                fontWeight: "900",
-                fontSize: 24,
-                marginLeft: 10,
-                letterSpacing: 1,
-              }}
-            >
-              Doces
-            </Text>
+            <Text style={styles.categorias}>Doces</Text>
             <View className="flex flex-col">
               <CheckBox
                 title="Bolo"
@@ -264,3 +218,15 @@ export default function PlanPageMarried() {
     </>
   );
 }
+
+const styles = StyleSheet.create({
+  categorias: {
+    fontFamily: "Poppins",
+    color: "#760BFF",
+    marginRight: 40,
+    fontWeight: "900",
+    fontSize: 24,
+    marginLeft: 10,
+    letterSpacing: 1,
+  },
+});

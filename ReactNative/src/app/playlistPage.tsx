@@ -3,6 +3,7 @@ import {
   View,
   Text,
   Image,
+  StyleSheet,
   ActivityIndicator,
 } from "react-native";
 import { BarraDePesquisa, CarosselImages } from "../components/HomePage";
@@ -58,7 +59,6 @@ export default function PlaylistPage() {
     }
   }
 
-
   const getRandomMusics = (musicTracks: Music[]) => {
     if (musicTracks.length > 0) {
       const shuffled = musicTracks.sort(() => 0.5 - Math.random());
@@ -81,52 +81,19 @@ export default function PlaylistPage() {
   }
 
   return (
-    <SafeAreaView style={{ backgroundColor: "#760BFF", height: "100%" }}>
-      <View className="mt-10 flex ">
-        
-      </View>
-      <View
-        className="items-center"
-        style={{
-          backgroundColor: "white",
-          width: "100%",
-          height: "100%",
-          borderRadius: 25,
-        }}
-      >
-        <View style={{ marginTop: 30 }}>
+    <SafeAreaView style={style.areaRoxa}>
+      {/* biome-ignore lint/style/useSelfClosingElements: <explanation> */}
+      <View className="mt-10 flex "></View>
+      <View className="items-center" style={style.areaBranca}>
+        <View style={style.carossel}>
           <CarosselImages />
         </View>
-
         <View>
           <BarraDePesquisa placeholder="Pesquisar músicas" />
         </View>
-
         <View>
-          <Text
-            style={{
-              fontFamily: "Poppins",
-              fontWeight: "bold",
-              marginTop: 20,
-              fontSize: 25,
-              textAlign: "center",
-            }}
-          >
-            Em Alta
-          </Text>
-          <Text
-            style={{
-              marginTop: 5,
-              fontSize: 13,
-              letterSpacing: 0.3,
-              color: "#BFBFBF",
-              marginBottom: 20,
-              width: 500,
-              fontFamily: "Poppins",
-              fontWeight: "bold",
-              textAlign: "center",
-            }}
-          >
+          <Text style={style.title}>Em Alta</Text>
+          <Text style={style.subTitle}>
             Confira as playlists em alta baseado no seu evento
           </Text>
         </View>
@@ -136,31 +103,12 @@ export default function PlaylistPage() {
             <ActivityIndicator size="large" color="#0000ff" />
           ) : getMusic.length > 0 ? (
             getMusic.map((music) => (
-              <View
-                key={music.id}
-                style={{
-                  width: 349,
-                  height: 70,
-                  backgroundColor: "#D9D9D9",
-                  marginBottom: 20,
-                  gap: 10,
-                  display: "flex",
-                  flexDirection: "row",
-                  borderRadius: 10,
-                  alignItems: "center",
-                }}
-              >
+              <View key={music.id} style={style.listaDeMusica}>
                 <View>
                   {music.album.images.length > 0 ? (
                     <Image
                       source={{ uri: music.album.images[0].url }}
-                      style={{
-                        width: 50,
-                        height: 50,
-                        alignItems: "center",
-                        marginLeft: 10,
-                        borderRadius: 5,
-                      }}
+                      style={style.imagem}
                     />
                   ) : (
                     <Text>Imagem não disponível</Text>
@@ -168,23 +116,14 @@ export default function PlaylistPage() {
                 </View>
                 <View className="flex flex-col pl-2 items-center justify-center">
                   <Text
-                    style={{
-                      fontSize: 16,
-                      fontWeight: "bold",
-                      width: 200,
-                      textAlign: "center",
-                    }}
+                    style={style.nomeMusica}
                     numberOfLines={1}
                     ellipsizeMode="tail"
                   >
                     {music.name}
                   </Text>
                   <Text
-                    style={{
-                      fontSize: 12,
-                      display: "flex",
-                      textAlign: "center",
-                    }}
+                    style={style.nomeArtista}
                     numberOfLines={1}
                     ellipsizeMode="tail"
                   >
@@ -194,10 +133,84 @@ export default function PlaylistPage() {
               </View>
             ))
           ) : (
-            <Text style={{ fontSize: 16 }}>Nenhuma música encontrada.</Text>
+            <Text style={style.error}>Nenhuma música encontrada.</Text>
           )}
         </View>
       </View>
     </SafeAreaView>
   );
 }
+
+const style = StyleSheet.create({
+  areaRoxa: {
+    backgroundColor: "#760BFF",
+    height: "100%",
+  },
+
+  areaBranca: {
+    backgroundColor: "white",
+    width: "100%",
+    height: "100%",
+    borderRadius: 25,
+  },
+
+  carossel: {
+    marginTop: 30,
+  },
+
+  title: {
+    fontFamily: "Poppins",
+    fontWeight: "bold",
+    marginTop: 20,
+    fontSize: 25,
+    textAlign: "center",
+  },
+
+  subTitle: {
+    marginTop: 5,
+    fontSize: 13,
+    letterSpacing: 0.3,
+    color: "#BFBFBF",
+    marginBottom: 20,
+    width: 500,
+    fontFamily: "Poppins",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+
+  listaDeMusica: {
+    width: 349,
+    height: 70,
+    backgroundColor: "#D9D9D9",
+    marginBottom: 20,
+    gap: 10,
+    display: "flex",
+    flexDirection: "row",
+    borderRadius: 10,
+    alignItems: "center",
+  },
+
+  imagem: {
+    width: 50,
+    height: 50,
+    alignItems: "center",
+    marginLeft: 10,
+    borderRadius: 5,
+  },
+
+  nomeMusica: {
+    fontSize: 16,
+    fontWeight: "bold",
+    width: 200,
+    textAlign: "center",
+  },
+
+  nomeArtista:{
+    fontSize: 12,
+    display: "flex",
+    textAlign: "center",
+  },
+  error:{
+    fontSize: 16
+  }
+});
