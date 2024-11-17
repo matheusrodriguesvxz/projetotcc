@@ -19,6 +19,7 @@ export const getAllEvents = async () => {
       initial_date: Events.initial_date,
       final_date: Events.final_date,
       budget: Events.budget,
+      userID: Events.userID,
       olderOfAge: Events.olderOfAge,
       goal: Kitty.goal,
       descriptions: Kitty.descriptions,

@@ -8,20 +8,16 @@ import {
 } from "react-native";
 import { useFonts } from "expo-font";
 import { LogoWithoutName } from "../components/Svgs";
-import { NextButton } from "../components/PlanPageWelcomeComponent/planPageWelcomeComponent";
-import { useState } from "react";
 import { router } from "expo-router";
-
+import { UseTypesEvents } from "@/hooks/useTypesEvents";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 export default function planPageWelcome() {
-  const { width, height } = Dimensions.get("window");
   const [loaded] = useFonts({
     Poppins: require("../../assets/fonts/Poppins-Bold.ttf"),
   });
-  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
-  const toggleSelect = (index: number) => {
-    setSelectedIndex(index);
-  };
+  const { selectedIndex, toggleSelect } = UseTypesEvents();
+
   return (
     <>
       <Image source={require("../../assets/purplewallpapers2.png")} />
@@ -98,7 +94,21 @@ export default function planPageWelcome() {
           </View>
           <TouchableOpacity
             style={style.NextButton}
-            onPressIn={() => router.push("/planPageMarried")}
+            onPressIn={() => {
+              const typeMap = [
+                "Casamento",
+                "Aniversário",
+                "Viagem",
+                "Role / Festas",
+                "Outro",
+              ];
+              // biome-ignore lint/style/noNonNullAssertion: <explanation>
+              const eventType = typeMap[selectedIndex!] || "Outro";
+              console.log(eventType);
+              AsyncStorage.setItem("index", eventType);
+
+              router.push("/planPageMarried");
+            }}
           >
             <Text style={style.NextButtonText}>Próximo</Text>
           </TouchableOpacity>

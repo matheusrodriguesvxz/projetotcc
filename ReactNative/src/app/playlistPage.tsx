@@ -205,12 +205,12 @@ const style = StyleSheet.create({
     textAlign: "center",
   },
 
-  nomeArtista:{
+  nomeArtista: {
     fontSize: 12,
     display: "flex",
     textAlign: "center",
   },
-  error:{
-    fontSize: 16
-  }
+  error: {
+    fontSize: 16,
+  },
 });

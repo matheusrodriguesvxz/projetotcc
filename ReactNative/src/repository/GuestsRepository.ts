@@ -3,7 +3,7 @@ import type { IBaseRepository } from "./IBaseRepository";
 
 export class GuestsRepository implements IBaseRepository<Guests> {
 	async create(guest: Guests): Promise<Guests> {
-		const response = await fetch("http://localhost:3333/guest", {
+		const response = await fetch("http://127.0.0.1:3333/guest", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -17,7 +17,7 @@ export class GuestsRepository implements IBaseRepository<Guests> {
 		return guestsCreated;
 	}
 	async update(guest: Guests, id: string): Promise<Guests> {
-		const response = await fetch(`http://localhost:3333/guest/${id}`, {
+		const response = await fetch(`http://127.0.0.1:3333/guest/${id}`, {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
@@ -32,7 +32,7 @@ export class GuestsRepository implements IBaseRepository<Guests> {
 		return updateGuest;
 	}
 	async delete(id: string): Promise<true | Guests> {
-		const response = await fetch(`http://localhost:3333/guest/${id}`, {
+		const response = await fetch(`http://127.0.0.1:3333/guest/${id}`, {
 			method: "DELETE",
 		});
 
@@ -43,7 +43,7 @@ export class GuestsRepository implements IBaseRepository<Guests> {
 		return response.status === 204 ? true : await response.json();
 	}
 	async getAll(): Promise<Guests[]> {
-		const response = await fetch("http://localhost:3333/guests");
+		const response = await fetch("http://127.0.0.1:3333/guests");
 		if (!response.ok) {
 			throw new Error(`Erro na Requisição,status: ${response.status}`);
 		}
@@ -51,7 +51,7 @@ export class GuestsRepository implements IBaseRepository<Guests> {
 		return guests;
 	}
 	async getById(id: string): Promise<Guests> {
-		const response = await fetch(`http://localhost:3333/guest/${id}`);
+		const response = await fetch(`http://127.0.0.1:3333/guest/${id}`);
 		if (!response.ok) {
 			throw new Error(`Erro na Requisição,status: ${response.status}`);
 		}

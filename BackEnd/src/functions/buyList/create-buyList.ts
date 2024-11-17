@@ -6,6 +6,7 @@ export interface BuyListRequest {
 	status: string;
 	userID: string;
 	id_events: string;
+	quantity: string;
 }
 
 export const createBuyList = async (buyListRequest: BuyListRequest) => {
@@ -16,6 +17,7 @@ export const createBuyList = async (buyListRequest: BuyListRequest) => {
 			status: buyListRequest.status,
 			userID: buyListRequest.userID,
 			id_events: buyListRequest.id_events,
+			quantity: buyListRequest.quantity,
 		})
 		.returning();
 

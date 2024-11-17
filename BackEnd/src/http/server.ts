@@ -29,8 +29,17 @@ import { updatesAdress } from "./routes/Adress/update-adress-route";
 import deletesAdress from "./routes/Adress/delete-adress-route";
 import { getGuestsByID } from "./routes/Guests/find-by-id-guests-route";
 import { getAdressByID } from "./routes/Adress/find-by-id-adress-route";
+import cors from "@fastify/cors";
+import { getEventsByUserID } from "./routes/Events/find-by-userID-events";
 
 export const app = fastify().withTypeProvider<ZodTypeProvider>();
+app.register(cors, {
+  origin: '*',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+});
+
+
 app.listen({ port: 3333, host: "0.0.0.0" }, (err, address) => {
 	if (err) {
 		console.error("Erro ao iniciar o servidor:", err);
@@ -47,6 +56,7 @@ app.register(createEvent);
 app.register(updateEvent);
 app.register(DeleteEvent);
 app.register(getEventsByID);
+app.register(getEventsByUserID)
 
 // Guests / Convidados
 app.register(getGuests);

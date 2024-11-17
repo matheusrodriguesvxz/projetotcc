@@ -10,10 +10,6 @@ export class EventsServices extends EventsRepository {
 	}
 
 	async create(event: Events): Promise<Events> {
-		const existingEvent = await this.eventsRepository.getById(event.id);
-		if (existingEvent) {
-			throw new Error("Event already exists");
-		}
 		return this.eventsRepository.create(event);
 	}
 
@@ -39,6 +35,13 @@ export class EventsServices extends EventsRepository {
 
 	async findById(id: string): Promise<Events> {
 		const existingEvent = await this.eventsRepository.getById(id);
+		if (!existingEvent) {
+			throw new Error("Event does not exist");
+		}
+		return existingEvent;
+	}
+	async findByUserId(userID: string): Promise<Events> {
+		const existingEvent = await this.eventsRepository.getByUserId(userID);
 		if (!existingEvent) {
 			throw new Error("Event does not exist");
 		}

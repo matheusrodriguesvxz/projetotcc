@@ -14,22 +14,22 @@ type NewRegisterFormData = {
   email: string;
 };
 
-
-   async function submitEmailToResetPassword(data: NewRegisterFormData) {
-        const email = data.email;
-        await sendPasswordResetEmail(auth, email).then(() => {
-         // biome-ignore lint/style/useTemplate: <explanation>
-         alert("Email de redefinição de senha enviado para" + email);
-         router.replace('/login')
-        }).catch((error) => {
-            // biome-ignore lint/style/useTemplate: <explanation>
-            alert("Erro ao enviar email de redefinição de senha" + error);
-        });
-
-    }
-    const onSubmit: SubmitHandler<NewRegisterFormData> = (data) => {
-        submitEmailToResetPassword(data);
-        }
+async function submitEmailToResetPassword(data: NewRegisterFormData) {
+  const email = data.email;
+  await sendPasswordResetEmail(auth, email)
+    .then(() => {
+      // biome-ignore lint/style/useTemplate: <explanation>
+      alert("Email de redefinição de senha enviado para" + email);
+      router.replace("/login");
+    })
+    .catch((error) => {
+      // biome-ignore lint/style/useTemplate: <explanation>
+      alert("Erro ao enviar email de redefinição de senha" + error);
+    });
+}
+const onSubmit: SubmitHandler<NewRegisterFormData> = (data) => {
+  submitEmailToResetPassword(data);
+};
 export default function ResetPasswordEmail() {
   const {
     control,
@@ -39,20 +39,22 @@ export default function ResetPasswordEmail() {
   const [checked, setChecked] = useState(false);
 
   return (
-    <View>
+    <View className="">
       <Image
         className="mt-[-30]  absolute w-[500] "
         source={require("../../assets/purplebg.png")}
       />
       <RoxoPasswordReset />
+
       <View className="absolute mt-[290]">
-        <TouchableOpacity
+        <EvilIcons
           onPress={() => {
-            router.push("../index");
+            router.push("/login");
           }}
-        >
-          <EvilIcons name="chevron-left" color={"black"} size={70} />
-        </TouchableOpacity>
+          name="chevron-left"
+          color={"black"}
+          size={70}
+        />
       </View>
       <View>
         <Text style={style.Textobutao}>Redefinir senha</Text>

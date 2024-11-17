@@ -1,34 +1,42 @@
 import { router } from "expo-router";
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import { NextButton } from "../components/PlanPageWelcomeComponent/planPageWelcomeComponent";
 import { LogoWithoutName } from "../components/Svgs";
 import { CheckBox } from "@rneui/base";
-import { useState } from "react";
+import { UseFoods } from "@/hooks/useFoods";
+import { BuyListRepository } from "../repository/BuyListRepository";
+import { BuyListServices } from "../service/BuyListServices";
+import { useEffect, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import BuyList from "./buyList";
+import { BuyLists } from "../entity/BuyList";
+import { MarriedFoods } from "../data/Married/adultsFoodMarried";
 
 export default function PlanPageMarried() {
-  const [checkedItems, setCheckedItems] = useState({
-    agua: false,
-    cerveja: false,
-    refrigerante: false,
-    suco: false,
-    drinks: false,
-    arroz: false,
-    carnes: false,
-    saladas: false,
-    farofa: false,
-    peixes: false,
-    frango: false,
-    crustaceo: false,
-    colheres: false,
-    copos: false,
-    pratos: false,
-    faca: false,
-    guardanapo: false,
-    bolo: false,
-    sorvete: false,
-    mousses: false,
-    fracionados: false,
-  });
+  const { checkedItems, setCheckedItems } = UseFoods();
+  const buyListRespository = new BuyListRepository();
+  const buyListService = new BuyListServices(buyListRespository);
+  const [childs, setChilds] = useState(0);
+  const [adults, setAdults] = useState(0);
+  const [quantity, setQuantity] = useState(0);
+
+  useEffect(() => {
+    const fetchChilds = async () => {
+      const childs = await AsyncStorage.getItem("childs");
+      if (childs) {
+        setChilds(Number(childs));
+      }
+    };
+    fetchChilds();
+
+    const fetchAdults = async () => {
+      const adults = await AsyncStorage.getItem("adults");
+      if (adults) {
+        setAdults(Number(adults));
+      }
+    };
+    fetchAdults();
+  }, []);
 
   const toggleCheckbox = (item: keyof typeof checkedItems) => {
     setCheckedItems((prev) => ({
@@ -36,6 +44,43 @@ export default function PlanPageMarried() {
       [item]: !prev[item],
     }));
   };
+
+  const getCheckedItems = () => {
+    return Object.keys(checkedItems)
+      .filter((item) => checkedItems[item])
+      .map((item) => item);
+  };
+
+  const sendToDatabaseOneByOne = async () => {
+    const itemsToSend = getCheckedItems();
+    try {
+      for (const name of itemsToSend) {
+        for (let index = 0; index < MarriedFoods.length; index++) {
+          if (name === MarriedFoods[index].name) {
+            setQuantity(
+              MarriedFoods[index].quantity * adults +
+                MarriedFoods[index].quantity * childs
+            );
+          }
+        }
+
+        const buyList = new BuyLists({
+          name,
+          quantity: quantity.toString(),
+          status: "pending",
+          userID: "1",
+          id_events: "1",
+        });
+
+        await buyListService.create(buyList);
+      }
+    } catch (error) {
+      console.error("Erro ao enviar os itens:", error);
+    }
+  };
+
+  sendToDatabaseOneByOne();
+
   return (
     <>
       <View className="flex justify-center items-center">
@@ -181,9 +226,9 @@ export default function PlanPageMarried() {
               </View>
             </View>
           </View>
-          <View className="">
+          <View className="bottom-2">
             <Text style={styles.categorias}>Doces</Text>
-            <View className="flex flex-col">
+            <View className="flex flex-col  ">
               <CheckBox
                 title="Bolo"
                 checked={checkedItems.bolo}
@@ -212,6 +257,12 @@ export default function PlanPageMarried() {
                 onPress={() => toggleCheckbox("fracionados")}
               />
             </View>
+            <TouchableOpacity
+              style={styles.NextButton}
+              onPressIn={() => router.push("/planPageGuests")}
+            >
+              <Text style={styles.NextButtonText}>Próximo</Text>
+            </TouchableOpacity>
           </View>
         </View>
       </View>
@@ -227,6 +278,29 @@ const styles = StyleSheet.create({
     fontWeight: "900",
     fontSize: 24,
     marginLeft: 10,
+    letterSpacing: 1,
+  },
+
+  NextButton: {
+    justifyContent: "center",
+    width: 233,
+    height: 56,
+    position: "absolute",
+    marginTop: 20,
+    right: 65,
+    top: 160,
+    paddingVertical: 12,
+    backgroundColor: "black",
+    paddingHorizontal: 3,
+    borderRadius: 20,
+    marginBottom: 30,
+  },
+  NextButtonText: {
+    fontFamily: "Poppins",
+    color: "#ffffff",
+    textAlign: "center",
+    fontSize: 20,
+    fontWeight: "bold",
     letterSpacing: 1,
   },
 });
