@@ -22,6 +22,13 @@
       "when": 1729816029759,
       "tag": "0002_fearless_microchip",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1731863902389,
+      "tag": "0003_flippant_firebrand",
+      "breakpoints": true
     }
   ]
 }

@@ -66,8 +66,8 @@ export default function PlanPageFinish() {
     console.log(event);
     try {
       const response = await eventServices.create(event);
-      console.log(response);
-      router.push("/"); 
+      AsyncStorage.setItem("eventID", response.id);
+      router.push("/planPageMarried"); 
     } catch (error) {
       console.error("Erro ao criar o evento:", error);
     }
@@ -76,7 +76,8 @@ export default function PlanPageFinish() {
     createEvent(data);
   };
   
-  LocaleConfig.locales["pt"] = {
+  // biome-ignore lint/complexity/useLiteralKeys: <explanation>
+    LocaleConfig.locales["pt"] = {
     monthNames: [
       "Janeiro",
       "Fevereiro",

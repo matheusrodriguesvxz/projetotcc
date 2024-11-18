@@ -9,10 +9,6 @@ export class KittyServices extends KittyRepository {
 		this.kittyRepository = kittyRepository;
 	}
 	async create(kitty: Kitty): Promise<Kitty> {
-		const isExist = await this.kittyRepository.getById(kitty.id);
-		if (isExist) {
-			throw new Error("Kitty already exists");
-		}
 		return this.kittyRepository.create(kitty);
 	}
 	async update(kitty: Kitty, id: string): Promise<Kitty> {

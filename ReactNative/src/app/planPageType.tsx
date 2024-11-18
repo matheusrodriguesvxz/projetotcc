@@ -107,7 +107,7 @@ export default function planPageWelcome() {
               console.log(eventType);
               AsyncStorage.setItem("index", eventType);
 
-              router.push("/planPageMarried");
+              router.push("/planPageGuests");
             }}
           >
             <Text style={style.NextButtonText}>Próximo</Text>

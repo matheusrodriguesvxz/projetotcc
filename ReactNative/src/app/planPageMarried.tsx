@@ -1,6 +1,5 @@
 import { router } from "expo-router";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
-import { NextButton } from "../components/PlanPageWelcomeComponent/planPageWelcomeComponent";
 import { LogoWithoutName } from "../components/Svgs";
 import { CheckBox } from "@rneui/base";
 import { UseFoods } from "@/hooks/useFoods";
@@ -8,9 +7,9 @@ import { BuyListRepository } from "../repository/BuyListRepository";
 import { BuyListServices } from "../service/BuyListServices";
 import { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import BuyList from "./buyList";
 import { BuyLists } from "../entity/BuyList";
 import { MarriedFoods } from "../data/Married/adultsFoodMarried";
+import { ChildMarriedFood } from "../data/Married/childFoodMarried";
 
 export default function PlanPageMarried() {
   const { checkedItems, setCheckedItems } = UseFoods();
@@ -18,7 +17,8 @@ export default function PlanPageMarried() {
   const buyListService = new BuyListServices(buyListRespository);
   const [childs, setChilds] = useState(0);
   const [adults, setAdults] = useState(0);
-  const [quantity, setQuantity] = useState(0);
+  const [eventID, setEventID] = useState("");
+  const [userID, setUserID] = useState("");
 
   useEffect(() => {
     const fetchChilds = async () => {
@@ -36,6 +36,20 @@ export default function PlanPageMarried() {
       }
     };
     fetchAdults();
+
+    const fetchEventID = async () => {
+      const eventID = await AsyncStorage.getItem("eventID");
+      setEventID(eventID ?? "");
+    };
+
+    fetchEventID();
+
+    const fetchUserID = async () => {
+      const userID = await AsyncStorage.getItem("user");
+      setUserID(userID ?? "");
+    };
+
+    fetchUserID();
   }, []);
 
   const toggleCheckbox = (item: keyof typeof checkedItems) => {
@@ -53,33 +67,71 @@ export default function PlanPageMarried() {
 
   const sendToDatabaseOneByOne = async () => {
     const itemsToSend = getCheckedItems();
+    const categories = {
+      L: ["agua", "cerveja", "refrigerante", "suco", "drinks"],
+      KG: [
+        "arroz",
+        "carnes",
+        "saladas",
+        "farofa",
+        "peixes",
+        "frango",
+        "crustaceo",
+      ],
+      unidades: ["colheres", "copos", "pratos", "faca", "guardanapo"],
+      g: ["bolo", "sorvete", "mousses", "fracionados"],
+    };
+
     try {
+      const foodMap = MarriedFoods.reduce((map, food) => {
+        map[food.name.toLocaleLowerCase()] = food.quantity;
+        return map;
+      }, {});
+      const foodMapChilds = ChildMarriedFood.reduce((map, food) => {
+        map[food.name.toLocaleLowerCase()] = food.quantity;
+        return map;
+      }, {});
+
       for (const name of itemsToSend) {
-        for (let index = 0; index < MarriedFoods.length; index++) {
-          if (name === MarriedFoods[index].name) {
-            setQuantity(
-              MarriedFoods[index].quantity * adults +
-                MarriedFoods[index].quantity * childs
-            );
+        const quantityPerPersonAdults = foodMap[name.toLocaleLowerCase()] || 0;
+        const quantityPerPersonChilds =
+          foodMapChilds[name.toLocaleLowerCase()] || 0;
+        let totalForItemAdults = quantityPerPersonAdults * adults;
+        let totalForItemChilds = quantityPerPersonChilds * childs;
+        let totalForItem = totalForItemAdults + totalForItemChilds;
+        let unit = "";
+        if (categories.L.includes(name)) {
+          unit = "L";
+        } else if (categories.KG.includes(name)) {
+          unit = "KG";
+        } else if (categories.unidades.includes(name)) {
+          unit = "unidades";
+        } else if (categories.g.includes(name)) {
+          unit = "g";
+          if (totalForItem < 1) {
+            totalForItem *= 1000;
+            unit = "g";
+          } else if (totalForItem >= 1000) {
+            totalForItem /= 1000;
+            unit = "KG";
           }
         }
-
+        const quantityWithUnit = `${totalForItem.toFixed(2)}${unit}`;
         const buyList = new BuyLists({
-          name,
-          quantity: quantity.toString(),
+          name: name,
           status: "pending",
-          userID: "1",
-          id_events: "1",
+          userID: userID,
+          id_events: eventID,
+          quantity: quantityWithUnit,
         });
 
         await buyListService.create(buyList);
+        router.push("/(tabs)");
       }
     } catch (error) {
       console.error("Erro ao enviar os itens:", error);
     }
   };
-
-  sendToDatabaseOneByOne();
 
   return (
     <>
@@ -259,7 +311,13 @@ export default function PlanPageMarried() {
             </View>
             <TouchableOpacity
               style={styles.NextButton}
-              onPressIn={() => router.push("/planPageGuests")}
+              onPressIn={() => {
+                try {
+                  sendToDatabaseOneByOne();
+                } catch (error) {
+                  console.error("Erro ao enviar os itens:", error);
+                }
+              }}
             >
               <Text style={styles.NextButtonText}>Próximo</Text>
             </TouchableOpacity>

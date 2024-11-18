@@ -87,6 +87,27 @@ export const ResetInputs = forwardRef<TextInput, TextInputProps>(
     );
   }
 );
+export const UpdateInputs = forwardRef<TextInput, TextInputProps>(
+  ({ style, ...rest }, ref) => {
+    return (
+      <TextInput
+        {...rest}
+        placeholderTextColor="#909090"
+        className="mt-8 border-1 border-b-4 py-2 w-[315] border-purple-800"
+        style={{
+          fontFamily: "Poppins",
+          fontWeight: "bold",
+          color: "#000000",
+          letterSpacing: 0.5,
+          marginTop: 25,
+          fontSize: 16,
+          width: 230,
+          borderColor: "#760bFF",
+        }}
+      />
+    );
+  }
+);
 
 export function TitleRegister() {
   return (

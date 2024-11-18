@@ -91,10 +91,10 @@ async function seed() {
   await db.insert(buyList).values([
     {
       userID:"If01rBv6vraMm4XUH4lgQjIA3Rs2",
-
       id_events: resultIdEvents[0].id,
       name: 'Coca Cola Zero',
-      status: 'A comprar',
+      status: 'pending',
+      quantity: '10',
     },
   ])
 }

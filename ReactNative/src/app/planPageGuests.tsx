@@ -93,6 +93,8 @@ export default function PlanPageGuests() {
             onPress={() => {
               AsyncStorage.setItem("adults", adults.toString());
               AsyncStorage.setItem("childs", childs.toString());
+
+              console.log(adults, childs);
               router.push("/planPageAdress");
             }}
             style={style.NextButton}

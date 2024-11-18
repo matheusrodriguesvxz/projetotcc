@@ -1,10 +1,11 @@
 import type { BuyLists } from "../entity/BuyList";
-import type { BuyListRepository } from "../repository/BuyListRepository";
+import { BuyListRepository } from "../repository/BuyListRepository";
 
-export class BuyListServices implements BuyListRepository {
+export class BuyListServices extends BuyListRepository {
 	private buyListRepository: BuyListRepository;
 
 	constructor(buyListRepository: BuyListRepository) {
+		super();
 		this.buyListRepository = buyListRepository;
 	}
 
