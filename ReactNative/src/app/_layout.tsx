@@ -18,6 +18,7 @@ export default function RootLayout() {
         <Stack.Screen name="planPageGuests" options={{ headerShown: false }}/>
         <Stack.Screen name="planPageAdress" options={{ headerShown: false }}/>
         <Stack.Screen name="planPageFinish" options={{ headerShown: false }}/>
+        <Stack.Screen name="detailsEvent" options={{ headerShown: false }}/>
       </Stack>
     </>
   );

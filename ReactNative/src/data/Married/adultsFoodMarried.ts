@@ -23,4 +23,3 @@ export const MarriedFoods = [
 	{ name: "Guarnapos", quantity: 1 },
 ];
 
-
