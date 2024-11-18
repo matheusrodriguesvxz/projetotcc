@@ -24,7 +24,7 @@ export function ButaoLogin() {
 }
 export function ButaoRegistro() {
   return (
-    <TouchableOpacity  onPress={() => {router.push("/(tabs)/calendarPage")}} style={style.butaoRegistro}>
+    <TouchableOpacity  onPress={() => {router.push("/planPageBirthday")}} style={style.butaoRegistro}>
       <Text style={style.TextobutaoRegistro}>Registrar-Se</Text>
     </TouchableOpacity>
   );

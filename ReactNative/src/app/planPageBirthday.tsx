@@ -8,10 +8,10 @@ import { BuyListServices } from "../service/BuyListServices";
 import { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { BuyLists } from "../entity/BuyList";
-import { MarriedFoods } from "../data/Married/adultsFoodMarried";
-import { ChildMarriedFood } from "../data/Married/childFoodMarried";
+import { BirthdayFoods } from "../data/Birthday/adultsFoodBirthday"
+import { ChildBirthdayFood } from "../data/Birthday/childFoodBirthday";
 
-export default function PlanPageMarried() {
+export default function PlanPageBirthday() {
   const { checkedItems, setCheckedItems } = UseFoods();
   const buyListRespository = new BuyListRepository();
   const buyListService = new BuyListServices(buyListRespository);
@@ -70,25 +70,22 @@ export default function PlanPageMarried() {
     const categories = {
       L: ["agua", "cerveja", "refrigerante", "suco", "drinks"],
       KG: [
-        "arroz",
-        "bolo",
-        "carnes",
-        "saladas",
-        "farofa",
-        "peixes",
-        "frango",
-        "crustaceo",
+        "tortas",
+        "salgados",
+        "canapés",
+        "hotdog",
+        "pasteis",
       ],
-      unidades: ["colheres", "copos", "pratos", "faca", "guardanapo"],
-      g: ["sorvete", "mousses", "fracionados"],
+      unidades: ["colheres", "copos", "facas", "garfos", "guarnapos"],
+      g: ["bolo", "sorvete"],
     };
 
     try {
-      const foodMap = MarriedFoods.reduce((map, food) => {
+      const foodMap = BirthdayFoods.reduce((map, food) => {
         map[food.name.toLocaleLowerCase()] = food.quantity;
         return map;
       }, {});
-      const foodMapChilds = ChildMarriedFood.reduce((map, food) => {
+      const foodMapChilds = ChildBirthdayFood.reduce((map, food) => {
         map[food.name.toLocaleLowerCase()] = food.quantity;
         return map;
       }, {});
@@ -137,14 +134,13 @@ export default function PlanPageMarried() {
   return (
     <>
       <View className="flex justify-center items-center">
-        <Image source={require("../../assets/image.png")} />
+        <Image source={require("../../assets/Birthday_img.png")} />
         <LogoWithoutName />
       </View>
       <View className="w-full rounded-[45] bg-white h-[800] items-center top-72 absolute">
         <View className="flex flex-row  mt-8">
           <View className="w-1/2 justify-left flex items-center">
             <Text style={styles.categorias}>Bebidas</Text>
-
             <View className="flex flex-col">
               <CheckBox
                 title="Agua"
@@ -181,107 +177,85 @@ export default function PlanPageMarried() {
                 onPress={() => toggleCheckbox("drinks")}
               />
             </View>
-          </View>
-          <View className="">
+
             <Text style={styles.categorias}>Comidas</Text>
             <View className="flex flex-col">
               <CheckBox
-                title="Arroz"
-                checked={checkedItems.arroz}
+                title="Tortas"
+                checked={checkedItems.tortas}
                 checkedColor="#760FFF"
-                onPress={() => toggleCheckbox("arroz")}
+                onPress={() => toggleCheckbox("tortas")}
               />
               <CheckBox
                 className="bottom-6"
-                title="Carnes"
-                checked={checkedItems.carnes}
+                title="Salgados"
+                checked={checkedItems.salgados}
                 checkedColor="#760FFF"
-                onPress={() => toggleCheckbox("carnes")}
+                onPress={() => toggleCheckbox("salgados")}
               />
               <CheckBox
                 className="bottom-12"
-                title="Saladas"
-                checked={checkedItems.saladas}
+                title="Canapés"
+                checked={checkedItems.canapes}
                 checkedColor="#760FFF"
-                onPress={() => toggleCheckbox("saladas")}
+                onPress={() => toggleCheckbox("canapes")}
               />
               <CheckBox
                 className="bottom-[65]"
-                title="Farofa"
-                checked={checkedItems.farofa}
+                title="Hotdog"
+                checked={checkedItems.hotdog}
                 checkedColor="#760FFF"
-                onPress={() => toggleCheckbox("farofa")}
+                onPress={() => toggleCheckbox("hotdog")}
               />
               <CheckBox
                 className="bottom-24"
-                title="Peixes"
-                checked={checkedItems.peixes}
+                title="Pasteis"
+                checked={checkedItems.pasteis}
                 checkedColor="#760FFF"
-                onPress={() => toggleCheckbox("peixes")}
-              />
-              <CheckBox
-                className="bottom-28"
-                title="Frango"
-                checked={checkedItems.frango}
-                checkedColor="#760FFF"
-                onPress={() => toggleCheckbox("frango")}
-              />
-              <CheckBox
-                className="bottom-32"
-                title="Crustaceo"
-                checked={checkedItems.crustaceo}
-                checkedColor="#760FFF"
-                onPress={() => toggleCheckbox("crustaceo")}
+                onPress={() => toggleCheckbox("pasteis")}
               />
             </View>
-          </View>
-        </View>
-        <View className="flex flex-row bottom-32 ">
-          <View className="w-[210] left-6 justify-left flex items-center">
-            <View className="bottom-24">
-              <Text style={styles.categorias}>Descartavel</Text>
 
-              <View className="flex flex-col">
-                <CheckBox
-                  title="Colheres"
-                  checked={checkedItems.colheres}
-                  checkedColor="#760FFF"
-                  onPress={() => toggleCheckbox("colheres")}
-                />
-                <CheckBox
-                  className="bottom-6"
-                  title="Copos"
-                  checked={checkedItems.copos}
-                  checkedColor="#760FFF"
-                  onPress={() => toggleCheckbox("copos")}
-                />
-                <CheckBox
-                  className="bottom-12"
-                  title="Pratos"
-                  checked={checkedItems.pratos}
-                  checkedColor="#760FFF"
-                  onPress={() => toggleCheckbox("pratos")}
-                />
-                <CheckBox
-                  className="bottom-[65]"
-                  title="Faca"
-                  checked={checkedItems.faca}
-                  checkedColor="#760FFF"
-                  onPress={() => toggleCheckbox("faca")}
-                />
-                <CheckBox
-                  className="bottom-24"
-                  title="Guardanapo"
-                  checked={checkedItems.guardanapo}
-                  checkedColor="#760FFF"
-                  onPress={() => toggleCheckbox("guardanapo")}
-                />
-              </View>
+            <Text style={styles.categorias}>Descartáveis</Text>
+            <View className="flex flex-col">
+              <CheckBox
+                title="Colheres"
+                checked={checkedItems.colheres}
+                checkedColor="#760FFF"
+                onPress={() => toggleCheckbox("colheres")}
+              />
+              <CheckBox
+                className="bottom-6"
+                title="Copos"
+                checked={checkedItems.copos}
+                checkedColor="#760FFF"
+                onPress={() => toggleCheckbox("copos")}
+              />
+              <CheckBox
+                className="bottom-12"
+                title="Facas"
+                checked={checkedItems.facas}
+                checkedColor="#760FFF"
+                onPress={() => toggleCheckbox("facas")}
+              />
+              <CheckBox
+                className="bottom-[65]"
+                title="Garfos"
+                checked={checkedItems.garfos}
+                checkedColor="#760FFF"
+                onPress={() => toggleCheckbox("garfos")}
+              />
+              <CheckBox
+                className="bottom-24"
+                title="Guarnapos"
+                checked={checkedItems.guardanapos}
+                checkedColor="#760FFF"
+                onPress={() => toggleCheckbox("guardanapos")}
+              />
             </View>
-          </View>
-          <View className="bottom-2">
+
             <Text style={styles.categorias}>Doces</Text>
-            <View className="flex flex-col  ">
+            <View className="flex flex-col">
               <CheckBox
                 title="Bolo"
                 checked={checkedItems.bolo}
@@ -297,17 +271,31 @@ export default function PlanPageMarried() {
               />
               <CheckBox
                 className="bottom-12"
-                title="Mousses"
-                checked={checkedItems.mousses}
+                title="Brigadeiros"
+                checked={checkedItems.brigadeiros}
                 checkedColor="#760FFF"
-                onPress={() => toggleCheckbox("mousses")}
+                onPress={() => toggleCheckbox("brigadeiros")}
               />
               <CheckBox
                 className="bottom-[65]"
-                title="Fracionados"
-                checked={checkedItems.fracionados}
+                title="CupCakes"
+                checked={checkedItems.cupcakes}
                 checkedColor="#760FFF"
-                onPress={() => toggleCheckbox("fracionados")}
+                onPress={() => toggleCheckbox("cupcakes")}
+              />
+              <CheckBox
+                className="bottom-24"
+                title="Quindim"
+                checked={checkedItems.quindim}
+                checkedColor="#760FFF"
+                onPress={() => toggleCheckbox("quindim")}
+              />
+              <CheckBox
+                className="bottom-28"
+                title="Gelatina"
+                checked={checkedItems.gelatina}
+                checkedColor="#760FFF"
+                onPress={() => toggleCheckbox("gelatina")}
               />
             </View>
             <TouchableOpacity
@@ -345,8 +333,7 @@ const styles = StyleSheet.create({
     width: 233,
     height: 56,
     position: "absolute",
-    marginTop: 20,
-    right: 65,
+    marginTop: 300,
     top: 160,
     paddingVertical: 12,
     backgroundColor: "black",
@@ -362,4 +349,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     letterSpacing: 1,
   },
+  CheckBox: {
+    width: 5,
+  }
 });
