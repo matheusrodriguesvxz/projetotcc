@@ -1,8 +1,6 @@
-
 <template>
-<footer>
- 
-</footer>
+        <footer>
+        </footer>
 </template>
 
 <script>
@@ -13,10 +11,16 @@ export default {
 </script>
 
 <style scoped>
-footer{
-    background-image: url("https://t3.ftcdn.net/jpg/03/58/82/46/360_F_358824602_iAyjwiB8xFIuZZOlzJhXFGvpkuuRDiVl.jpg");
-    /* background-repeat: no-repeat; */
+footer {
+
+    background-image: url(../assets/PurpleWallpaper.png);
     padding-top: 20px;
     padding-bottom: 20px;
+}
+
+.krai {
+    display: flex;
+    justify-content: end;
+    align-items: end;
 }
 </style>
