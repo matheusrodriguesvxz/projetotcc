@@ -9,15 +9,20 @@
   </div>
   <div>
     <input type="radio" id="nao" name="interesse" value="nao" />
-    <label for="music"> Não conseguirei ir </label>
+    <label for="music"> Não vou conseguir ir </label>
   </div>
-  <button><h5>Enviar</h5></button>
+  <button @click="teste"><h5>Enviar</h5></button>
 </fieldset>
 </template>
 
 <script>
 export default {
-    name: 'ContentPage'
+    name: 'ContentPage',
+    methods:{
+      teste(){
+        window.location.href = "/quepena";
+      }
+    }
 }
 </script>
 
@@ -25,9 +30,27 @@ export default {
 legend{
     margin: auto;
 }
-button{
-    margin-top: 10px;
-    padding: 5px;
+h4{
+  font-family: Poppins;
 }
-
+button{
+    margin-top: 15px;
+    padding: 5px;
+    width: 200px;
+    height: 40px;
+    margin-left: 20px;
+    margin-bottom: 10opx;
+    background-color: #48138ed4;
+    border-radius: 30px;
+    color: white;
+    font-family: "Poppins";
+    font-weight: 700;
+    font-size: 15px;
+}
+label{
+  font-family: "Poppins";
+}
+input{
+  margin-top: 10px;
+}
 </style>

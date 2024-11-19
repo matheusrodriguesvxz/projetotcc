@@ -16,6 +16,7 @@ export default {
 
 <style>
 p{
+    font-family: poppins;
     margin-top: 40px;
 }
 .form{

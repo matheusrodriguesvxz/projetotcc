@@ -1,13 +1,13 @@
 <template>
     <img src="@/assets/logo.svg">
-    <h2>Obrigada pela confirmação.</h2>
-    <h4>Te espero lá!!!</h4>
+    <h2>Ah, que pena!</h2>
+    <h4>Agradecemos pela confirmação.</h4>
     <button>Concluído</button>
 </template>
 
 <script>
 export default {
-    name: "ConfirmadoComp"
+    name: "QuePenaComp"
 }
 </script>
 

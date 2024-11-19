@@ -1,20 +1,13 @@
 <template>
-<!-- <NavPage></NavPage>
-<ContentPage></ContentPage>
-<FooterPage></FooterPage> -->
-<ConfirmadoPage></ConfirmadoPage>
+<router-view></router-view>
 </template>
 
 <script>
-// import ContentPage from './components/ContentComp.vue';
-// import FooterPage from './components/FooterComp.vue';
-// import NavPage from './components/NavComp.vue';
-import ConfirmadoPage from './components/Pages/ConfirmadoPage.vue';
+
 
 export default {
   name: 'App',
   components: {
-    ConfirmadoPage
   }
 }
 </script>

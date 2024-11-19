@@ -2,7 +2,7 @@
 <header>
     <nav>
         <img src="@/assets/logo.svg">
-        <h2>EventEasy</h2>
+        <h1>EventEasy</h1>
     </nav>
 </header>
 </template>
@@ -22,11 +22,12 @@ header{
     padding: 20px;
     
 }
-h2{
+h1{
+    font-family: Poppins;
     color: white;
     justify-content: center;
     margin: auto;
-    margin-bottom: 30px;
+    font-size: 30px;
 }
 nav{
     display: flex;
@@ -34,7 +35,9 @@ nav{
 
 }
 img{
-    width: 5%;  
-    position: fixed;
+    display: flex;
+    justify-content: flex-start;
+    width: 70px;
+    position: relative;
 }
 </style>

@@ -1,8 +1,5 @@
 <template>
-<div class="teste">
     <ConfirmadoComp></ConfirmadoComp>
-</div>
-
 </template>
 
 <script>
@@ -18,8 +15,8 @@ export default {
 <style>
 
 body{
-    background-image: url(../../assets/PurpleBackground.png);
-    background-repeat: no-repeat    ;
+    background-color: rgba(85, 9, 156, 0.914);
+    background-repeat: no-repeat;
 
 }
 .teste{
