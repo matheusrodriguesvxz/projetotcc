@@ -116,9 +116,7 @@ export default function LoginPage() {
       </View>
       <View className="h-[50%] w-full items-center mt-[-60]">
         <ButaoLogar onPress={handleSubmit(onSubmit)} />
-        <Pressable onPress={() => {router.push("/checkPasswordPage")}}>
           <ForgotPassword/>
-        </Pressable>
         <View className="justify-center items-center flex ">
           <Pressable className=" flex-row gap-20 mt-6 items-center">
             <View>
