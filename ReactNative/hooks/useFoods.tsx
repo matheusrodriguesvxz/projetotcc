@@ -15,6 +15,9 @@ export const UseFoods = () => {
     frango: false,
     crustaceo: false,
     colheres: false,
+    facas:false,
+    garfos:false,
+    guardanapos:false,
     copos: false,
     pratos: false,
     faca: false,
@@ -23,6 +26,15 @@ export const UseFoods = () => {
     sorvete: false,
     mousses: false,
     fracionados: false,
+    tortas: false,
+    salgados: false,
+    canapes: false,
+    hotdog: false,
+    pasteis: false,
+    brigadeiros: false,
+    cupcakes: false,
+    quindim: false,
+    gelatina: false,
   });
 
 
