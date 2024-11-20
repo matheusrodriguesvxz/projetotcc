@@ -22,10 +22,6 @@ export class EventsServices extends EventsRepository {
 	}
 
 	async delete(id: string): Promise<Events | true> {
-		const existingEvent = await this.eventsRepository.getById(id);
-		if (!existingEvent) {
-			throw new Error("Event does not exist");
-		}
 		return this.eventsRepository.delete(id);
 	}
 

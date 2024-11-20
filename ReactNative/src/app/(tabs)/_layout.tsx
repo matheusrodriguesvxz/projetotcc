@@ -2,6 +2,7 @@ import { CreateEventIcon } from "@/src/components/Svgs";
 import { Icon } from "@rneui/base";
 import { Tabs } from "expo-router";
 import { Image } from "react-native";
+import React from "react";
 
 export default function TabLayout() {
   return (

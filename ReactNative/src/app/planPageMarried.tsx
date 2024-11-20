@@ -73,14 +73,14 @@ export default function PlanPageMarried() {
         "arroz",
         "bolo",
         "carnes",
-        "saladas",
         "farofa",
         "peixes",
         "frango",
         "crustaceo",
+        "bolo",
       ],
       unidades: ["colheres", "copos", "pratos", "faca", "guardanapo"],
-      g: ["sorvete", "mousses", "fracionados"],
+      g: [ "sorvete", "saladas", "mousses", "fracionados"],
     };
 
     try {

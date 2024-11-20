@@ -1,4 +1,4 @@
-import { StyleSheet, View, Image } from "react-native";
+import { StyleSheet, View, Image, Pressable } from "react-native";
 import { SafeAreaView } from "react-native";
 import { Calendar, LocaleConfig } from "react-native-calendars";
 import type React from "react";
@@ -10,8 +10,9 @@ import { EventsRepository } from "@/src/repository/EventsRepository";
 import { EventsServices } from "@/src/service/EventsServices";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ScrollView } from "react-native";
+import { router } from "expo-router";
 
-type EventType = {
+export type EventType = {
   id: string;
   name: string;
   description: string;
@@ -83,6 +84,7 @@ export default function CalendarPage() {
     fetchUserID();
   }, []);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     const fetchEvents = async () => {
       if (userIDs) {
@@ -124,7 +126,7 @@ export default function CalendarPage() {
   const markedDates = events.reduce((acc, event) => {
     const startDate = new Date(event.initial_date);
     const endDate = new Date(event.final_date);
-    
+
     let currentDate = startDate;
     while (currentDate <= endDate) {
       const formattedDate = currentDate.toISOString().split("T")[0];
@@ -135,6 +137,18 @@ export default function CalendarPage() {
     return acc;
   }, {} as { [key: string]: { marked: boolean; dotColor: string } });
 
+  const onPressEvent = async (evento: EventType) => {
+    try {
+      if (!evento) {
+        console.error("Evento não encontrado");
+        return;
+      }
+      await AsyncStorage.setItem("selectedEvent", JSON.stringify(evento));
+      router.push("/detailsEvent");
+    } catch (error) {
+      console.error("Erro ao armazenar o evento:", error);
+    }
+  };
   const getImageSource = (eventType: string) => {
     switch (eventType) {
       case "Casamento":
@@ -147,7 +161,6 @@ export default function CalendarPage() {
         return require("../../../assets/Group 5.png");
     }
   };
-
   const onDayPress = (day: { dateString: string }) => {
     setSelected(day.dateString);
   };
@@ -254,7 +267,9 @@ export default function CalendarPage() {
                       </Text>
                     </View>
                     <View className="mr-4">
-                      <EditButton />
+                      <Pressable onPressIn={() => onPressEvent(evento)}>
+                        <EditButton />
+                      </Pressable>
                     </View>
                   </View>
                 </View>
