@@ -1,14 +1,14 @@
 import { createRouter, createWebHistory } from "vue-router";
-import ConvitePage from "./components/Pages/ConvitePage.vue";
+import ConvitePartyPage from "./components/Pages/ConvitePartyPage.vue";
 import DadosPage from "./components/Pages/DadosPage.vue";
 import ConfirmadoPage from "./components/Pages/ConfirmadoPage.vue";
 import QuePenaPage from "./components/Pages/QuePenaPage.vue";
 
 const routes = [
     {
-        path: "/convite",
+        path: "/",
         name: "Convite",
-        component: ConvitePage
+        component: ConvitePartyPage
     },
     {
         path: "/dados",
