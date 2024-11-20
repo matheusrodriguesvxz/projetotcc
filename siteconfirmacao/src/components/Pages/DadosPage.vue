@@ -1,7 +1,7 @@
 <template>
-<NavComp></NavComp>
-<DadosComp></DadosComp>
-<FooterComp></FooterComp>
+    <NavComp></NavComp>
+    <DadosComp></DadosComp>
+    <FooterComp></FooterComp>
 </template>
 
 <script>
@@ -17,6 +17,4 @@ export default {
 }
 </script>
 
-<style>
-
-</style>
+<style></style>

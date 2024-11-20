@@ -6,24 +6,24 @@ import QuePenaPage from "./components/Pages/QuePenaPage.vue";
 
 const routes = [
     {
-        path: "/",
+        path: "/convite",
         name: "Convite",
-        components: ConvitePage
+        component: ConvitePage
     },
     {
         path: "/dados",
         name: "Dados",
-        components: DadosPage
+        component: DadosPage
     },
     {
         path: "/confirmado",
         name: "Conf",
-        components: ConfirmadoPage
+        component: ConfirmadoPage
     },
     {
         path: "/quepena",
         name: "Pena",
-        components: QuePenaPage
+        component: QuePenaPage
     }
 ]
 
