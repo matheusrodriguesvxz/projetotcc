@@ -1,32 +1,29 @@
-export const ChildMarriedDrink = [
-	{ name: "Agua", quantity: 0.2 },
-	{ name: "Cerveja", quantity: 0.0 },
-	{ name: "Refrigerante", quantity: 0.3 },
-	{ name: "Suco", quantity: 0.3 },
-	{ name: "Drinks", quantity: 0.0 },
-];
-
-export const ChildMarriedCandy = [
-	{ name: "Bolo", quantity: 0.1 },
-	{ name: "Sorvete", quantity: 0.2 },
-	{ name: "Mousses", quantity: 0.15 },
-	{ name: "Docinhos", quantity: 6 },
-];
-
-export const ChildMarriedFood = [
-	{ name: "Arroz", quantity: 0.15 },
-	{ name: "Carne", quantity: 0.1 },
-	{ name: "Massas", quantity: 0.1 },
-	{ name: "Salada", quantity: 0.1 },
-	{ name: "Peixe", quantity: 0.1 },
-	{ name: "Farofa", quantity: 0.1 },
-	{ name: "Frango", quantity: 0.15 },
-	{ name: "Crustaceo", quantity: 0.11 },
-];
-export const ChildMarriedDisposable = [
-	{ name: "Colheres", quantity: 2 },
-	{ name: "Copos", quantity: 2 },
-	{ name: "Facas", quantity: 2 },
-	{ name: "Garfos", quantity: 2 },
-	{ name: "Guarnapos", quantity: 1 },
+export const ChildPartyFood = [
+	{ name: "Agua", quantity: 0.3 }, 
+	{ name: "Cerveja", quantity: 0.0 }, 
+	{ name: "Refrigerante", quantity: 0.2 }, 
+	{ name: "Suco", quantity: 0.4 }, 
+	{ name: "Drinks", quantity: 0.0 }, 
+	{ name: "Bolo", quantity: 0.1 }, 
+	{ name: "Sorvete", quantity: 0.15 }, 
+	{ name: "Brigadeiros", quantity: 4 }, 
+	{ name: "CupCakes", quantity: 2 }, 
+	{ name: "Quindim", quantity: 1 }, 
+	{ name: "Gelatina", quantity: 0.15 }, 
+	{ name: "Tortas", quantity: 1 }, 
+	{ name: "Salgados", quantity: 5 }, 
+	{ name: "Canapés", quantity: 2 }, 
+	{ name: "Hotdog", quantity: 1 }, 
+	{ name: "Pasteis", quantity: 1 }, 
+	{ name: "Arroz", quantity: 0.1 }, 
+	{ name: "Carnes", quantity: 0.15 }, 
+	{ name: "Saladas", quantity: 0.1 }, 
+	{ name: "Farofa", quantity: 0.05 }, 
+	{ name: "Peixes", quantity: 0.1 }, 
+	{ name: "Frango", quantity: 0.15 }, 
+	{ name: "Colheres", quantity: 1 }, 
+	{ name: "Copos", quantity: 1 }, 
+	{ name: "Facas", quantity: 1 }, 
+	{ name: "Garfos", quantity: 1 }, 
+	{ name: "Guardanapos", quantity: 2 }, 
 ];

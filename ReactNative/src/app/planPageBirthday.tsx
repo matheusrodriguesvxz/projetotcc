@@ -68,17 +68,24 @@ export default function PlanPageBirthday() {
   const sendToDatabaseOneByOne = async () => {
     const itemsToSend = getCheckedItems();
     const categories = {
-      L: ["agua", "cerveja", "refrigerante", "suco", "drinks"],
-      KG: [
-        "tortas",
-        "salgados",
-        "canapés",
-        "hotdog",
-        "pasteis",
+      L: ["Agua", "Cerveja", "Refrigerante", "Suco", "Drinks"],
+      KG: ["Bolo", "Gelatina"],
+      unidades: [
+          "Colheres",
+          "Copos",
+          "Facas",
+          "Garfos",
+          "Guarnapos",
+          "Brigadeiros",
+          "CupCakes",
+          "Quindim",
+          "Tortas",
+          "Hotdog",
+          "Pasteis",
       ],
-      unidades: ["colheres", "copos", "facas", "garfos", "guarnapos"],
-      g: ["bolo", "sorvete"],
-    };
+      g: ["Sorvete", "Salgados", "Canapés"],
+  };
+  
 
     try {
       const foodMap = BirthdayFoods.reduce((map, food) => {
@@ -135,12 +142,13 @@ export default function PlanPageBirthday() {
     <>
       <View className="flex justify-center items-center">
         <Image source={require("../../assets/Birthday_img.png")} />
-        <LogoWithoutName />
+        <LogoWithoutName/>
       </View>
       <View className="w-full rounded-[45] bg-white h-[800] items-center top-72 absolute">
         <View className="flex flex-row  mt-8">
           <View className="w-1/2 justify-left flex items-center">
             <Text style={styles.categorias}>Bebidas</Text>
+
             <View className="flex flex-col">
               <CheckBox
                 title="Agua"
@@ -177,7 +185,8 @@ export default function PlanPageBirthday() {
                 onPress={() => toggleCheckbox("drinks")}
               />
             </View>
-
+          </View>
+          <View className="">
             <Text style={styles.categorias}>Comidas</Text>
             <View className="flex flex-col">
               <CheckBox
@@ -195,7 +204,7 @@ export default function PlanPageBirthday() {
               />
               <CheckBox
                 className="bottom-12"
-                title="Canapés"
+                title="Canapes"
                 checked={checkedItems.canapes}
                 checkedColor="#760FFF"
                 onPress={() => toggleCheckbox("canapes")}
@@ -215,45 +224,51 @@ export default function PlanPageBirthday() {
                 onPress={() => toggleCheckbox("pasteis")}
               />
             </View>
-
-            <Text style={styles.categorias}>Descartáveis</Text>
-            <View className="flex flex-col">
-              <CheckBox
-                title="Colheres"
-                checked={checkedItems.colheres}
-                checkedColor="#760FFF"
-                onPress={() => toggleCheckbox("colheres")}
-              />
-              <CheckBox
-                className="bottom-6"
-                title="Copos"
-                checked={checkedItems.copos}
-                checkedColor="#760FFF"
-                onPress={() => toggleCheckbox("copos")}
-              />
-              <CheckBox
-                className="bottom-12"
-                title="Facas"
-                checked={checkedItems.facas}
-                checkedColor="#760FFF"
-                onPress={() => toggleCheckbox("facas")}
-              />
-              <CheckBox
-                className="bottom-[65]"
-                title="Garfos"
-                checked={checkedItems.garfos}
-                checkedColor="#760FFF"
-                onPress={() => toggleCheckbox("garfos")}
-              />
-              <CheckBox
-                className="bottom-24"
-                title="Guarnapos"
-                checked={checkedItems.guardanapos}
-                checkedColor="#760FFF"
-                onPress={() => toggleCheckbox("guardanapos")}
-              />
+          </View>
+        </View>
+        <View className="flex flex-row bottom-32 ">
+          <View className="w-[210] left-6 justify-left flex items-center">
+            <View className="top-8">
+              <Text style={styles.categorias}>Descartavel</Text>
+              <View className="flex flex-col">
+                <CheckBox
+                  title="Colheres"
+                  checked={checkedItems.colheres}
+                  checkedColor="#760FFF"
+                  onPress={() => toggleCheckbox("colheres")}
+                />
+                <CheckBox
+                  className="bottom-6"
+                  title="Copos"
+                  checked={checkedItems.copos}
+                  checkedColor="#760FFF"
+                  onPress={() => toggleCheckbox("copos")}
+                />
+                <CheckBox
+                  className="bottom-12"
+                  title="Pratos"
+                  checked={checkedItems.pratos}
+                  checkedColor="#760FFF"
+                  onPress={() => toggleCheckbox("pratos")}
+                />
+                <CheckBox
+                  className="bottom-[65]"
+                  title="Faca"
+                  checked={checkedItems.faca}
+                  checkedColor="#760FFF"
+                  onPress={() => toggleCheckbox("faca")}
+                />
+                <CheckBox
+                  className="bottom-24"
+                  title="Guardanapo"
+                  checked={checkedItems.guardanapo}
+                  checkedColor="#760FFF"
+                  onPress={() => toggleCheckbox("guardanapo")}
+                />
+              </View>
             </View>
-
+          </View>
+          <View className="top-8">
             <Text style={styles.categorias}>Doces</Text>
             <View className="flex flex-col">
               <CheckBox
@@ -278,7 +293,7 @@ export default function PlanPageBirthday() {
               />
               <CheckBox
                 className="bottom-[65]"
-                title="CupCakes"
+                title="Cupcakes"
                 checked={checkedItems.cupcakes}
                 checkedColor="#760FFF"
                 onPress={() => toggleCheckbox("cupcakes")}
@@ -333,7 +348,8 @@ const styles = StyleSheet.create({
     width: 233,
     height: 56,
     position: "absolute",
-    marginTop: 300,
+    marginTop: 90,
+    right: 65,
     top: 160,
     paddingVertical: 12,
     backgroundColor: "black",
@@ -349,7 +365,4 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     letterSpacing: 1,
   },
-  CheckBox: {
-    width: 5,
-  }
 });
