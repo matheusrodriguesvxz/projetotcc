@@ -8,10 +8,10 @@ import { BuyListServices } from "../service/BuyListServices";
 import { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { BuyLists } from "../entity/BuyList";
-import { MarriedFoods } from "../data/Married/adultsFoodMarried";
-import { ChildMarriedFood } from "../data/Married/childFoodMarried";
+import { BirthdayFoods } from "../data/Birthday/adultsFoodBirthday"
+import { ChildBirthdayFood } from "../data/Birthday/childFoodBirthday";
 
-export default function PlanPageMarried() {
+export default function PlanPageBirthday() {
   const { checkedItems, setCheckedItems } = UseFoods();
   const buyListRespository = new BuyListRepository();
   const buyListService = new BuyListServices(buyListRespository);
@@ -68,27 +68,31 @@ export default function PlanPageMarried() {
   const sendToDatabaseOneByOne = async () => {
     const itemsToSend = getCheckedItems();
     const categories = {
-      L: ["agua", "cerveja", "refrigerante", "suco", "drinks"],
-      KG: [
-        "arroz",
-        "bolo",
-        "carnes",
-        "farofa",
-        "peixes",
-        "frango",
-        "crustaceo",
-        "bolo",
+      L: ["Agua", "Cerveja", "Refrigerante", "Suco", "Drinks"],
+      KG: ["Bolo", "Gelatina"],
+      unidades: [
+          "Colheres",
+          "Copos",
+          "Facas",
+          "Garfos",
+          "Guarnapos",
+          "Brigadeiros",
+          "CupCakes",
+          "Quindim",
+          "Tortas",
+          "Hotdog",
+          "Pasteis",
       ],
-      unidades: ["colheres", "copos", "pratos", "faca", "guardanapo"],
-      g: [ "sorvete", "saladas", "mousses", "fracionados"],
-    };
+      g: ["Sorvete", "Salgados", "Canapés"],
+  };
+  
 
     try {
-      const foodMap = MarriedFoods.reduce((map, food) => {
+      const foodMap = BirthdayFoods.reduce((map, food) => {
         map[food.name.toLocaleLowerCase()] = food.quantity;
         return map;
       }, {});
-      const foodMapChilds = ChildMarriedFood.reduce((map, food) => {
+      const foodMapChilds = ChildBirthdayFood.reduce((map, food) => {
         map[food.name.toLocaleLowerCase()] = food.quantity;
         return map;
       }, {});
@@ -137,8 +141,8 @@ export default function PlanPageMarried() {
   return (
     <>
       <View className="flex justify-center items-center">
-        <Image source={require("../../assets/image.png")} />
-        <LogoWithoutName />
+        <Image source={require("../../assets/Birthday_img.png")} />
+        <LogoWithoutName/>
       </View>
       <View className="w-full rounded-[45] bg-white h-[800] items-center top-72 absolute">
         <View className="flex flex-row  mt-8">
@@ -186,61 +190,46 @@ export default function PlanPageMarried() {
             <Text style={styles.categorias}>Comidas</Text>
             <View className="flex flex-col">
               <CheckBox
-                title="Arroz"
-                checked={checkedItems.arroz}
+                title="Tortas"
+                checked={checkedItems.tortas}
                 checkedColor="#760FFF"
-                onPress={() => toggleCheckbox("arroz")}
+                onPress={() => toggleCheckbox("tortas")}
               />
               <CheckBox
                 className="bottom-6"
-                title="Carnes"
-                checked={checkedItems.carnes}
+                title="Salgados"
+                checked={checkedItems.salgados}
                 checkedColor="#760FFF"
-                onPress={() => toggleCheckbox("carnes")}
+                onPress={() => toggleCheckbox("salgados")}
               />
               <CheckBox
                 className="bottom-12"
-                title="Saladas"
-                checked={checkedItems.saladas}
+                title="Canapes"
+                checked={checkedItems.canapes}
                 checkedColor="#760FFF"
-                onPress={() => toggleCheckbox("saladas")}
+                onPress={() => toggleCheckbox("canapes")}
               />
               <CheckBox
                 className="bottom-[65]"
-                title="Farofa"
-                checked={checkedItems.farofa}
+                title="Hotdog"
+                checked={checkedItems.hotdog}
                 checkedColor="#760FFF"
-                onPress={() => toggleCheckbox("farofa")}
+                onPress={() => toggleCheckbox("hotdog")}
               />
               <CheckBox
                 className="bottom-24"
-                title="Peixes"
-                checked={checkedItems.peixes}
+                title="Pasteis"
+                checked={checkedItems.pasteis}
                 checkedColor="#760FFF"
-                onPress={() => toggleCheckbox("peixes")}
-              />
-              <CheckBox
-                className="bottom-28"
-                title="Frango"
-                checked={checkedItems.frango}
-                checkedColor="#760FFF"
-                onPress={() => toggleCheckbox("frango")}
-              />
-              <CheckBox
-                className="bottom-32"
-                title="Crustaceo"
-                checked={checkedItems.crustaceo}
-                checkedColor="#760FFF"
-                onPress={() => toggleCheckbox("crustaceo")}
+                onPress={() => toggleCheckbox("pasteis")}
               />
             </View>
           </View>
         </View>
         <View className="flex flex-row bottom-32 ">
           <View className="w-[210] left-6 justify-left flex items-center">
-            <View className="bottom-24">
+            <View className="top-8">
               <Text style={styles.categorias}>Descartavel</Text>
-
               <View className="flex flex-col">
                 <CheckBox
                   title="Colheres"
@@ -279,9 +268,9 @@ export default function PlanPageMarried() {
               </View>
             </View>
           </View>
-          <View className="bottom-2">
+          <View className="top-8">
             <Text style={styles.categorias}>Doces</Text>
-            <View className="flex flex-col  ">
+            <View className="flex flex-col">
               <CheckBox
                 title="Bolo"
                 checked={checkedItems.bolo}
@@ -297,17 +286,31 @@ export default function PlanPageMarried() {
               />
               <CheckBox
                 className="bottom-12"
-                title="Mousses"
-                checked={checkedItems.mousses}
+                title="Brigadeiros"
+                checked={checkedItems.brigadeiros}
                 checkedColor="#760FFF"
-                onPress={() => toggleCheckbox("mousses")}
+                onPress={() => toggleCheckbox("brigadeiros")}
               />
               <CheckBox
                 className="bottom-[65]"
-                title="Fracionados"
-                checked={checkedItems.fracionados}
+                title="Cupcakes"
+                checked={checkedItems.cupcakes}
                 checkedColor="#760FFF"
-                onPress={() => toggleCheckbox("fracionados")}
+                onPress={() => toggleCheckbox("cupcakes")}
+              />
+              <CheckBox
+                className="bottom-24"
+                title="Quindim"
+                checked={checkedItems.quindim}
+                checkedColor="#760FFF"
+                onPress={() => toggleCheckbox("quindim")}
+              />
+              <CheckBox
+                className="bottom-28"
+                title="Gelatina"
+                checked={checkedItems.gelatina}
+                checkedColor="#760FFF"
+                onPress={() => toggleCheckbox("gelatina")}
               />
             </View>
             <TouchableOpacity
@@ -345,7 +348,7 @@ const styles = StyleSheet.create({
     width: 233,
     height: 56,
     position: "absolute",
-    marginTop: 20,
+    marginTop: 90,
     right: 65,
     top: 160,
     paddingVertical: 12,
