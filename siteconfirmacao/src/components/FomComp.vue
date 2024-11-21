@@ -1,71 +1,186 @@
 <template>
-<form v-for="(form, index) in lista" :key="index" @submit.prevent="true">
-    <input type="text" placeholder="Nome"><br>
-    <input type="text" placeholder="Idade"><br>
-    <input type="text" placeholder="Número de celular"><br>
-    <label>Sexo: </label>
-    <select name="sexo">
-        <option value="f">Feminino</option>
-        <option value="m">Masculino</option>
-    </select> <br>
-</form>
-<button class="acomp" @click="adicionarAcompanhante">+Adicionar acompanhante</button>
-<button class="envio">Enviar</button>
-</template>
-
-<script>
-export default {
+    <form v-for="(form, index) in lista" :key="index" @submit.prevent="true">
+      <input type="text" v-model="form.name" placeholder="Nome"><br>
+      <input type="number" v-model="form.age" placeholder="Idade"><br>
+      <input type="text" v-model="form.contact" placeholder="Número de celular"><br>
+      <label>Sexo: </label>
+      <select v-model="form.sexy" name="sexo">
+        <option value="F">Feminino</option>
+        <option value="M">Masculino</option>
+      </select><br>
+    </form>
+ 
+    <div class="buttonsGuests">
+      <button class="acomp" @click="adicionarAcompanhante">+Adicionar acompanhante</button>
+      <button class="envio" @click="enviarDados">Enviar</button>
+    </div>
+  </template>
+  
+  <script>
+  export default {
     name: "FormComp",
-    data(){
-        return{
-            lista: [1]
-        }
+    data() {
+      return {
+            lista: [
+              { name: "", age: null, contact: "", sexy: "F" }
+            ],
+            apiResponse: "",
+            jsonToSend: "", 
+          };
+      
     },
-    methods:{
-        adicionarAcompanhante(){
-            this.lista.push(1)
+    methods: {
+      adicionarAcompanhante() {
+        this.lista.push({ name: "", age: null, contact: "", sexy: "F" });
+      },
+      async enviarDados() {
+        const apiUrlEvent = "http://127.0.0.1:3333/events/fstt8mhvifucax0krvqd05mz";
+        const apiUrlGuest = "http://127.0.0.1:3333/guest";
+  
+        
+        if ( this.lista.some(guest => !guest.name || !guest.age || !guest.contact || !guest.sexy)) {
+          alert("Por favor, preencha todos os campos antes de enviar.");
+          return;
         }
-    }
-}
-</script>
+  
+        try {
+          const responseEvent = await fetch(apiUrlEvent);
+  
+          if (!responseEvent.ok) {
+            throw new Error("Erro ao buscar o userID do evento.");
+          }
+  
+          const eventData = await responseEvent.json();
+          const userID = eventData[0].userID;
+  
+          if (!userID) {
+            throw new Error("userID não encontrado na resposta da API.");
+          }
+  
+          this.apiResponse = `userID: ${userID}`;
+  
+          
+          const guestsWithUserID = this.lista.map(guest => ({
+            name: guest.name,
+            age: guest.age,
+            contact: guest.contact,
+            sexy: guest.sexy,
+            userID: userID,
+          }));
+          
+          
+          this.jsonToSend = JSON.stringify(guestsWithUserID[0], null, 2);
+          console.log("JSON a ser enviado:", this.jsonToSend);
+          console.log("Dados a serem enviados:", guestsWithUserID);
 
-<style>
-input{
+          class Guest {
+            constructor(name, age, contact, sexy, userID) {
+              this.name = name;
+              this.age = age;
+              this.contact = contact;
+              this.sexy = sexy;
+              this.userID = userID;
+            }
+          }
+
+          const guest1 = new Guest(guestsWithUserID[0].name, guestsWithUserID[0].age, guestsWithUserID[0].contact, guestsWithUserID[0].sexy, userID);
+          const responseGuest = await fetch(apiUrlGuest, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(guest1),
+          });
+  
+          const data = await responseGuest.json();
+          if (responseGuest.ok) {
+            console.log("Dados enviados:", data);
+            alert("Convidados adicionados com sucesso!");
+          } else {
+            console.error("Erro ao enviar os dados:", responseGuest.statusText);
+            alert("Erro ao enviar os dados.");
+          }
+        } catch (error) {
+          console.error("Erro na comunicação com a API:", error);
+          alert("Erro ao enviar os dados. Verifique sua conexão.");
+        }
+      }
+    },
+  };
+  </script>
+  
+  <style scoped>
+  * {
+    box-sizing: border-box;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  input,
+  select {
     margin-top: 15px;
-    width: 200px;
-    border-top: 0px;
-    border-left: 0px;
-    border-right: 0px;
-    border-color: #760BFF;
-    font-family: "Poppins";
-}
-label{
-    font-family: "Poppins";
-}
-select{
-    margin-top: 15px;
-    font-family: "Poppins";
-}
-button{
+    width: 100%;
+    max-width: 300px;
+    border: 1px solid #760BFF;
+    border-radius: 5px;
+    padding: 8px;
+    font-family: "Poppins", sans-serif;
+  }
+  
+  label {
+    font-family: "Poppins", sans-serif;
+    margin-top: 10px;
+  }
+  
+  .buttonsGuests {
     margin-top: 30px;
-    margin-bottom: 150px;
-}
-.envio{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+  
+  .envio {
     width: 100px;
-    height: 30px;
-    margin-left: 30px;
-    background-color: black;
+    height: 40px;
+    background-color: #760BFF;
     border-radius: 30px;
     color: white;
-    font-family: "Poppins";
+    font-family: "Poppins", sans-serif;
     font-weight: 700;
-}
-.acomp{
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .envio:hover {
+    background-color: #5a0d8a;
+  }
+  
+  .acomp {
     width: 200px;
-    height: 30px;
-    margin-left: 30px;
+    height: 40px;
+    background-color: #fff;
+    border: 1px solid #760BFF;
     border-radius: 30px;
-    font-family: "Poppins";
-
-}
-</style>
+    color: #760BFF;
+    font-family: "Poppins", sans-serif;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .acomp:hover {
+    background-color: #760BFF;
+    color: white;
+  }
+  </style>
+  

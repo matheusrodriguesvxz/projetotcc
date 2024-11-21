@@ -1,7 +1,6 @@
 <template>  
 <header>
     <nav>
-        <img src="@/assets/logo.svg">
         <h1>EventEasy</h1>
     </nav>
 </header>
@@ -14,30 +13,23 @@ export default {
 
 <style scoped>
 
-header{
-    background-image: url(../assets/PurpleWallpaper.png);
-    /* background-repeat: no-repeat; */
-    padding-top: 20px;
-    padding-bottom: 20px;
-    padding: 20px;
-    
-}
 h1{
+    margin: 1% 2%;
     font-family: Poppins;
     color: white;
     justify-content: center;
-    margin: auto;
     font-size: 30px;
 }
 nav{
     display: flex;
     align-items: center;
-
+    
 }
 img{
     display: flex;
     justify-content: flex-start;
-    width: 70px;
-    position: relative;
+    
+    margin: 1%;
+    width: 5%;
 }
 </style>

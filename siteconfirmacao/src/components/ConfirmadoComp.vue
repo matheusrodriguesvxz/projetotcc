@@ -2,7 +2,7 @@
     <img src="@/assets/logo.svg">
     <h2>Obrigada pela confirmação.</h2>
     <h4>Te espero lá!!!</h4>
-    <button>Concluído</button>
+    <button class="endConfirm">Concluído</button>
 </template>
 
 <script>
@@ -29,7 +29,7 @@ h4{
     font-family: Poppins;
     margin-bottom: 200px;
 }
-button{
+.endConfirm {
     width: 100px;
     height: 30px;
     margin-left: 30px;

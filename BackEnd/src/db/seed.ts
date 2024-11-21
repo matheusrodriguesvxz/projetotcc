@@ -25,10 +25,10 @@ async function seed() {
     .values([
       {
         cep: '16015-145',
+        userID: 'If01rBv6vraMm4XUH4lgQjIA3Rs2',
         city: 'Sao Paulo',
         number: 110,
         state: 'Sao Paulo', 
-        userID:"If01rBv6vraMm4XUH4lgQjIA3Rs2",
         street: 'Avenida dos Araçás',
         country: 'Brasil',
         complement: 'Casa',

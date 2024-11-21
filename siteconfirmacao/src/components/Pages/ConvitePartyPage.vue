@@ -1,22 +1,24 @@
 <template>
 <NavComp></NavComp>
 <ContentComp></ContentComp>
-<FooterComp></FooterComp>
+<!-- <FooterComp></FooterComp> -->
 </template>
 
 <script>
-import ContentComp from '../ContentComp.vue';
-import FooterComp from '../FooterComp.vue';
 import NavComp from '../NavComp.vue';
+import ContentComp from '../ContentComp.vue';
+// import FooterComp from '../FooterComp.vue';
 
 export default {
     name: 'ConvitePage',
     components: {
-        NavComp, ContentComp, FooterComp
+        NavComp,
+        ContentComp, 
+        // FooterComp
     }
 }
 </script>
 
-<style>
+<style scoped>
 
 </style>

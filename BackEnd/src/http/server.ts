@@ -31,6 +31,11 @@ import { getGuestsByID } from "./routes/Guests/find-by-id-guests-route";
 import { getAdressByID } from "./routes/Adress/find-by-id-adress-route";
 import cors from "@fastify/cors";
 import { getEventsByUserID } from "./routes/Events/find-by-userID-events";
+import { createsCompanion } from "./routes/Companion/create-companion-route";
+import { DeleteCompanion } from "./routes/Companion/delete-companion-route";
+import { updatesCompanion } from "./routes/Companion/update-companion-route";
+import { getGuestsByIDCompanion } from "./routes/Companion/find-by-id-companion-route";
+import { getCompanion } from "./routes/Companion/get-all-companion-route";
 import { getBuyListByUserID } from "./routes/BuyList/get-buyList-by-eventID-route";
 
 export const app = fastify().withTypeProvider<ZodTypeProvider>();
@@ -90,3 +95,10 @@ app.register(getEventsAndGuests);
 
 //Spotify
 app.register(getTokenSpotifyy);
+
+// Companion
+app.register(createsCompanion)
+app.register(DeleteCompanion)
+app.register(getGuestsByIDCompanion)
+app.register(getCompanion)
+app.register(updatesCompanion)

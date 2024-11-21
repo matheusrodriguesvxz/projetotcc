@@ -1,5 +1,5 @@
 {
-  "id": "d3be7992-b302-41eb-8b1d-da4e8d318c9c",
+  "id": "1db08ed7-a6cc-4f8f-b66f-10b97825a725",
   "prevId": "a1be0343-b3ce-4901-98de-5583ec1046b2",
   "version": "7",
   "dialect": "postgresql",
@@ -140,6 +140,68 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
+
+    "public.Acompanhantes": {
+      "name": "Acompanhantes",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "nome": {
+          "name": "nome",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "idade": {
+          "name": "idade",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "contato": {
+          "name": "contato",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "sexo": {
+          "name": "sexo",
+          "type": "char(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id_hospede": {
+          "name": "id_hospede",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "Acompanhantes_id_hospede_Convidados_id_fk": {
+          "name": "Acompanhantes_id_hospede_Convidados_id_fk",
+          "tableFrom": "Acompanhantes",
+          "tableTo": "Convidados",
+          "columnsFrom": [
+            "id_hospede"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+
     "public.Eventos": {
       "name": "Eventos",
       "schema": "",
