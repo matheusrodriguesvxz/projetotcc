@@ -1,97 +1,105 @@
 import { createRouter, createWebHistory } from "vue-router";
 
-import ConvitePartyPage from "./components/Pages/ConvitePartyPage.vue";
 import DadosPage from "./components/Pages/DadosPage.vue";
 import ConfirmadoPage from "./components/Pages/ConfirmadoPage.vue";
 import QuePenaPage from "./components/Pages/QuePenaPage.vue";
-
+import Married from "./components/Pages/Marriedssssssssssss.vue";
+import BirthdayPorra from "./components/Pages/BirthdayPorra.vue";
+import PartyPorra from "./components/Pages/PartyPorra.vue";
 const routes = [
     {
-        path: "/",
-        name: "Home",
+        path: "/event/:eventId", 
+        name: "Event",
         beforeEnter: async (to, from, next) => {
-            // const eventId = to.params.eventId;
-            // const apiUrl = `http://127.0.0.1:3333/events/${eventId}`;
-            const apiUrl = "http://127.0.0.1:3333/events/fstt8mhvifucax0krvqd05mz";
-
-            try {
-                const response = await fetch(apiUrl);
-                if (!response.ok) {
-                    throw new Error("Erro ao buscar dados da API");
-                }
-
-                const data = await response.json();
-
-                if (Array.isArray(data) && data.length > 0) {
-                    const eventType = data[0].type;
-
-                    switch (eventType.toLowerCase()) {
-                        case "casamento":
-                            next("/marriage");
-                            break;
-                        case "viagem":
-                            next("/travel");
-                            break;
-                        case "aniversario":
-                            next("/birthday");
-                            break;
-                        case "role":
-                            next("/party");
-                            break;
-                        default:
-                            next("/quepena");
-                            break;
-                    }
-                } else {
-                    console.error("Resposta da API inválida ou vazia.");
-                    next("/quepena");
-                }
-            } catch (error) {
-                console.error("Erro ao chamar a API:", error);
-                next("/quepena");
+          const eventId = to.params.eventId; 
+          const apiUrl = `http://192.168.0.4:3333/events/${eventId}`;
+    
+          try {
+            const response = await fetch(apiUrl);
+            if (!response.ok) {
+              throw new Error("Erro ao buscar dados do evento");
             }
-        }
-    },
-    {
-        path: "/party",
-        name: "Party",
-        component: ConvitePartyPage
-    },
-    {
+    
+            const data = await response.json();
+    
+            if (Array.isArray(data) && data.length > 0) {
+              const eventType = data[0].type;
+              const eventDetails = {
+                id: data[0].id,
+                name: data[0].name,
+                date: data[0].date,
+                type: data[0].type,
+              };
+    
+              localStorage.setItem("eventDetails", JSON.stringify(data[0]));
+
+              switch (eventType.toLowerCase()) {
+                case "casamento":
+                  next({ path: "/marriage"});
+                  break;
+                case "viagem":
+                  next({ path: "/travel", state: eventDetails });
+                  break;
+                case "aniversario":
+                  next({ path: "/birthday" });
+                  break;
+                case "rolê/festa":
+                  next({ path: "/party"});
+                  break;
+                default:
+                  next({ path: "/dados", state: eventDetails });
+                  break;
+              }
+            } else {
+              console.error("Resposta da API inválida ou vazia.");
+              next("/dados");
+            }
+          } catch (error) {
+            console.error("Erro ao chamar a API:", error);
+            next("/dados");
+          }
+        },
+      },
+      {
         path: "/dados",
         name: "Dados",
-        component: DadosPage
-    },
-    {
+        component: DadosPage,
+      },
+      {
         path: "/confirmado",
         name: "Conf",
-        component: ConfirmadoPage
-    },
-    {
+        component: ConfirmadoPage,
+      },
+      {
         path: "/quepena",
         name: "Pena",
-        component: QuePenaPage
-    },
-    // {
-    //     path: "/marriage",
-    //     name: "Marriage",
-    //     component: () => import("./components/Pages/MarriagePage.vue") // Carregamento dinâmico
-    // },
-    // {
+        component: QuePenaPage,
+      },
+      {
+        path: "/marriage",
+        name: "Marriage",
+        component: Married,
+      },
+    //   {
     //     path: "/travel",
     //     name: "Travel",
-    //     component: () => import("./components/Pages/TravelPage.vue") // Carregamento dinâmico
-    // },
-    // {
-    //     path: "/birthday",
-    //     name: "Birthday",
-    //     component: () => import("./components/Pages/BirthdayPage.vue") // Carregamento dinâmico
-    // }
+    //     component: TravelPage,
+    //   },
+      {
+        path: "/birthday",
+        name: "Birthday",
+        component: BirthdayPorra,
+      },
+      {
+        path: "/party",
+        name: "Party",
+        component: PartyPorra,
+      },
 ];
 
 const router = createRouter({
-    history: createWebHistory(),
-    routes
+  history: createWebHistory(),
+  routes,
 });
 
 export default router;

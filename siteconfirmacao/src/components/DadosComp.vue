@@ -1,5 +1,5 @@
 <template>
-<p>Para confirmar sua presença, preencha as seguinte informações:</p>
+<p style="color: black;">Para confirmar sua presença, preencha as seguinte informações:</p>
 <div class="form">
 <FomComp></FomComp>
 </div>

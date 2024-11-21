@@ -37,6 +37,7 @@ import { updatesCompanion } from "./routes/Companion/update-companion-route";
 import { getGuestsByIDCompanion } from "./routes/Companion/find-by-id-companion-route";
 import { getCompanion } from "./routes/Companion/get-all-companion-route";
 import { getBuyListByUserID } from "./routes/BuyList/get-buyList-by-eventID-route";
+import { createsGuestAndEvent } from "./routes/EventAndGuests/create-event-and-guests";
 
 export const app = fastify().withTypeProvider<ZodTypeProvider>();
 app.register(cors, {
@@ -92,6 +93,7 @@ app.register(getBuyListByUserID);
 
 // EventAndGuests / Eventos e Convidados
 app.register(getEventsAndGuests);
+app.register(createsGuestAndEvent);
 
 //Spotify
 app.register(getTokenSpotifyy);
