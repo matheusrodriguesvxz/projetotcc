@@ -13,15 +13,18 @@
         </svg>
       </button>
     </legend>
-    <div>
-      <input type="radio" id="sim" name="interesse" value="sim" />
-      <label for="music"> Sim, estarei presente </label>
+
+    <div class="beThere">
+      <div class="iWill">
+        <input type="radio" id="sim" name="interesse" value="sim" />
+        <label for="music"> Sim, estarei presente </label>
+      </div>
+      <div class="iCant">
+        <input type="radio" id="nao" name="interesse" value="nao" />
+        <label for="music"> Não vou conseguir ir </label>
+      </div>
     </div>
-    <div>
-      <input type="radio" id="nao" name="interesse" value="nao" />
-      <label for="music"> Não vou conseguir ir </label>
-    </div>
-    <button id="enviar" class="enviar" @click="teste">
+    <button class="sendConfirm" id="enviar" @click="teste">
       <h5>Enviar</h5>
     </button>
   </fieldset>
@@ -49,6 +52,9 @@ export default {
 </script>
 
 <style scoped>
+/* .conteudo{
+  background-image: url(/siteconfirmacao/src/assets/festa.png)
+} */
 .convite{
   width: 23%;
   margin: auto;
@@ -60,17 +66,23 @@ legend {
 }
 
 h4 {
-  font-family: Poppins;
-  margin-bottom: 0px;
+  font-family: "Poppins", sans-serif;
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+  text-align: center;
 }
 
-.enviar {
+.beThere{
+  margin-left: 26%;
+}
+
+.sendConfirm {
   margin-top: 15px;
   padding: 15px;
   width: 200px;
-  height: 40px;
-  margin-left: 20px;
-  margin-bottom: 10opx;
+  /* height: 40px; */
+  margin-left: 41%;
+  margin-bottom: 10px;
   background-color: #48138ed4;
   border-radius: 30px;
   color: white;
@@ -81,10 +93,6 @@ h4 {
 
 label {
   font-family: "Poppins";
-}
-
-input {
-  margin-top: 10px;
 }
 
 .seta {

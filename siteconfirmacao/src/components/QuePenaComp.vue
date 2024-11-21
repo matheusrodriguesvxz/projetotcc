@@ -9,7 +9,7 @@
     <h2>Ah, que pena!</h2>
     <h4>Sentimos muito que não poderá comparecer no evento :(</h4>
     <p>mas contamos com você da proxima vez!</p>
-    <button>Concluído</button>
+    <button class="concluido" @click="voltarPagina">Concluído</button>
 </template>
 
 <script>
@@ -30,17 +30,22 @@ img{
     margin-top: 30px;
     width: 70px;
 }
+h2{
+  text-align: center;
+}
 h4{
     color: white;
     margin-top: 30px;
     font-family: Poppins;
     margin-bottom: 0px;
+    text-align: center;
 }
 p{
     color: white;
     font-family: Poppins;
+    text-align: center;
 }
-button{
+.concluido{
     width: 100px;
     height: 30px;
     margin-left: 30px;
@@ -49,9 +54,11 @@ button{
     color: black;
     font-family: "Poppins";
     font-weight: 700;
-    border-top: 50px;
     margin-right: 20px;
     border-bottom: 0px;
+    display: flex;
+    margin: auto;
+    
 }
 
 .button {

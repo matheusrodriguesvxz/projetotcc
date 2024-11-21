@@ -16,6 +16,7 @@ export const findEventById = async (id: string) => {
 			final_date: Events.final_date,
 			budget: Events.budget,
 			olderOfAge: Events.olderOfAge,
+			userID: Events.userID,
 			goal: Kitty.goal,
 			descriptions: Kitty.descriptions,
 			cep: Adress.cep,

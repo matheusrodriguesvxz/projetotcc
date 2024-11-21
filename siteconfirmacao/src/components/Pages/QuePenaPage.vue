@@ -16,13 +16,13 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 body{
     background-color: rgba(85, 9, 156, 0.914);
     background-repeat: no-repeat;
 
 }
 h2{
-    margin-top: 0px
+    margin-top: 0px;
 }
 </style>
