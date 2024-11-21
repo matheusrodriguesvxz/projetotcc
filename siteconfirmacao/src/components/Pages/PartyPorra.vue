@@ -45,8 +45,8 @@ export default {
     // Log para verificar os dados carregados
     console.log("Dados do evento carregados:", this.eventDetails);
     
-    if (this.eventDetails.inicial_date) {
-      const date = new Date(this.eventDetails.inicial_date);
+    if (this.eventDetails.final_date) {
+      const date = new Date(this.eventDetails.final_date);
       this.formattedDate = date.toLocaleDateString("pt-BR");
       
       // Log para verificar a data formatada

@@ -3,8 +3,13 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "build": "tsup src",
+    "start": "node dist/http/server.js",
     "dev": "tsx watch --env-file .env src/http/server.ts",
     "seed": "tsx --env-file .env src/db/seed.ts"
+  },
+  "engines": {
+    "node": "18"
   },
   "keywords": [],
   "author": "",
@@ -27,6 +32,7 @@
     "fastify-type-provider-zod": "^4.0.2",
     "npm": "^10.8.3",
     "postgres": "^3.4.4",
+    "tsup": "^8.3.5",
     "zod": "^3.23.8"
   }
 }
