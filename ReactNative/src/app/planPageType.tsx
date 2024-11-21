@@ -102,7 +102,7 @@ export default function planPageWelcome() {
                 "Role / Festas",
                 "Outro",
               ];
-              // biome-ignore lint/style/noNonNullAssertion: <explanation>
+              
               const eventType = typeMap[selectedIndex!] || "Outro";
               console.log(eventType);
               AsyncStorage.setItem("index", eventType);

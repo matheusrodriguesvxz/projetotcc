@@ -95,6 +95,7 @@ async function seed() {
       name: 'Coca Cola Zero',
       status: 'pending',
       quantity: '10',
+      totalPrice: '100',
     },
   ])
 }

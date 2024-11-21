@@ -22,3 +22,28 @@ export const ChildMarriedFood = [
 	{ name: "Garfos", quantity: 2 },
 	{ name: "Guarnapos", quantity: 1 },
 ];
+
+const priceListAtacadoMarried = {
+	Agua: 2.3,
+	Cerveja: 6.5,
+	Refrigerante: 4.0,
+	Suco: 5.0,
+	Drinks: 7.5,
+	Bolo: 130.0,
+	Sorvete: 24.0,
+	Mousses: 5.5,
+	Docinhos: 0.9,
+	Arroz: 3.0,
+	Carne: 22.0,
+	Massas: 3.5,
+	Salada: 4.0,
+	Peixe: 35.0,
+	Farofa: 2.5,
+	Frango: 10.0,
+	Crustaceo: 65.0,
+	Colheres: 0.06,
+	Copos: 0.12,
+	Facas: 0.06,
+	Garfos: 0.06,
+	Guarnapos: 0.3,
+};

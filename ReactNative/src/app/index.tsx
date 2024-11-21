@@ -1,10 +1,10 @@
-import { Text, View, Dimensions, StyleSheet } from "react-native";
+import { Text, View, Dimensions, StyleSheet, LogBox } from "react-native";
 import { ButaoLogin, ButaoRegistro } from "../components/index/indexComp";
 import { useFonts } from "expo-font";
 import FundoDaTela from "../components/index/indexComp";
 import { ImageInicialPage } from "../components/Svgs";
 import Animated, { FadeInDown, FadeInUp, BounceOut } from "react-native-reanimated";
-
+LogBox.ignoreLogs([]); 
 export default function Index() {
   const { width, height } = Dimensions.get("window");
   const [loaded] = useFonts({

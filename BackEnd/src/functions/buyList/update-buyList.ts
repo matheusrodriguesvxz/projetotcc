@@ -15,6 +15,7 @@ export const updateBuyList = async (buyListRequest: BuyListRequest, id : string)
       id_events: buyListRequest.id_events,
       quantity: buyListRequest.quantity,
       userID: buyListRequest.userID,
+      totalPrice: buyListRequest.totalPrice,
     })
     .where(and(eq(buyList.id, id), eq(buyList.userID, buyListRequest.userID)))
     .returning();

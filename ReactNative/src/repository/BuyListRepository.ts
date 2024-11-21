@@ -56,4 +56,12 @@ export class BuyListRepository implements IBaseRepository<BuyLists> {
 		const buyList: BuyLists = await response.json();
 		return buyList;
 	}
+	async getByEventID(userID: string): Promise<BuyLists> {
+		const response = await fetch(`http://192.168.0.4:3333/buyList/${userID}`);
+		if (!response.ok) {
+			throw new Error(`Erro na Requisição,status: ${response.status}`);
+		}
+		const buyList: BuyLists = await response.json();
+		return buyList;
+	}
 }

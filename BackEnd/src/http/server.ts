@@ -31,6 +31,7 @@ import { getGuestsByID } from "./routes/Guests/find-by-id-guests-route";
 import { getAdressByID } from "./routes/Adress/find-by-id-adress-route";
 import cors from "@fastify/cors";
 import { getEventsByUserID } from "./routes/Events/find-by-userID-events";
+import { getBuyListByUserID } from "./routes/BuyList/get-buyList-by-eventID-route";
 
 export const app = fastify().withTypeProvider<ZodTypeProvider>();
 app.register(cors, {
@@ -82,6 +83,7 @@ app.register(getBuyLists);
 app.register(createBuyLists);
 app.register(updateBuyLists);
 app.register(deleteBuyLists);
+app.register(getBuyListByUserID);
 
 // EventAndGuests / Eventos e Convidados
 app.register(getEventsAndGuests);

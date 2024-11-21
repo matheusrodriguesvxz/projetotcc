@@ -1,18 +1,19 @@
+import { eq, sql } from "drizzle-orm";
 import { db } from "../../db";
 import { buyList } from "../../db/schemas/buyList";
 
-export const getAllBuyList = async () => {
+export const getBuyListUserId = async (eventID: string) => {
 	const buyLists = await db
 		.select({
 			id: buyList.id,
 			name: buyList.name,
 			status: buyList.status,
 			id_events: buyList.id_events,
-			totalPrice: buyList.totalPrice,
 			quantity: buyList.quantity,
-
+			totalPrice: buyList.totalPrice,
 		})
-		.from(buyList);
+		.from(buyList).where(eq(buyList.id_events, eventID));
 
+		
 	return buyLists;
 };

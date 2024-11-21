@@ -20,6 +20,8 @@ export default function RootLayout() {
         <Stack.Screen name="planPageFinish" options={{ headerShown: false }}/>
         <Stack.Screen name="detailsEvent" options={{ headerShown: false }}/>
         <Stack.Screen name="guestsPage" options={{ headerShown: false }}/>
+        <Stack.Screen name="bugdetPage" options={{ headerShown: false }}/>
+        <Stack.Screen name="detailsFestivais" options={{ headerShown: false }}/>
       </Stack>
     </>
   );

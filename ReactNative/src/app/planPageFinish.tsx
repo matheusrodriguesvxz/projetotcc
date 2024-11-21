@@ -17,7 +17,10 @@ import { Controller, useForm, type SubmitHandler } from "react-hook-form";
 import { UseTypesEvents } from "@/hooks/useTypesEvents";
 import { EventsRepository } from "../repository/EventsRepository";
 import { EventsServices } from "../service/EventsServices";
-import { createNotSupportedComponent } from "react-native-maps/lib/decorateMapComponent";
+import EventConfirmationModal from "./modalSucesso";
+import EventErro from "./modalErro";
+import RNDateTimePicker, { DateTimePickerAndroid, type DateTimePickerEvent } from '@react-native-community/datetimepicker';
+
 
 type NewRegisterFormData = {
   name: string;
@@ -27,9 +30,20 @@ type NewRegisterFormData = {
 export default function PlanPageFinish() {
   const [selected, setSelected] = useState("");
   const [userIDs, setUserIDs] = useState<string>("");
+  const [addressID, setAddressID] = useState<string>("");
   const [typeEvent, setTypeEvent] = useState<string>("");
   const eventRepository = new EventsRepository();
+  const [hours, setHours] = useState("");
   const eventServices = new EventsServices(eventRepository);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isModalVisibleErro, setIsModalVisibleErro] = useState(false);
+
+  const toggleModal = () => {
+    setIsModalVisible(!isModalVisible);
+  };
+  const toggleModalErro = () => {
+    setIsModalVisibleErro(!isModalVisibleErro);
+  };
   const {
     control,
     handleSubmit,
@@ -40,6 +54,7 @@ export default function PlanPageFinish() {
     const fetchUserID = async () => {
       const storedUserID = await AsyncStorage.getItem("user");
       setUserIDs(storedUserID ?? "");
+      console.log("UserID recuperado:", storedUserID);
     };
     fetchUserID();
     const fetchType = async () => {
@@ -47,10 +62,31 @@ export default function PlanPageFinish() {
       setTypeEvent(storedType ?? "");
     };
     fetchType();
+    const fetchAddress = async () => {
+      const storedAddress = await AsyncStorage.getItem("address_id");
+      console.log("Endereço recuperado:", storedAddress);
+      setAddressID(storedAddress ?? "");
+    }
+    fetchAddress();
   }, []);
 
   async function createEvent(data: NewRegisterFormData) {
     const selectedDate = new Date(selected);
+
+    if (selected == null || selected === undefined || selected === "") {
+      setIsModalVisibleErro(true);
+      return;
+    }
+    // biome-ignore lint/style/noUselessElse: <explanation>
+    else if(selectedDate != null  ){
+      setIsModalVisible(true);
+    }
+    const setDate = (event: DateTimePickerEvent, date: Date) => {
+      const {
+        type,
+        nativeEvent: {timestamp, utcOffset},
+      } = event;
+    };
     const event = new Events({
       userID: userIDs,
       name: data.name,
@@ -61,13 +97,12 @@ export default function PlanPageFinish() {
       budget: "0",
       pix: "0",
       olderOfAge: false,
-      id_adress: "i7zgb0kiygog9522roqjar3h",
+      id_adress: addressID,
     });
     console.log(event);
     try {
       const response = await eventServices.create(event);
       AsyncStorage.setItem("eventID", response.id);
-      router.push("/planPageMarried"); 
     } catch (error) {
       console.error("Erro ao criar o evento:", error);
     }
@@ -75,9 +110,9 @@ export default function PlanPageFinish() {
   const onSubmit: SubmitHandler<NewRegisterFormData> = (data) => {
     createEvent(data);
   };
-  
+
   // biome-ignore lint/complexity/useLiteralKeys: <explanation>
-    LocaleConfig.locales["pt"] = {
+  LocaleConfig.locales["pt"] = {
     monthNames: [
       "Janeiro",
       "Fevereiro",
@@ -214,6 +249,9 @@ export default function PlanPageFinish() {
                 }}
               />
             </View>
+            <View>
+              
+            </View>
           </View>
 
           <TouchableOpacity
@@ -225,6 +263,12 @@ export default function PlanPageFinish() {
           </TouchableOpacity>
         </View>
       </View>
+
+      <EventConfirmationModal
+        isVisible={isModalVisible}
+        toggleModal={toggleModal}
+      />
+      <EventErro isVisibleErro={isModalVisibleErro} toggleModalErro={toggleModalErro} />
     </ScrollView>
   );
 }

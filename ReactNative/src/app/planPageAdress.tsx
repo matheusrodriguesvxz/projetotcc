@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import MapView from "react-native-maps";
 import {
   StyleSheet,
@@ -11,8 +11,13 @@ import {
   Platform,
   ScrollView,
 } from "react-native";
-import { router } from "expo-router";
 import { Controller, useForm, type SubmitHandler } from "react-hook-form";
+import axios from "axios";
+import { AdressRepository } from "../repository/AdressRepository";
+import { AdressServices } from "../service/AdressServices";
+import { Adress } from "../entity/Adress";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { router } from "expo-router";
 
 type NewRegisterFormData = {
   adress: string;
@@ -23,18 +28,132 @@ export function getAdress(data: NewRegisterFormData) {
   console.log(adress);
   return adress;
 }
+
 export default function PlanPageAdress() {
   const [latitude, setLatitude] = useState(-20.398259);
   const [longitude, setLongitude] = useState(-43.507726);
+  const [error, setError] = useState<string | null>(null);
+  const [userIDs, setUserIDs] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(true); 
+  const adressRepository = new AdressRepository();
+  const adressService = new AdressServices(adressRepository);
+
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm<NewRegisterFormData>();
 
-  const onSubmit: SubmitHandler<NewRegisterFormData> = (data) => {
-    getAdress(data);
+  useEffect(() => {
+    const fetchUserID = async () => {
+      try {
+        const storedUserID = await AsyncStorage.getItem("user");
+        setUserIDs(storedUserID); 
+        setLoading(false); 
+        console.log("UserID recuperado:", storedUserID);
+      } catch (error) {
+        console.error("Erro ao recuperar UserID:", error);
+        setLoading(false); 
+      }
+    };
+    fetchUserID();
+  }, []);
+
+  const extractCepFromAddress = (address: string): string | null => {
+    const cepPattern = /\d{5}-\d{3}/;
+    const match = address.match(cepPattern);
+    return match ? match[0] : null;
   };
+
+
+  const fetchAddressFromCep = async (cep: string) => {
+    if (!userIDs) {
+      console.log("UserID não disponível.");
+      return;
+    }
+
+    try {
+      const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+      const data = await response.json();
+      console.log("Dados do CEP:", data);
+      console.log("ID do usuário:", userIDs);
+      const adress = new Adress({
+        cep: data.cep,
+        street: data.logradouro,
+        neighborhood: data.bairro,
+        city: data.localidade,
+        state: data.uf,
+        country: "Brasil",
+        complement: data.complemento,
+        number: 1,
+        userID: userIDs,
+      });
+
+      console.log("Endereço", adress);
+      try {
+        const createdAdress = await adressService.create(adress);
+        console.log("Endereço criado com sucesso:", createdAdress);
+        if (createdAdress?.id) {
+          await AsyncStorage.setItem("address_id", createdAdress.id);
+          console.log("ID do endereço salvo no AsyncStorage:", createdAdress.id);
+        } else {
+          console.log("O endereço foi criado, mas não tem um ID.");
+        }
+      } catch (error) {
+        console.error("Erro ao criar endereço:", error);
+      }
+    } catch (error) {
+      console.error("Erro ao buscar o CEP:", error);
+    }
+  };
+
+  const fetchCoordinates = async (address: string) => {
+    if (!userIDs) {
+      console.log("UserID não disponível.");
+      return; 
+    }
+
+    try {
+      const response = await axios.get("https://serpapi.com/search.json", {
+        params: {
+          engine: "google_maps",
+          q: address,
+          api_key:
+            "60c40e33cda82fcfecac69e23543f9b38d735e616fdfe83907c82d61f5298d5f",
+        },
+      });
+
+      const location = response.data?.place_results?.gps_coordinates;
+      const endereco = response.data?.place_results?.address;
+      if (location) {
+        setLatitude(location.latitude);
+        setLongitude(location.longitude);
+      } else {
+        setError("Endereço não encontrado.");
+      }
+      if (endereco) {
+        const cep = extractCepFromAddress(endereco);
+        console.log("CEP encontrado:", cep);
+        if (cep) {
+          fetchAddressFromCep(cep);
+        } else {
+          console.log("CEP não encontrado.");
+        }
+      } else {
+        setError("Endereço não encontrado.");
+      }
+    } catch (err) {
+      console.log(err);
+      setError("Erro ao buscar o endereço.");
+    }
+  };
+
+  const onSubmit: SubmitHandler<NewRegisterFormData> = (data) => {
+    const address = getAdress(data);
+    fetchCoordinates(address);
+    router.push("/planPageFinish");
+  };
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -89,20 +208,17 @@ export default function PlanPageAdress() {
               {errors.adress && (
                 <Text style={styles.error}>{errors.adress.message}</Text>
               )}
-
-              <TouchableOpacity
-                style={styles.NextButton}
-                onPressIn={() => {
-                  try {
-                    handleSubmit(onSubmit);
-                    router.push("/planPageFinish");
-                  } catch (e) {
-                    console.log(e);
-                  }
-                }}
-              >
-                <Text style={styles.NextButtonText}>Próximo</Text>
-              </TouchableOpacity>
+              {error && <Text style={styles.error}>{error}</Text>}
+              {loading ? (
+                <Text style={styles.loadingText}>Carregando...</Text>
+              ) : (
+                <TouchableOpacity
+                  style={styles.NextButton}
+                  onPress={handleSubmit(onSubmit)}
+                >
+                  <Text style={styles.NextButtonText}>Próximo</Text>
+                </TouchableOpacity>
+              )}
             </View>
           </View>
           <MapView
@@ -117,8 +233,14 @@ export default function PlanPageAdress() {
             initialRegion={{
               latitude,
               longitude,
-              latitudeDelta: 0.195,
-              longitudeDelta: 0.1921,
+              latitudeDelta: 0.01,
+              longitudeDelta: 0.01,
+            }}
+            region={{
+              latitude,
+              longitude,
+              latitudeDelta: 0.01,
+              longitudeDelta: 0.01,
             }}
           />
         </View>
@@ -159,24 +281,19 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     letterSpacing: 1,
   },
-  box: {
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    flexDirection: "row",
-    height: 80,
-    padding: 10,
-    alignContent: "center",
-    backgroundColor: "#115e54",
-    justifyContent: "space-between",
-    borderTopColor: "#FFF",
-    borderTopWidth: 1,
-  },
   error: {
     color: "red",
     marginBottom: 8,
     fontFamily: "Poppins",
     fontWeight: "bold",
     letterSpacing: 0.5,
+  },
+  loadingText: {
+    fontFamily: "Poppins",
+    color: "#ffffff",
+    textAlign: "center",
+    fontSize: 18,
+    fontWeight: "bold",
+    marginBottom: 20,
   },
 });
