@@ -24,7 +24,7 @@ export function ButaoLogin() {
 }
 export function ButaoRegistro() {
   return (
-    <TouchableOpacity  onPress={() => {router.push("/registerPage")}} style={style.butaoRegistro}>
+    <TouchableOpacity  onPress={() => {router.push("/planPageFinish")}} style={style.butaoRegistro}>
       <Text style={style.TextobutaoRegistro}>Registrar-Se</Text>
     </TouchableOpacity>
   );

@@ -8,7 +8,10 @@ import { BuyListServices } from "../service/BuyListServices";
 import { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { BuyLists } from "../entity/BuyList";
-import { BirthdayFoods } from "../data/Birthday/adultsFoodBirthday"
+import {
+  BirthdayFoods,
+  priceListAtacadoBirthyday,
+} from "../data/Birthday/adultsFoodBirthday";
 import { ChildBirthdayFood } from "../data/Birthday/childFoodBirthday";
 
 export default function PlanPageBirthday() {
@@ -68,24 +71,25 @@ export default function PlanPageBirthday() {
   const sendToDatabaseOneByOne = async () => {
     const itemsToSend = getCheckedItems();
     const categories = {
-      L: ["Agua", "Cerveja", "Refrigerante", "Suco", "Drinks"],
-      KG: ["Bolo", "Gelatina"],
+      L: ["agua", "refrigerante", "suco", "drinks"],
+      KG: ["bolo", "gelatina", "sorvete"],
       unidades: [
-          "Colheres",
-          "Copos",
-          "Facas",
-          "Garfos",
-          "Guarnapos",
-          "Brigadeiros",
-          "CupCakes",
-          "Quindim",
-          "Tortas",
-          "Hotdog",
-          "Pasteis",
+        "colheres",
+        "cerveja",
+        "copos",
+        "facas",
+        "garfos",
+        "garnapos",
+        "brigadeiros",
+        "cupcakes",
+        "quindim",
+        "tortas",
+        "salgados",
+        "hotdog",
+        "canapes",
+        "pasteis",
       ],
-      g: ["Sorvete", "Salgados", "Canapés"],
-  };
-  
+    };
 
     try {
       const foodMap = BirthdayFoods.reduce((map, food) => {
@@ -101,36 +105,48 @@ export default function PlanPageBirthday() {
         const quantityPerPersonAdults = foodMap[name.toLocaleLowerCase()] || 0;
         const quantityPerPersonChilds =
           foodMapChilds[name.toLocaleLowerCase()] || 0;
+        // biome-ignore lint/style/useConst: <explanation>
         let totalForItemAdults = quantityPerPersonAdults * adults;
+        // biome-ignore lint/style/useConst: <explanation>
         let totalForItemChilds = quantityPerPersonChilds * childs;
         let totalForItem = totalForItemAdults + totalForItemChilds;
         let unit = "";
+
+        const pricePerUnit = priceListAtacadoBirthyday[name] || 0;
+        const totalPrice = totalForItem * pricePerUnit;
+        const lenghtItems = itemsToSend.length;
         if (categories.L.includes(name)) {
           unit = "L";
         } else if (categories.KG.includes(name)) {
           unit = "KG";
         } else if (categories.unidades.includes(name)) {
           unit = "unidades";
-        } else if (categories.g.includes(name)) {
-          unit = "g";
-          if (totalForItem < 1) {
-            totalForItem *= 1000;
-            unit = "g";
-          } else if (totalForItem >= 1000) {
-            totalForItem /= 1000;
-            unit = "KG";
-          }
+        } else if (totalForItem >= 1000) {
+          totalForItem /= 1000;
+          unit = "KG";
         }
-        const quantityWithUnit = `${totalForItem.toFixed(2)}${unit}`;
+        const quantityWithUnit = `${totalForItem.toFixed(0)} ${unit}`;
+        const formattedPrice = totalPrice.toFixed(2);
+
+        console.log(
+          "name:",
+          name,
+          "quantityWithUnit:",
+          quantityWithUnit,
+          "formattedPrice:",
+          formattedPrice
+        );
         const buyList = new BuyLists({
           name: name,
           status: "pending",
           userID: userID,
           id_events: eventID,
           quantity: quantityWithUnit,
+          totalPrice: formattedPrice,
         });
 
         await buyListService.create(buyList);
+        await AsyncStorage.setItem("totalPrice", formattedPrice);
         router.push("/(tabs)");
       }
     } catch (error) {
@@ -142,7 +158,7 @@ export default function PlanPageBirthday() {
     <>
       <View className="flex justify-center items-center">
         <Image source={require("../../assets/Birthday_img.png")} />
-        <LogoWithoutName/>
+        <LogoWithoutName />
       </View>
       <View className="w-full rounded-[45] bg-white h-[800] items-center top-72 absolute">
         <View className="flex flex-row  mt-8">

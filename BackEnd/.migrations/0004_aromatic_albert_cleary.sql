@@ -1,0 +1,1 @@
+ALTER TABLE "Lista_de_Compras" ADD COLUMN "preco_total" text NOT NULL;

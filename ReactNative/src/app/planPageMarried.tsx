@@ -8,7 +8,7 @@ import { BuyListServices } from "../service/BuyListServices";
 import { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { BuyLists } from "../entity/BuyList";
-import { MarriedFoods } from "../data/Married/adultsFoodMarried";
+import { MarriedFoods, priceListAtacadoMarried } from "../data/Married/adultsFoodMarried";
 import { ChildMarriedFood } from "../data/Married/childFoodMarried";
 
 export default function PlanPageMarried() {
@@ -68,7 +68,7 @@ export default function PlanPageMarried() {
   const sendToDatabaseOneByOne = async () => {
     const itemsToSend = getCheckedItems();
     const categories = {
-      L: ["agua", "cerveja", "refrigerante", "suco", "drinks"],
+      L: ["agua", "refrigerante", "suco", "drinks"],
       KG: [
         "arroz",
         "bolo",
@@ -78,9 +78,19 @@ export default function PlanPageMarried() {
         "frango",
         "crustaceo",
         "bolo",
+        "sorvete",
+        "saladas",
+        "mousses",
       ],
-      unidades: ["colheres", "copos", "pratos", "faca", "guardanapo"],
-      g: [ "sorvete", "saladas", "mousses", "fracionados"],
+      unidades: [
+        "colheres",
+        "cerveja",
+        "copos",
+        "pratos",
+        "fracionados",
+        "faca",
+        "guardanapo",
+      ],
     };
 
     try {
@@ -97,9 +107,17 @@ export default function PlanPageMarried() {
         const quantityPerPersonAdults = foodMap[name.toLocaleLowerCase()] || 0;
         const quantityPerPersonChilds =
           foodMapChilds[name.toLocaleLowerCase()] || 0;
+
+        
         let totalForItemAdults = quantityPerPersonAdults * adults;
+        
         let totalForItemChilds = quantityPerPersonChilds * childs;
+        
         let totalForItem = totalForItemAdults + totalForItemChilds;
+
+        const pricePerUnit = priceListAtacadoMarried[name] || 0;
+        
+        const totalPrice = totalForItem * pricePerUnit;
         let unit = "";
         if (categories.L.includes(name)) {
           unit = "L";
@@ -107,25 +125,21 @@ export default function PlanPageMarried() {
           unit = "KG";
         } else if (categories.unidades.includes(name)) {
           unit = "unidades";
-        } else if (categories.g.includes(name)) {
-          unit = "g";
-          if (totalForItem < 1) {
-            totalForItem *= 1000;
-            unit = "g";
-          } else if (totalForItem >= 1000) {
-            totalForItem /= 1000;
-            unit = "KG";
-          }
         }
-        const quantityWithUnit = `${totalForItem.toFixed(2)}${unit}`;
+
+        
+        const quantityWithUnit = `${totalForItem.toFixed(0)}${unit}`;
+        const formattedPrice = totalPrice.toFixed(2);
+
+        
         const buyList = new BuyLists({
           name: name,
           status: "pending",
           userID: userID,
           id_events: eventID,
           quantity: quantityWithUnit,
+          totalPrice: formattedPrice,
         });
-
         await buyListService.create(buyList);
         router.push("/(tabs)");
       }

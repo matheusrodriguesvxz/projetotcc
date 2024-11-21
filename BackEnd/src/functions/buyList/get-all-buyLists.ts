@@ -8,7 +8,9 @@ export const getAllBuyList = async () => {
 			name: buyList.name,
 			status: buyList.status,
 			id_events: buyList.id_events,
+			totalPrice: buyList.totalPrice,
 			quantity: buyList.quantity,
+
 		})
 		.from(buyList);
 

@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   ScrollView,
   StyleSheet,
+  LogBox,
 } from "react-native";
 import MapView from "react-native-maps/lib/MapView";
 import type { EventType } from "./(tabs)/calendarPage";
@@ -13,6 +14,11 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { EventsServices } from "../service/EventsServices";
 import { EventsRepository } from "../repository/EventsRepository";
 import { router } from "expo-router";
+
+
+
+LogBox.ignoreLogs([]); 
+
 
 export default function DetailsEvent() {
   const [event, setEvent] = useState<EventType | null>(null);
@@ -40,7 +46,7 @@ export default function DetailsEvent() {
         console.error("Evento não encontrado");
         return;
       }
-      setEvent(JSON.parse(storedEvent));
+      setEvent(JSON.parse(storedEvent)); 
     };
     fetchEvent();
   }, []);
@@ -52,8 +58,8 @@ export default function DetailsEvent() {
     nomeEvento: {
       fontFamily: "Poppins",
       color:
-        // biome-ignore lint/style/noNonNullAssertion: <explanation>
-        // biome-ignore lint/correctness/noConstantCondition: <explanation>
+        
+        
         event!.type === "Casamento" || "Viagem" || "Role / Festas"
           ? "white"
           : "black",
@@ -65,8 +71,8 @@ export default function DetailsEvent() {
     data: {
       fontFamily: "Poppins",
       color:
-        // biome-ignore lint/correctness/noConstantCondition: <explanation>
-        // biome-ignore lint/style/noNonNullAssertion: <explanation>
+        
+        
         event!.type === "Casamento" || "Viagem" || "Role / Festas"
           ? "white"
           : "black",
@@ -159,6 +165,35 @@ export default function DetailsEvent() {
     },
   });
 
+  const onPressEvent = async (evento: EventType) => {
+    try {
+      await AsyncStorage.setItem("idEventBuyList", evento.id); 
+      console.log("Evento armazenado com sucesso:", evento.id);
+      router.push("/buyList"); 
+    } catch (error) {
+      console.error("Erro ao armazenar o evento:", error);
+    }
+  };
+  const onPressEvents = async (evento: EventType) => {
+    try {
+      await AsyncStorage.setItem("idEventBugdet", evento.id); 
+      console.log("Evento armazenado com sucesso:", evento.id);
+      router.push("/bugdetPage"); 
+    } catch (error) {
+      console.error("Erro ao armazenar o evento:", error);
+    }
+  };
+
+  const data = new Date(event.initial_date);
+
+  const formatDate = new Intl.DateTimeFormat("pt-BR", {
+    day: "2-digit",
+    month: "long",  
+    year: "numeric", 
+  }).format(data); 
+  
+  const shortDate = new Intl.DateTimeFormat("pt-BR").format(data);
+  
   return (
     <ScrollView>
       <View>
@@ -174,7 +209,7 @@ export default function DetailsEvent() {
                 className="w-[21] h=[21]"
                 source={require("../../assets/date.png")}
               />
-              <Text style={style.data}>{event.initial_date}</Text>
+              <Text style={style.data}>{`${formatDate}`}</Text>
             </View>
             <View className="flex flex-row items-center mt-1 gap-2">
               <Image
@@ -215,8 +250,18 @@ export default function DetailsEvent() {
           </View>
           <View className="flex flex-col justify-center items-center mt-10 gap-8">
             <View>
-              <TouchableOpacity style={style.VisualizarConvidados}>
-                <Text style={style.textoConvidado}>Visualizar Convidados</Text>
+              <TouchableOpacity onPress={() => onPressEvents(event)} style={style.VisualizarConvidados}>
+                <Text style={style.textoConvidado}>Orcamento Previsto</Text>
+              </TouchableOpacity>
+            </View>
+            <View>
+              <TouchableOpacity
+                onPress={() => onPressEvent(event)}
+                style={style.VisualizarConvidados}
+              >
+                <Text style={style.textoConvidado}>
+                  Visualizar Lista de Compra
+                </Text>
               </TouchableOpacity>
             </View>
             <View>

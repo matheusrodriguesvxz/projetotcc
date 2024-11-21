@@ -7,6 +7,7 @@ export interface BuyListRequest {
 	userID: string;
 	id_events: string;
 	quantity: string;
+	totalPrice: string;
 }
 
 export const createBuyList = async (buyListRequest: BuyListRequest) => {
@@ -18,6 +19,7 @@ export const createBuyList = async (buyListRequest: BuyListRequest) => {
 			userID: buyListRequest.userID,
 			id_events: buyListRequest.id_events,
 			quantity: buyListRequest.quantity,
+			totalPrice: buyListRequest.totalPrice,
 		})
 		.returning();
 

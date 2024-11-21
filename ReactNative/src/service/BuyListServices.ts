@@ -36,4 +36,7 @@ export class BuyListServices extends BuyListRepository {
 		}
 		return this.buyListRepository.getById(id);
 	}
+	getByEventID(eventID: string): Promise<BuyLists> {
+		return this.buyListRepository.getByEventID(eventID);
+	}
 }

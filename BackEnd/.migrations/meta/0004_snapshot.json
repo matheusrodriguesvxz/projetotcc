@@ -113,6 +113,12 @@
           "type": "text",
           "primaryKey": false,
           "notNull": true
+        },
+        "preco_total": {
+          "name": "preco_total",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
         }
       },
       "indexes": {},
@@ -134,6 +140,7 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
+
     "public.Acompanhantes": {
       "name": "Acompanhantes",
       "schema": "",
@@ -194,6 +201,7 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
+
     "public.Eventos": {
       "name": "Eventos",
       "schema": "",

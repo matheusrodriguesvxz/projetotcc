@@ -16,15 +16,17 @@ export const updateBuyLists = async () => {
 					id_events: z.string({ message: "id_events is required" }),
 					quantity: z.string({ message: "quantity is required" }),
 					userID: z.string({ message: "userID is required" }),
+					totalPrice: z.string({ message: "totalPrice is required" }),
 				}),
 			},
 		},
 		async (request, reply) => {
-			const { name, status, id_events, quantity, userID } = request.body;
+			const { name, status, id_events, quantity, userID, totalPrice } =
+				request.body;
 			const { id } = request.params;
 
 			const updatedBuyLists = await updateBuyList(
-				{ name, status, id_events, quantity, userID },
+				{ name, status, id_events, quantity, userID, totalPrice },
 				id,
 			);
 

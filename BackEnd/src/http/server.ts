@@ -36,6 +36,7 @@ import { DeleteCompanion } from "./routes/Companion/delete-companion-route";
 import { updatesCompanion } from "./routes/Companion/update-companion-route";
 import { getGuestsByIDCompanion } from "./routes/Companion/find-by-id-companion-route";
 import { getCompanion } from "./routes/Companion/get-all-companion-route";
+import { getBuyListByUserID } from "./routes/BuyList/get-buyList-by-eventID-route";
 
 export const app = fastify().withTypeProvider<ZodTypeProvider>();
 app.register(cors, {
@@ -87,6 +88,7 @@ app.register(getBuyLists);
 app.register(createBuyLists);
 app.register(updateBuyLists);
 app.register(deleteBuyLists);
+app.register(getBuyListByUserID);
 
 // EventAndGuests / Eventos e Convidados
 app.register(getEventsAndGuests);

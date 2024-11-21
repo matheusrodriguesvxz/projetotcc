@@ -13,4 +13,5 @@ export const buyList = pgTable("Lista_de_Compras", {
 		.references(() => Events.id, { onDelete: "cascade" })
 		.notNull(),
 	quantity: text("quantidade").notNull(),
+	totalPrice: text("preco_total").notNull(),
 });

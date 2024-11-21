@@ -10,10 +10,6 @@ export class AdressServices extends AdressRepository {
 	}
 
 	async create(adress: Adress): Promise<Adress> {
-		const isExist = await this.adressRepository.getById(adress.id);
-		if (isExist) {
-			throw new Error("Adress already exists");
-		}
 
 		const createdAdress = await this.adressRepository.create(adress);
 		return createdAdress;

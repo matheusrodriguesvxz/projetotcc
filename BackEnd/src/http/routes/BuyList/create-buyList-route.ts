@@ -13,17 +13,20 @@ export const createBuyLists = async () => {
 					status: z.string({ message: "status is required" }),
 					id_events: z.string({ message: "id_events is required" }),
 					quantity: z.string({ message: "quantity is required" }),
+					totalPrice: z.string({ message: "totalPrice is required" }),
 				}),
 			},
 		},
 		async (request, reply) => {
-			const { name, status, id_events, userID, quantity } = request.body;
+			const { name, status, id_events, userID, quantity, totalPrice } =
+				request.body;
 			const createdbuyLists = await createBuyList({
 				name,
 				status,
 				id_events,
 				userID,
 				quantity,
+				totalPrice,
 			});
 			reply.status(201).send({
 				message: "Lista de Compras criado com sucesso",
