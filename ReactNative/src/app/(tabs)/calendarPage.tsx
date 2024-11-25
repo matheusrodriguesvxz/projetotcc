@@ -42,6 +42,7 @@ export default function CalendarPage() {
   const eventRepository = new EventsRepository();
   const eventService = new EventsServices(eventRepository);
 
+  // biome-ignore lint/complexity/useLiteralKeys: <explanation>
   LocaleConfig.locales["pt"] = {
     monthNames: [
       "Janeiro",

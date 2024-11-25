@@ -5,10 +5,10 @@ import { Events } from "../../db/schemas/events";
 import { eventsAndGuests } from "../../db/schemas/eventsAndGuests";
 import { Guests } from "../../db/schemas/guests";
 
-export const getAllEventAndGuests = async () => {
+export const findbyIDEventAndGuests = async (id: string) => {
 	const dataEventAndGuests = await db
 		.select({
-			id: eventsAndGuests.id,
+      id: eventsAndGuests.id,
 			name: Events.name,
 			description: Events.description,
 			pix: Events.pix,
@@ -25,6 +25,7 @@ export const getAllEventAndGuests = async () => {
 			complement: Adress.complement,
 			neighborhood: Adress.complement,
 			country: Adress.complement,
+			id_guests: eventsAndGuests.id_guests,
 			nameGuest: Guests.name,
 			age: Guests.age,
 			contact: Guests.contact,
@@ -33,7 +34,8 @@ export const getAllEventAndGuests = async () => {
 		.from(eventsAndGuests)
 		.innerJoin(Events, eq(Events.id, eventsAndGuests.id_events))
 		.innerJoin(Adress, eq(Events.id_adress, Adress.id))
-		.innerJoin(Guests, eq(Guests.id, eventsAndGuests.id_guests));
+		.innerJoin(Guests, eq(Guests.id, eventsAndGuests.id_guests))
+		.where(eq(Events.id, id));
 
 	return dataEventAndGuests;
 };

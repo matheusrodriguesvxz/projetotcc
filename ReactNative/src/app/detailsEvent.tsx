@@ -16,28 +16,12 @@ import { EventsRepository } from "../repository/EventsRepository";
 import { router } from "expo-router";
 
 
-
-LogBox.ignoreLogs([]); 
-
+LogBox.ignoreLogs([]);
 
 export default function DetailsEvent() {
   const [event, setEvent] = useState<EventType | null>(null);
   const eventResposity = new EventsRepository();
   const eventServices = new EventsServices(eventResposity);
-  const getImageSource = (eventType: string) => {
-    switch (eventType) {
-      case "Casamento":
-        return require("../../assets/Group 2.png");
-      case "Aniversário":
-        return require("../../assets/Group 3.png");
-      case "Viagem":
-        return require("../../assets/Group 4.png");
-      case "Role / Festas":
-        return require("../../assets/porra.jpg");
-      default:
-        return null;
-    }
-  };
 
   useEffect(() => {
     const fetchEvent = async () => {
@@ -46,7 +30,7 @@ export default function DetailsEvent() {
         console.error("Evento não encontrado");
         return;
       }
-      setEvent(JSON.parse(storedEvent)); 
+      setEvent(JSON.parse(storedEvent));
     };
     fetchEvent();
   }, []);
@@ -57,12 +41,7 @@ export default function DetailsEvent() {
   const style = StyleSheet.create({
     nomeEvento: {
       fontFamily: "Poppins",
-      color:
-        
-        
-        event!.type === "Casamento" || "Viagem" || "Role / Festas"
-          ? "white"
-          : "black",
+      color: "white",
       fontWeight: "bold",
       fontSize: 18,
       width: 300,
@@ -70,12 +49,7 @@ export default function DetailsEvent() {
     },
     data: {
       fontFamily: "Poppins",
-      color:
-        
-        
-        event!.type === "Casamento" || "Viagem" || "Role / Festas"
-          ? "white"
-          : "black",
+      color: "white",
       fontWeight: "bold",
       width: 300,
       letterSpacing: 1,
@@ -150,7 +124,7 @@ export default function DetailsEvent() {
       width: 343,
       height: 56,
       paddingVertical: 12,
-      backgroundColor: "#FF0B0B",
+      backgroundColor: "black",
       paddingHorizontal: 3,
       borderRadius: 20,
       justifyContent: "center",
@@ -167,18 +141,18 @@ export default function DetailsEvent() {
 
   const onPressEvent = async (evento: EventType) => {
     try {
-      await AsyncStorage.setItem("idEventBuyList", evento.id); 
+      await AsyncStorage.setItem("idEventBuyList", evento.id);
       console.log("Evento armazenado com sucesso:", evento.id);
-      router.push("/buyList"); 
+      router.push("/buyList");
     } catch (error) {
       console.error("Erro ao armazenar o evento:", error);
     }
   };
   const onPressEvents = async (evento: EventType) => {
     try {
-      await AsyncStorage.setItem("idEventBugdet", evento.id); 
+      await AsyncStorage.setItem("idEventBugdet", evento.id);
       console.log("Evento armazenado com sucesso:", evento.id);
-      router.push("/bugdetPage"); 
+      router.push("/bugdetPage");
     } catch (error) {
       console.error("Erro ao armazenar o evento:", error);
     }
@@ -188,10 +162,10 @@ export default function DetailsEvent() {
 
   const formatDate = new Intl.DateTimeFormat("pt-BR", {
     day: "2-digit",
-    month: "long",  
-    year: "numeric", 
-  }).format(data); 
-  
+    month: "long",
+    year: "numeric",
+  }).format(data);
+
   const shortDate = new Intl.DateTimeFormat("pt-BR").format(data);
   
   return (
@@ -200,7 +174,7 @@ export default function DetailsEvent() {
         <View className="flex justify-end items-center">
           <Image
             className="w-[395] h-[302]"
-            source={getImageSource(event.type)}
+            source={require("../../assets/download (1) 1.png")}
           />
           <View className="absolute bottom-6 left-4 w-[200]">
             <Text style={style.nomeEvento}>{event.name}</Text>
@@ -248,22 +222,16 @@ export default function DetailsEvent() {
               </View>
             </View>
           </View>
-          <View className="flex flex-col justify-center items-center mt-10 gap-8">
-            <View>
-              <TouchableOpacity onPress={() => onPressEvents(event)} style={style.VisualizarConvidados}>
-                <Text style={style.textoConvidado}>Orcamento Previsto</Text>
-              </TouchableOpacity>
-            </View>
+          <View className="flex flex-col justify-center items-center mt-10 gap-4">
             <View>
               <TouchableOpacity
-                onPress={() => onPressEvent(event)}
+                onPress={() => onPressEvents(event)}
                 style={style.VisualizarConvidados}
               >
-                <Text style={style.textoConvidado}>
-                  Visualizar Lista de Compra
-                </Text>
+                <Text style={style.textoConvidado}>Visualizar Convidados</Text>
               </TouchableOpacity>
             </View>
+            <View></View>
             <View>
               <TouchableOpacity
                 onPress={() => {

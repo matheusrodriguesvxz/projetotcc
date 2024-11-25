@@ -54,7 +54,7 @@ export default function RegisterPage() {
       });
 
       console.log("Usuário adicionado com sucesso!");
-      router.replace("/homePage");
+      router.replace("/(tabs)");
     } catch (error) {
       Alert.alert(
         "Erro ao registrar usuário",
