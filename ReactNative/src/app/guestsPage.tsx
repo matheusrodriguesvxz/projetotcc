@@ -53,27 +53,25 @@ export default function GuestsPage() {
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
-    const getGuests = async () => {
+    const fetchIdAndGuests = async () => {
       try {
-        const guests = await eventsAndGuestsServices.getById(
-          "v2q2yosrjo7ielyktwgqwbvr"
-        );
-        setGuests(guests);
-        console.log("Convidados", guests);
-      } catch (error) {}
-    };
-
-    const fetchEvent = async () => {
-      const storedEvent = await AsyncStorage.getItem("selectedEvent");
-      if (!storedEvent) {
-        console.error("Evento não encontrado");
-        return;
+        const storedIdEvent = await AsyncStorage.getItem("idEventBuyList");
+        if (!storedIdEvent) {
+          console.error("Evento não encontrado");
+          return;
+        }
+        setIdEvent(storedIdEvent);
+        console.log("Id do evento", storedIdEvent);
+  
+        const guestsData = await eventsAndGuestsServices.getById(storedIdEvent);
+        setGuests(guestsData);
+        console.log("Convidados", guestsData);
+      } catch (error) {
+        console.error("Erro ao buscar dados:", error);
       }
-      const parsedEvent = JSON.parse(storedEvent);
-      setEvent(parsedEvent);
     };
-
-    getGuests();
+  
+    fetchIdAndGuests();
   }, []);
 
   const style = StyleSheet.create({
@@ -193,7 +191,6 @@ export default function GuestsPage() {
       fontSize: 14,
       marginTop: 15,
       marginLeft: 8,
-    
     },
   });
 
@@ -229,7 +226,10 @@ export default function GuestsPage() {
           </Text>
           {guests.map((guest, index) => {
             return (
-              <View key={index}className="bg-gray-200 mt-10 h-[100px] w-50 ml-4 mr-4 rounded-[20px] flex flex-col flex-wrap">
+              <View
+                key={index}
+                className="bg-gray-200 mt-10 h-[100px] w-50 ml-4 mr-4 rounded-[20px] flex flex-col flex-wrap"
+              >
                 <View>
                   <View>
                     <Text style={style.nomeConvidado}> {guest.nameGuest}</Text>

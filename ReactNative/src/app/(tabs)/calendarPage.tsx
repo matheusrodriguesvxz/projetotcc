@@ -1,8 +1,14 @@
-import { StyleSheet, View, Image, Pressable } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Image,
+  Pressable,
+  Dimensions,
+  ActivityIndicator,
+} from "react-native";
 import { SafeAreaView } from "react-native";
 import { Calendar, LocaleConfig } from "react-native-calendars";
-import type React from "react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Text } from "react-native";
 import dayjs from "dayjs";
 import EditButton from "@/src/components/Svgs";
@@ -11,6 +17,8 @@ import { EventsServices } from "@/src/service/EventsServices";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ScrollView } from "react-native";
 import { router } from "expo-router";
+import Carousel from "react-native-snap-carousel";
+import { TouchableOpacity } from "react-native";
 
 export type EventType = {
   id: string;
@@ -35,13 +43,31 @@ export type EventType = {
   country: string;
 };
 
+const data = [
+  {
+    title: "Aniversário",
+    subtitle: "Diamon",
+    address: "Rua Engenheiro João Goulart, 1377, São Paulo",
+    countdown: "Faltam 3 dias.",
+  },
+  {
+    title: "Casamento",
+    subtitle: "Guigas",
+    address: "Rua Engenheiro João Goulart, 1377, São Paulo",
+    countdown: "Faltam 3 dias.",
+  },
+  // Adicione mais eventos aqui
+];
+
 export default function CalendarPage() {
   const [selected, setSelected] = useState("");
   const [userIDs, setUserIDs] = useState<string>("");
   const [events, setEvents] = useState<EventType[]>([]);
   const eventRepository = new EventsRepository();
   const eventService = new EventsServices(eventRepository);
-
+  const [activeIndex, setActiveIndex] = useState(0);
+  const { width: screenWidth } = Dimensions.get("window");
+  const [loading, setLoading] = useState(true);
   // biome-ignore lint/complexity/useLiteralKeys: <explanation>
   LocaleConfig.locales["pt"] = {
     monthNames: [
@@ -94,6 +120,8 @@ export default function CalendarPage() {
           setEvents(fetchedEvents);
         } catch (error) {
           console.error("Erro ao buscar eventos:", error);
+        } finally {
+          setLoading(false);
         }
       }
     };
@@ -150,20 +178,31 @@ export default function CalendarPage() {
       console.error("Erro ao armazenar o evento:", error);
     }
   };
-  const getImageSource = (eventType: string) => {
-    switch (eventType) {
-      case "Casamento":
-        return require("../../../assets/Group 2.png");
-      case "Aniversário":
-        return require("../../../assets/Group 3.png");
-      case "Viagem":
-        return require("../../../assets/Group 4.png");
-      case "Role / Festas":
-        return require("../../../assets/Group 5.png");
-    }
-  };
   const onDayPress = (day: { dateString: string }) => {
     setSelected(day.dateString);
+  };
+
+  const renderItem = ({ item }: { item: EventType }) => {
+    const daysLeft = calculateDaysLeft(item.initial_date);
+
+    return (
+      <View style={style.card}>
+        <Text style={style.title}>{item.type}</Text>
+        <Text style={style.subtitle}>{item.name}</Text>
+        <Text
+          style={style.address}
+        >{`${item.street}, ${item.number}, ${item.city}`}</Text>{" "}
+        <View className="flex flex-row gap-24 justify-center items-center">
+          <Text style={style.countdown}>{`Faltam ${daysLeft} dias.`}</Text>{" "}
+          <TouchableOpacity
+            style={style.button}
+            onPress={() => onPressEvent(item)}
+          >
+            <Text style={style.buttonText}>➤</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    );
   };
   return (
     <ScrollView>
@@ -195,88 +234,56 @@ export default function CalendarPage() {
             onDayPress={onDayPress}
             markedDates={markedDates}
           />
-          (
           <View>
-            {events.map((evento, index) => {
-              const daysLeft = calculateDaysLeft(evento.final_date);
-              return (
-                <View key={evento.id}>
-                  <View
-                    className="mt-5 w-[350] h-[97] flex items-center flex-row"
-                    style={{
-                      backgroundColor: "rgba(105, 105, 105, 0.2)",
-                      borderRadius: 20,
-                    }}
-                  >
-                    <View>
-                      <Image
-                        style={{
-                          width: 80,
-                          height: 80,
-                          marginLeft: 10,
-                        }}
-                        source={getImageSource(evento.type)}
-                      />
-                    </View>
-                    <View className="flex justify-center items-center">
-                      <Text
-                        className="bottom-8 left-2"
-                        style={{
-                          fontSize: 15,
-                          fontWeight: "bold",
-                          color: "black",
-                          fontFamily: "Poppins",
-                          textAlign: "center",
-                          marginTop: 25,
-                          width: 220,
-                          maxWidth: 220,
-                          textAlignVertical: "center",
-                        }}
-                      >
-                        {evento.name}
-                      </Text>
-                      <Text
-                        className="bottom-8 left-2"
-                        style={{
-                          fontSize: 11,
-                          fontFamily: "Poppins",
-                          fontWeight: "bold",
-                          color: "#909090",
-                          textAlign: "center",
-                          width: 170,
-                          textAlignVertical: "center",
-                        }}
-                      >
-                        {daysLeft > 0
-                          ? `Faltam ${daysLeft} ${
-                              daysLeft === 1 ? "dia" : "dias"
-                            } para o evento.`
-                          : "O evento já ocorreu."}
-                      </Text>
-
-                      <Text
-                        style={{
-                          fontSize: 11,
-                          fontFamily: "Poppins",
-                          fontWeight: "bold",
-                          color: "#909090",
-                          textAlign: "center",
-                          width: 160,
-                        }}
-                      >
-                        {`${evento.street}, ${evento.number} -  ${evento.state}`}
-                      </Text>
-                    </View>
-                    <View className="mr-4">
-                      <Pressable onPressIn={() => onPressEvent(evento)}>
-                        <EditButton />
-                      </Pressable>
-                    </View>
-                  </View>
-                </View>
-              );
-            })}
-            )
+            <View
+              className="flex flex-row gap-2 justify-center items-center"
+              style={{ marginTop: 20 }}
+            >
+              <Text
+                style={{
+                  fontSize: 22,
+                  textAlign: "left",
+                  marginBottom: 20,
+                  fontFamily: "Poppins",
+                }}
+              >
+                Gerencie seus
+              </Text>
+              <Text
+                style={{
+                  fontSize: 22,
+                  textAlign: "left",
+                  marginBottom: 20,
+                  color: "#760BFF",
+                  fontFamily: "Poppins",
+                }}
+              >
+                eventos
+              </Text>
+              <Text
+                style={{
+                  fontSize: 22,
+                  textAlign: "center",
+                  marginBottom: 20,
+                  fontFamily: "Poppins",
+                }}
+              >
+                aqui!
+              </Text>
+            </View>
+            {loading ? (
+              <ActivityIndicator size="large" color="#760BFF" />
+            ) : (
+              <Carousel
+                data={events}
+                renderItem={renderItem}
+                sliderWidth={screenWidth}
+                itemWidth={screenWidth * 0.7}
+                onSnapToItem={(index) => setActiveIndex(index)}
+                inactiveSlideOpacity={0.5}
+                inactiveSlideScale={0.9}
+              />
+            )}
           </View>
         </View>
       </SafeAreaView>
@@ -314,5 +321,59 @@ const style = StyleSheet.create({
     marginTop: 20,
     borderTopLeftRadius: 35,
     borderTopRightRadius: 35,
+  },
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#fff",
+  },
+  card: {
+    backgroundColor: "#4A00A9",
+    borderRadius: 16,
+    padding: 20,
+    gap: 30,
+    justifyContent: "space-between",
+    height: 315,
+    marginBottom: 20,
+  },
+  title: {
+    fontSize: 35,
+    fontWeight: "bold",
+    color: "#fff",
+    fontFamily: "Poppins",
+  },
+  subtitle: {
+    fontSize: 22,
+    fontFamily: "Poppins",
+    color: "#fff",
+    marginBottom: 15,
+  },
+  address: {
+    fontSize: 18,
+    color: "#fff",
+    width: 200,
+    fontFamily: "Poppins",
+  },
+  countdown: {
+    fontSize: 14,
+    color: "#fff",
+    position: "relative",
+    fontFamily: "Poppins",
+  },
+  button: {
+    backgroundColor: "#fff",
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    justifyContent: "center",
+    alignItems: "center",
+    alignSelf: "flex-end",
+    position: "relative",
+  },
+  buttonText: {
+    fontSize: 18,
+    color: "#4A0072",
+    fontWeight: "bold",
   },
 });

@@ -1,8 +1,17 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Dimensions,
+  SafeAreaView,
+} from "react-native";
 import InputMoney from "./InputMoney";
 import { Button } from "@rneui/base";
 import PaymentOptions from "./modalPayments";
+import Carousel from "react-native-snap-carousel";
+
 
 const MoneyScreen = () => {
   const [value, setValue] = useState<number>(0);
@@ -13,35 +22,36 @@ const MoneyScreen = () => {
   const toggleModalErro = () => {
     setIsModalVisible(!isModalVisible);
   };
+  const [activeIndex, setActiveIndex] = useState(0);
+  const { width: screenWidth } = Dimensions.get("window");
+
+  const renderItem = ({ item }) => (
+    <View style={styles.card}>
+      <Text style={styles.title}>{item.title}</Text>
+      <Text style={styles.subtitle}>{item.subtitle}</Text>
+      <Text style={styles.address}>{item.address}</Text>
+      <Text style={styles.countdown}>{item.countdown}</Text>
+      <TouchableOpacity style={styles.button}>
+        <Text style={styles.buttonText}>➤</Text>
+      </TouchableOpacity>
+    </View>
+  );
 
   return (
-    <View style={styles.container}>
-      <Button onPress={() => setIsModalVisible(true)}>Clique aqui</Button>
-      :
-      <PaymentOptions  isVisible={isModalVisible} toggleModal={toggleModal}/>
-      <Text style={styles.title}>Digite um valor:</Text>
-      <InputMoney
-        value={value}
-        onChange={(newValue: number) => setValue(newValue)}
-        placeholder="0,00"
-        addonBefore="R$"
-        editable
-        className="mt-8 border-1 border-b-4  py-2 w-[315]  ml-6 border-purple-800"
-        placeholderTextColor="#909090"
-        style={{
-          fontFamily: "Poppins",
-          fontWeight: "bold",
-          color: "#000000",
-          letterSpacing: 0.5,
-          marginTop: 25,
-          fontSize: 16,
-          borderColor: "#760BFF",
-        }}
-      />
-      <Text style={styles.result}>
-        Valor Atual: R$ {value.toFixed(2).replace(".", ",")}
-      </Text>
-    </View>
+    <SafeAreaView style={{ flex: 1 }}>
+      <View style={styles.container}>
+        <Carousel
+          data={data}
+          renderItem={renderItem}
+          sliderWidth={screenWidth}
+          itemWidth={screenWidth * 0.7}
+          onSnapToItem={(index) => setActiveIndex(index)}
+          inactiveSlideOpacity={0.5}
+          inactiveSlideScale={0.9}
+          autoplay={true}
+        />
+      </View>
+    </SafeAreaView>
   );
 };
 
@@ -52,18 +62,50 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    padding: 16,
-    backgroundColor: "#f5f5f5",
+    backgroundColor: "#fff",
+  },
+  card: {
+    backgroundColor: "#4A00A9",
+    borderRadius: 16,
+    padding: 20,
+    justifyContent: "space-between",
+    height: 237,
   },
   title: {
-    fontSize: 20,
-    marginBottom: 16,
+    fontSize: 35,
     fontWeight: "bold",
-    color: "#333",
+    color: "#fff",
+    fontFamily: "Poppins",
   },
-  result: {
-    marginTop: 24,
+  subtitle: {
+    fontSize: 22,
+    fontFamily: "Poppins",
+    color: "#fff",
+  },
+  address: {
+    fontSize: 14,
+    color: "#fff",
+    fontFamily: "Poppins",
+  },
+  countdown: {
+    fontSize: 14,
+    color: "#fff",
+    marginTop: 10,
+    fontFamily: 'Poppins',
+
+  },
+  button: {
+    backgroundColor: "#fff",
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    justifyContent: "center",
+    alignItems: "center",
+    alignSelf: "flex-end",
+  },
+  buttonText: {
     fontSize: 18,
-    color: "#555",
+    color: "#4A0072",
+    fontWeight: "bold",
   },
 });

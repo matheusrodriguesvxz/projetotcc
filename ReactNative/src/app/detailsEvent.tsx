@@ -7,6 +7,8 @@ import {
   ScrollView,
   StyleSheet,
   LogBox,
+  Pressable,
+  Share,
 } from "react-native";
 import MapView from "react-native-maps/lib/MapView";
 import type { EventType } from "./(tabs)/calendarPage";
@@ -14,7 +16,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { EventsServices } from "../service/EventsServices";
 import { EventsRepository } from "../repository/EventsRepository";
 import { router } from "expo-router";
-
+import { LogoSmall, ShareRounded } from "../components/Svgs";
 
 LogBox.ignoreLogs([]);
 
@@ -148,6 +150,15 @@ export default function DetailsEvent() {
       console.error("Erro ao armazenar o evento:", error);
     }
   };
+  const onPressEventGuests = async (evento: EventType) => {
+    try {
+      await AsyncStorage.setItem("idEventBuyList", evento.id);
+      console.log("Evento armazenado com sucesso:", evento.id);
+      router.push("/guestsPage");
+    } catch (error) {
+      console.error("Erro ao armazenar o evento:", error);
+    }
+  };
   const onPressEvents = async (evento: EventType) => {
     try {
       await AsyncStorage.setItem("idEventBugdet", evento.id);
@@ -167,30 +178,74 @@ export default function DetailsEvent() {
   }).format(data);
 
   const shortDate = new Intl.DateTimeFormat("pt-BR").format(data);
-  
+  const onShare = async () => {
+    try {
+      const result = await Share.share({
+        title: "EventEasy",
+        message: `Você foi convidado para o Evento: ${event.name} no dia ${shortDate} as 21h. Confirme sua presença!`,
+        url: `http://192.168.0.4:8080/event/${event.id}`,
+      });
+    } catch (error: any) {
+      alert(error.message);
+    }
+  };
+
   return (
     <ScrollView>
       <View>
-        <View className="flex justify-end items-center">
+        <View className="flex justify-start items-center">
           <Image
             className="w-[395] h-[302]"
             source={require("../../assets/download (1) 1.png")}
           />
-          <View className="absolute bottom-6 left-4 w-[200]">
-            <Text style={style.nomeEvento}>{event.name}</Text>
-            <View className="flex flex-row items-center gap-2">
-              <Image
-                className="w-[21] h=[21]"
-                source={require("../../assets/date.png")}
-              />
-              <Text style={style.data}>{`${formatDate}`}</Text>
+          <View
+            style={{
+              position: "absolute",
+              height: 80,
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+              marginTop: 48,
+              width: "100%",
+              paddingHorizontal: 10,
+            }}
+          >
+            <View style={{ marginLeft: 10 }}>
+              <LogoSmall />
             </View>
-            <View className="flex flex-row items-center mt-1 gap-2">
-              <Image
-                className="w-[21] h=[21]"
-                source={require("../../assets/hours.png")}
-              />
-              <Text style={style.data}>21h as 23h</Text>
+
+            <View>
+              <Pressable onPress={onShare}>
+                <ShareRounded />
+              </Pressable>
+            </View>
+          </View>
+
+          <View className="absolute bottom-6 left-4 flex flex-row items-center">
+            <View>
+              <Text style={style.nomeEvento}>{event.name}</Text>
+              <View className="flex flex-row items-center gap-2">
+                <Image
+                  className="w-[21] h=[21]"
+                  source={require("../../assets/date.png")}
+                />
+                <Text style={style.data}>{`${formatDate}`}</Text>
+              </View>
+              <View className="flex flex-row items-center mt-1 gap-2">
+                <Image
+                  className="w-[21] h=[21]"
+                  source={require("../../assets/hours.png")}
+                />
+                <View>
+                  <Text style={style.data}>21h as 23h</Text>
+                </View>
+              </View>
+            </View>
+
+            <View style={{ position: "relative", right: 20 }}>
+              <Pressable onPressIn={() => onPressEvent(event)}>
+                <Image source={require("../../assets/buyList.png")} />
+              </Pressable>
             </View>
           </View>
         </View>
@@ -225,13 +280,12 @@ export default function DetailsEvent() {
           <View className="flex flex-col justify-center items-center mt-10 gap-4">
             <View>
               <TouchableOpacity
-                onPress={() => onPressEvents(event)}
+                onPress={() => onPressEventGuests(event)}
                 style={style.VisualizarConvidados}
               >
                 <Text style={style.textoConvidado}>Visualizar Convidados</Text>
               </TouchableOpacity>
             </View>
-            <View></View>
             <View>
               <TouchableOpacity
                 onPress={() => {

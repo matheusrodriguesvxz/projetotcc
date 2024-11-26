@@ -13,24 +13,22 @@ const routes = [
     name: "Event",
     beforeEnter: async (to, from, next) => {
       const eventId = to.params.eventId;
-      const apiUrl = `https://8fc8-2804-14d-78a6-830d-7890-d55c-4eaf-5d3f.ngrok-free.app/events/${eventId}`;
+      const apiUrl = `http://192.168.0.4:3333/events/${eventId}`;
 
       try {
         const response = await fetch(apiUrl, {
           method: "GET",
           headers: {
             "ngrok-skip-browser-warning": "true",
-            'Content-Type': 'application/json'
-
-          }
-
+            "Content-Type": "application/json",
+          },
         });
         if (!response.ok) {
           throw new Error("Erro ao buscar dados do evento");
         }
 
         const data = await response.json();
-        console.log(data[0])
+        console.log(data[0]);
 
         if (Array.isArray(data) && data.length > 0) {
           const eventType = data[0].type;
