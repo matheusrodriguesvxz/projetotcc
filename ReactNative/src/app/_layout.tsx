@@ -6,7 +6,9 @@ import { Tabs } from "expo-router";
 export default function RootLayout() {
   return (
     <>
-      <Stack screenOptions={{ headerShown: false, animation:"fade_from_bottom"}}>
+      <Stack
+        screenOptions={{ headerShown: false, animation: "fade_from_bottom" }}
+      >
         <Stack.Screen
           name="index"
           options={{
@@ -47,6 +49,7 @@ export default function RootLayout() {
         <Stack.Screen name="detailsEvent" options={{ headerShown: false }} />
         <Stack.Screen name="guestsPage" options={{ headerShown: false }} />
         <Stack.Screen name="bugdetPage" options={{ headerShown: false }} />
+        <Stack.Screen name="detailsGuests" options={{ headerShown: false }} />
         <Stack.Screen
           name="detailsFestivais"
           options={{ headerShown: false }}

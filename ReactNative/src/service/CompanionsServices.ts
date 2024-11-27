@@ -1,4 +1,4 @@
-import { Companion } from "../entity/Companion";
+import type { Companion } from "../entity/Companion";
 import { CompanionRepository } from "../repository/CompanionRepository";
 
 
@@ -31,4 +31,9 @@ export class CompanionServices extends CompanionRepository {
         const getByID = this.companionRepository.getById(id);
         return getByID;
     }
+
+    async getCountByGuest(idGuest: string): Promise<number> {
+        return await this.companionRepository.countByGuestId(idGuest);
+      }
+      
 }

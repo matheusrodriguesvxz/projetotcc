@@ -16,6 +16,8 @@ import { router } from "expo-router";
 import { color } from "@rneui/base";
 import { EventAndGuestsRepository } from "../repository/EventsAndGuestsRepository";
 import { EventAndGuestsServices } from "../service/eventsAndGuestsServices";
+import { CompanionRepository } from "../repository/CompanionRepository";
+import { CompanionServices } from "../service/CompanionsServices";
 
 type GuestType = {
   id: string;
@@ -40,18 +42,20 @@ type GuestType = {
   contact: string;
   sexy: string;
   id_guests: string;
+  companionsCount?: number;
 };
-
 export default function GuestsPage() {
   const [guests, setGuests] = useState<GuestType[]>([]);
-  const [idEvent, setIdEvent] = useState<string>("");
+  const [idEvent, setIdEvent] = useState<string>("v2q2yosrjo7ielyktwgqwbvr");
   const [event, setEvent] = useState<EventType | null>(null);
   const eventsAndGuestsRepository = new EventAndGuestsRepository();
   const eventsAndGuestsServices = new EventAndGuestsServices(
     eventsAndGuestsRepository
   );
+  const companionsRepository = new CompanionRepository();
+  const companionsServices = new CompanionServices(companionsRepository);
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+
   useEffect(() => {
     const fetchIdAndGuests = async () => {
       try {
@@ -62,17 +66,39 @@ export default function GuestsPage() {
         }
         setIdEvent(storedIdEvent);
         console.log("Id do evento", storedIdEvent);
-  
+
         const guestsData = await eventsAndGuestsServices.getById(storedIdEvent);
-        setGuests(guestsData);
-        console.log("Convidados", guestsData);
+
+        const guestsWithCompanions = await Promise.all(
+          guestsData.map(async (guest) => {
+            const companionsCount = await companionsServices.getCountByGuest(
+              guest.id_guests
+            );
+            return { ...guest, companionsCount };
+          })
+        );
+
+        setGuests(guestsWithCompanions);
       } catch (error) {
         console.error("Erro ao buscar dados:", error);
       }
     };
-  
+
     fetchIdAndGuests();
   }, []);
+
+  const onPressGuests = async (guests: GuestType) => {
+    try {
+      if (!guests) {
+        console.error("guests não encontrado");
+        return;
+      }
+      await AsyncStorage.setItem("selectedGuests", JSON.stringify(guests));
+      router.push("/detailsGuests");
+    } catch (error) {
+      console.error("Erro ao armazenar o evento:", error);
+    }
+  };
 
   const style = StyleSheet.create({
     nomeEvento: {
@@ -178,10 +204,11 @@ export default function GuestsPage() {
     nomeConvidado: {
       color: "black",
       fontWeight: "bold",
-      marginTop: 15,
       fontFamily: "Poppins",
       marginLeft: 15,
+      paddingVertical: 10,
       fontSize: 18,
+      textAlign: "center",
     },
 
     subConvidado: {
@@ -224,27 +251,29 @@ export default function GuestsPage() {
           <Text style={style.convidadosConfirmados}>
             Convidados Confirmados
           </Text>
-          {guests.map((guest, index) => {
+        {guests.map((guest, index) => {
             return (
-              <View
-                key={index}
-                className="bg-gray-200 mt-10 h-[100px] w-50 ml-4 mr-4 rounded-[20px] flex flex-col flex-wrap"
-              >
-                <View>
-                  <View>
-                    <Text style={style.nomeConvidado}> {guest.nameGuest}</Text>
+              <View 
+              key={index}
+              className="bg-gray-200 mt-10 h-[36px] ml-4 mr-4 rounded-[20px] flex flex-row items-center w-[336] gap-24">
+                <View className="flex flex-row justify-center items-center">
+                  <Text style={style.nomeConvidado}>{guest.nameGuest}</Text>
+                </View>
+                <View className=" flex flex-row justify-center items-center gap-3">
+                  <View className="flex flex-row justify-center items-center">
+    
+                  <Text style={{
+                    fontFamily: "Poppins",
+                    fontWeight: "bold",
+                    color: "#909090",
+                    fontSize: 18,
+                  }}>+{guest.companionsCount}</Text>
+                  <Image style={{
+                    width: 16,
+                    height: 20,
+                  }} source={require("../../assets/guerss.png")} />
                   </View>
-                  <View className="flex flex-row justify-center items-center  ">
-                    <View>
-                      <Text style={style.subConvidado}>
-                        Idade: {guest.age} anos
-                      </Text>
-                    </View>
-                    <Text style={style.subConvidado}>
-                      Sexo: {guest.sexy === "M" ? "Homem" : "Mulher"}
-                    </Text>
-                    <Text style={style.subConvidado}>Contato: 11910066354</Text>
-                  </View>
+                  <Image source={require("../../assets/trash.png")} />
                 </View>
               </View>
             );

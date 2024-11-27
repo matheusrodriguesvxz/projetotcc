@@ -44,6 +44,7 @@ import { createPaymentPreference } from "./routes/Payments/create-preferences-ro
 import { getSucessPayment } from "./routes/Payments/url-sucess-router";
 import { getFailedPayment } from "./routes/Payments/url-failed-router";
 import { getPendingPayment } from "./routes/Payments/url-pending-router";
+import { getGuestsByLengtCompanion } from "./routes/Companion/find-by-lenght-companion-route";
 
 export const app = fastify().withTypeProvider<ZodTypeProvider>();
 app.register(cors, {
@@ -114,6 +115,7 @@ app.register(DeleteCompanion);
 app.register(getGuestsByIDCompanion);
 app.register(getCompanion);
 app.register(updatesCompanion);
+app.register(getGuestsByLengtCompanion);
 
 //payment
 app.register(createPaymentPix);

@@ -34,7 +34,7 @@ export default function Index() {
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
-    checkUserLoggedIn();
+    // checkUserLoggedIn();
   }, []);
 
   return (

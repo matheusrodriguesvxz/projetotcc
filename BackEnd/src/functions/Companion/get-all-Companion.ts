@@ -10,6 +10,7 @@ export const getAllCompanion = async () => {
 			age: Companion.age,
 			contact: Companion.contact,
 			sexy: Companion.sexy,
+			id_guest: Companion.id_guest,
 		})
 		.from(Companion);
 
