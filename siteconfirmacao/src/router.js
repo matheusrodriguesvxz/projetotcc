@@ -4,6 +4,7 @@ import ConvitePartyPage from "./components/Pages/ConvitePartyPage.vue";
 import DadosPage from "./components/Pages/DadosPage.vue";
 import ConfirmadoPage from "./components/Pages/ConfirmadoPage.vue";
 import QuePenaPage from "./components/Pages/QuePenaPage.vue";
+import BirthdayPorra from "./components/Pages/BirthdayPorra.vue";
 
 const routes = [
     {
@@ -82,11 +83,11 @@ const routes = [
     //     name: "Travel",
     //     component: () => import("./components/Pages/TravelPage.vue") // Carregamento dinâmico
     // },
-    // {
-    //     path: "/birthday",
-    //     name: "Birthday",
-    //     component: () => import("./components/Pages/BirthdayPage.vue") // Carregamento dinâmico
-    // }
+    {
+        path: "/birthday",
+        name: "Birthday",
+        component: BirthdayPorra // Carregamento dinâmico
+    }
 ];
 
 const router = createRouter({

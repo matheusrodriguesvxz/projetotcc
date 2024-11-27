@@ -1,5 +1,7 @@
 <template>
+<div class="instrucoes">
 <p>Para confirmar sua presença, preencha as seguinte informações:</p>
+</div>
 <div class="form">
 <FomComp></FomComp>
 </div>
@@ -14,7 +16,25 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+
+.instrucoes{
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    padding-top: 20px;
+    padding-bottom: 50%;
+    position: relative;
+    bottom: 70px;
+    font-family: "Arial", sans-serif;
+    text-align: center;
+    border-radius: 20px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    background-image: url('../assets/BackgroundForm.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
 p{
     font-family: poppins;
     margin-top: 40px;

@@ -123,19 +123,25 @@
     margin: 0 auto;
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   }
+ 
+  input[type=text] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: #760BFF;
+  border-bottom: 2px solid #760BFF;
+}
   
-  input,
-  select {
-    margin-top: 15px;
-    width: 100%;
-    max-width: 300px;
-    border: 1px solid #760BFF;
-    border-radius: 5px;
-    padding: 8px;
-    font-family: "Poppins", sans-serif;
-  }
+  input[type=number] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: #760BFF;
+  border-bottom: 2px solid #760BFF;
+}
   
   label {
     font-family: "Poppins", sans-serif;
