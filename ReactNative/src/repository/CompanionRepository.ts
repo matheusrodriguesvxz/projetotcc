@@ -1,7 +1,7 @@
 import type { Companion } from "../entity/Companion";
 import type { IBaseRepository } from "./IBaseRepository";
 
-export class CompanionRepository implements IBaseRepository<Companion> {
+export class CompanionRepository {
 	async create(companion: Companion): Promise<Companion> {
 		const companions = await fetch("http://192.168.0.4:3333/companion", {
 			method: "POST",
@@ -47,12 +47,10 @@ export class CompanionRepository implements IBaseRepository<Companion> {
 		}
 		return companions;
 	}
-	async getById(id: string): Promise<Companion> {
-		const response = await fetch(`http://192.168.0.4:3333/companion/${id}`, {
-			method: "GET",
-		});
+	async getById(id: string): Promise<Companion[]> {
+		const response = await fetch(`http://192.168.0.4:3333/companion/${id}`);
 
-		const companions: Companion = await response.json();
+		const companions: Companion[] = await response.json();
 		return companions;
 	}
 

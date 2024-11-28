@@ -10,17 +10,55 @@ import {
   Pressable,
   Share,
 } from "react-native";
-import MapView from "react-native-maps/lib/MapView";
-import type { EventType } from "./(tabs)/calendarPage";
+import type { GuestType } from "./guestsPage";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { EventsServices } from "../service/EventsServices";
-import { EventsRepository } from "../repository/EventsRepository";
-import { router } from "expo-router";
-import { LogoSmall, ShareRounded } from "../components/Svgs";
+import { CompanionRepository } from "../repository/CompanionRepository";
+import { CompanionServices } from "../service/CompanionsServices";
 
 LogBox.ignoreLogs([]);
 
+type Companions = {
+  id: string;
+  name: string;
+  age: number;
+  contact: string;
+  sexy: string;
+  id_guest: string;
+};
+
 export default function DetailsGuests() {
+  const [guests, setGuests] = useState<GuestType>();
+  const companionsRepository = new CompanionRepository();
+  const companionsServices = new CompanionServices(companionsRepository);
+  const [companions, setCompanions] = useState<Companions[]>([]);
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+  useEffect(() => {
+    const fetchGuests = async () => {
+      const guestsData = await AsyncStorage.getItem("selectedGuests");
+      if (guestsData) {
+        setGuests(JSON.parse(guestsData));
+      }
+    };
+
+    fetchGuests();
+  }, []); 
+
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+  useEffect(() => {
+    const fetchCompanions = async () => {
+      if (!guests) return; // Garante que guests está definido.
+      const companionss = await companionsServices.getById(guests.id_guests);
+      const companionsWithNumberAge = companionss.map((companion) => ({
+        ...companion,
+        age: Number(companion.age),
+      }));
+      console.log(companionsWithNumberAge);
+      setCompanions(companionsWithNumberAge);
+    };
+
+    fetchCompanions();
+  }, [guests]);
+
   return (
     <View>
       <View className="flex justify-start items-center">
@@ -64,10 +102,10 @@ export default function DetailsGuests() {
                     marginBottom: 10,
                   }}
                 >
-                  Joao Vitor Diamon
+                  {guests?.nameGuest}
                 </Text>
               </View>
-              <View className="flex flex-row gap-4 justify-center ">
+              <View className="flex flex-row gap-4 justify-center  ">
                 <View className="flex flex-row items-center gap-1	">
                   <Image source={require("../../assets/whats.png")} />
                   <Text
@@ -78,7 +116,7 @@ export default function DetailsGuests() {
                       fontSize: 18,
                     }}
                   >
-                    11939282007
+                    {guests?.contact}
                   </Text>
                 </View>
                 <View className="flex flex-row items-center justify-center gap-1">
@@ -101,7 +139,7 @@ export default function DetailsGuests() {
                       fontSize: 18,
                     }}
                   >
-                    19
+                    {guests?.age}
                   </Text>
                 </View>
                 <View className="flex flex-row items-center gap-1">
@@ -123,112 +161,131 @@ export default function DetailsGuests() {
                       fontSize: 18,
                     }}
                   >
-                    M
+                    {guests?.sexy}
                   </Text>
                 </View>
               </View>
             </View>
           </View>
-          <View>
-            <Text
-              style={{
-                fontFamily: "Poppins",
-                fontWeight: "bold",
-                color: "black",
-                fontSize: 22,
-                marginTop: 20,
-                textAlign: "center",
-              }}
-            >
-              Acompanhantes
-            </Text>
-            <View className="flex  items-center">
-            <View
-              className="w-[345] h-[81] "
-              style={{
-                backgroundColor: "#F1F1F1",
-                borderRadius: 15,
-                marginTop: 20,
-                justifyContent: "center",
-              }}
-            >
-              <View className="flex justify-center items-center">
+            <View className="flex justify-center items-center">
+              <Text
+                style={{
+                  fontFamily: "Poppins",
+                  fontWeight: "bold",
+                  color: "black",
+                  fontSize: 22,
+                  marginTop: 20,
+                  textAlign: "center",
+                }}
+                >
+                Acompanhantes
+              </Text>
+
+                <ScrollView>
+              {companions.length === 0 ? (
                 <Text
-                  className="text-center"
                   style={{
                     fontFamily: "Poppins",
                     fontWeight: "bold",
-                    color: "black",
+                    color: "#909090",
                     fontSize: 18,
-                    marginBottom: 10,
+                    textAlign: "center",
+                    marginTop: 10,
                   }}
                 >
-                  Joao Vitor Diamon
+                  Nenhum acompanhante encontrado.
                 </Text>
-              </View>
-              <View className="flex flex-row gap-4 justify-center ">
-                <View className="flex flex-row items-center gap-1	">
-                  <Image source={require("../../assets/whats.png")} />
-                  <Text
+              ) : (
+                companions.map((companion) => (
+                  <View
+                    key={companion.id}
+                    className="w-[345] h-[81]"
                     style={{
-                      fontFamily: "Poppins",
-                      fontWeight: "bold",
-                      color: "#909090",
-                      fontSize: 18,
+                      backgroundColor: "#F1F1F1",
+                      borderRadius: 15,
+                      marginTop: 20,
+                      justifyContent: "center",
                     }}
                   >
-                    11939282007
-                  </Text>
-                </View>
-                <View className="flex flex-row items-center justify-center gap-1">
-                  <Text
-                    className=""
-                    style={{
-                      fontFamily: "Poppins",
-                      fontWeight: "bold",
-                      color: "black",
-                      fontSize: 18,
-                    }}
-                  >
-                    Idade:
-                  </Text>
-                  <Text
-                    style={{
-                      fontFamily: "Poppins",
-                      fontWeight: "bold",
-                      color: "#909090",
-                      fontSize: 18,
-                    }}
-                  >
-                    19
-                  </Text>
-                </View>
-                <View className="flex flex-row items-center gap-1">
-                  <Text
-                    style={{
-                      fontFamily: "Poppins",
-                      fontWeight: "bold",
-                      color: "black",
-                      fontSize: 18,
-                    }}
-                  >
-                    Sexo:
-                  </Text>
-                  <Text
-                    style={{
-                      fontFamily: "Poppins",
-                      fontWeight: "bold",
-                      color: "#909090",
-                      fontSize: 18,
-                    }}
-                  >
-                    M
-                  </Text>
-                </View>
-              </View>
+                    <View className="flex justify-center items-center">
+                      <Text
+                        className="text-center"
+                        style={{
+                          fontFamily: "Poppins",
+                          fontWeight: "bold",
+                          color: "black",
+                          fontSize: 18,
+                          marginBottom: 10,
+                        }}
+                      >
+                        {companion.name}
+                      </Text>
+                    </View>
+                    <View className="flex flex-row gap-4 justify-center">
+                      <View className="flex flex-row items-center gap-1">
+                        <Image source={require("../../assets/whats.png")} />
+                        <Text
+                          style={{
+                            fontFamily: "Poppins",
+                            fontWeight: "bold",
+                            color: "#909090",
+                            fontSize: 18,
+                          }}
+                        >
+                          {companion.contact}
+                        </Text>
+                      </View>
+                      <View className="flex flex-row items-center justify-center gap-1">
+                        <Text
+                          className=""
+                          style={{
+                            fontFamily: "Poppins",
+                            fontWeight: "bold",
+                            color: "black",
+                            fontSize: 18,
+                          }}
+                        >
+                          Idade:
+                        </Text>
+                        <Text
+                          style={{
+                            fontFamily: "Poppins",
+                            fontWeight: "bold",
+                            color: "#909090",
+                            fontSize: 18,
+                          }}
+                        >
+                          {companion.age}
+                        </Text>
+                      </View>
+                      <View className="flex flex-row items-center gap-1">
+                        <Text
+                          style={{
+                            fontFamily: "Poppins",
+                            fontWeight: "bold",
+                            color: "black",
+                            fontSize: 18,
+                          }}
+                        >
+                          Sexo:
+                        </Text>
+                        <Text
+                          style={{
+                            fontFamily: "Poppins",
+                            fontWeight: "bold",
+                            color: "#909090",
+                            fontSize: 18,
+                          }}
+                        >
+                          {companion.sexy}
+                        </Text>
+                      </View>
+                    </View>
+                  </View>
+                ))
+              )}
+          </ScrollView>
             </View>
-          </View>
-          </View>
         </View>
       </View>
     </View>

@@ -184,7 +184,7 @@ export default function BuyList() {
             {buyList
               .filter((item) => item.status === "pending")
               .reduce(
-                (sum, item) => sum + Number.parseFloat(item.totalPrice || 0),
+                (sum, item) => sum + Number.parseFloat(item.totalPrice),
                 0
               )
               .toFixed(2)}{" "}

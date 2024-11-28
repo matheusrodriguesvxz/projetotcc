@@ -79,6 +79,18 @@ export function BarraDePesquisa({ ...rest }) {
     </View>
   );
 }
+export function BarraDePesquisaSpo({ ...rest }) {
+  return (
+    <View style={styles.container2}>
+      <Ionicons name="search" size={20} color="#909090" style={styles.icon} />
+      <TextInput
+        {...rest}
+        style={styles.input}
+        placeholderTextColor="#909090"
+      />
+    </View>
+  );
+}
 const data = [
   {
     key: "1",
@@ -230,6 +242,28 @@ const styles = StyleSheet.create({
     fontFamily: "Poppins",
     fontWeight: "bold",
     marginTop: 20,
+  },
+  container2: {
+    flexDirection: "row",
+    alignItems: "center",
+    width: 333,
+    height: 55,
+    borderRadius: 30,
+    backgroundColor: "#F0F0F0",
+    textAlign: "left",
+    fontSize: 18,
+    fontFamily: "Poppins",
+    fontWeight: "bold",
+    marginTop: 20,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+    
   },
   icon: {
     marginRight: 10,

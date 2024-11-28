@@ -27,7 +27,7 @@ export class CompanionServices extends CompanionRepository {
         const getAll = this.companionRepository.getAll();
         return getAll;
     }
-    getById(id: string): Promise<Companion> {
+    getById(id: string): Promise<Companion[]> {
         const getByID = this.companionRepository.getById(id);
         return getByID;
     }

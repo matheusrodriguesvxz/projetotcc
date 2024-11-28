@@ -10,16 +10,14 @@ import {
 import MapView from "react-native-maps/lib/MapView";
 import type { EventType } from "./(tabs)/calendarPage";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { EventsServices } from "../service/EventsServices";
-import { EventsRepository } from "../repository/EventsRepository";
 import { router } from "expo-router";
-import { color } from "@rneui/base";
 import { EventAndGuestsRepository } from "../repository/EventsAndGuestsRepository";
 import { EventAndGuestsServices } from "../service/eventsAndGuestsServices";
 import { CompanionRepository } from "../repository/CompanionRepository";
 import { CompanionServices } from "../service/CompanionsServices";
+import { Trash, UserImage } from "../components/Svgs";
 
-type GuestType = {
+export type GuestType = {
   id: string;
   name: string;
   description: string;
@@ -55,7 +53,7 @@ export default function GuestsPage() {
   const companionsRepository = new CompanionRepository();
   const companionsServices = new CompanionServices(companionsRepository);
 
-
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     const fetchIdAndGuests = async () => {
       try {
@@ -94,6 +92,7 @@ export default function GuestsPage() {
         return;
       }
       await AsyncStorage.setItem("selectedGuests", JSON.stringify(guests));
+      console.log("Convidado selecionado:", guests);
       router.push("/detailsGuests");
     } catch (error) {
       console.error("Erro ao armazenar o evento:", error);
@@ -125,7 +124,6 @@ export default function GuestsPage() {
       letterSpacing: 1,
       fontSize: 22,
       textAlign: "center",
-      marginLeft: 55,
       marginTop: 20,
     },
 
@@ -247,35 +245,52 @@ export default function GuestsPage() {
             </View>
           </View>
         </View>
-        <View className=" bg-white w-full h-full rounded-[21px] bottom-4">
-          <Text style={style.convidadosConfirmados}>
-            Convidados Confirmados
-          </Text>
-        {guests.map((guest, index) => {
+        <View className=" bg-white w-full h-full rounded-[21px] bottom-4 items-center">
+          <Text style={style.convidadosConfirmados}>Convidados</Text>
+
+          {guests.map((guest, index) => {
             return (
-              <View 
-              key={index}
-              className="bg-gray-200 mt-10 h-[36px] ml-4 mr-4 rounded-[20px] flex flex-row items-center w-[336] gap-24">
-                <View className="flex flex-row justify-center items-center">
-                  <Text style={style.nomeConvidado}>{guest.nameGuest}</Text>
-                </View>
-                <View className=" flex flex-row justify-center items-center gap-3">
-                  <View className="flex flex-row justify-center items-center">
-    
-                  <Text style={{
-                    fontFamily: "Poppins",
-                    fontWeight: "bold",
-                    color: "#909090",
-                    fontSize: 18,
-                  }}>+{guest.companionsCount}</Text>
-                  <Image style={{
-                    width: 16,
-                    height: 20,
-                  }} source={require("../../assets/guerss.png")} />
+              // biome-ignore lint/correctness/useJsxKeyInIterable: <explanation>
+              <TouchableOpacity onPress={() => onPressGuests(guest)}>
+                <View
+                  key={index}
+                  className="bg-gray-200 mt-10 h-[36px] ml-4 mr-4 rounded-[10] flex flex-row items-center w-[336px] gap-24 "
+                >
+                  <View className="flex-1 ml-4">
+                    <Text
+                      style={{
+                        fontFamily: "Poppins",
+                        fontWeight: "bold",
+                        color: "#000",
+                        fontSize: 18,
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                      }}
+                      numberOfLines={1}
+                      ellipsizeMode="tail"
+                    >
+                      {guest.nameGuest}
+                    </Text>
                   </View>
-                  <Image source={require("../../assets/trash.png")} />
+
+                  <View className="flex flex-row justify-center items-center gap-3 mr-4">
+                    <View className="flex flex-row justify-center items-center gap-1">
+                      <Text
+                        style={{
+                          fontFamily: "Poppins",
+                          fontWeight: "bold",
+                          color: "black",
+                          fontSize: 14,
+                        }}
+                      >
+                        +{guest.companionsCount}
+                      </Text>
+                      <UserImage />
+                    </View>
+                    <Trash />
+                  </View>
                 </View>
-              </View>
+              </TouchableOpacity>
             );
           })}
         </View>

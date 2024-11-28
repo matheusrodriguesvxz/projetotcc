@@ -47,9 +47,14 @@ export default function RootLayout() {
         <Stack.Screen name="planPageAdress" options={{ headerShown: false }} />
         <Stack.Screen name="planPageFinish" options={{ headerShown: false }} />
         <Stack.Screen name="detailsEvent" options={{ headerShown: false }} />
+        <Stack.Screen name="detailsPlaylist" options={{ headerShown: false }} />
         <Stack.Screen name="guestsPage" options={{ headerShown: false }} />
         <Stack.Screen name="bugdetPage" options={{ headerShown: false }} />
         <Stack.Screen name="detailsGuests" options={{ headerShown: false }} />
+        <Stack.Screen name="spotifyScreen" options={{ headerShown: false }} />
+        <Stack.Screen name="detailsRestaurant" options={{ headerShown: false }} />
+        <Stack.Screen name="detailsBar" options={{ headerShown: false }} />
+        <Stack.Screen name="detailsHotel" options={{ headerShown: false }} />
         <Stack.Screen
           name="detailsFestivais"
           options={{ headerShown: false }}
