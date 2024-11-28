@@ -86,7 +86,7 @@ const routes = [
     {
         path: "/birthday",
         name: "Birthday",
-        component: BirthdayPorra // Carregamento dinâmico
+        component: BirthdayPorra
     }
 ];
 
