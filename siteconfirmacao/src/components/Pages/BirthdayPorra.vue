@@ -74,6 +74,7 @@ html, body {
 }
 
 .invitation-header h1 {
+  margin-top: 30%;
   font-size: 2rem;
   color: white;
   margin-bottom: 10px;

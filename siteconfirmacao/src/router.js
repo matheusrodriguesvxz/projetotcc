@@ -1,10 +1,10 @@
 import { createRouter, createWebHistory } from "vue-router";
 
-import ConvitePartyPage from "./components/Pages/ConvitePartyPage.vue";
 import DadosPage from "./components/Pages/DadosPage.vue";
 import ConfirmadoPage from "./components/Pages/ConfirmadoPage.vue";
 import QuePenaPage from "./components/Pages/QuePenaPage.vue";
 import BirthdayPorra from "./components/Pages/BirthdayPorra.vue";
+import PartyPage from "./components/Pages/PartyPage.vue";
 
 const routes = [
     {
@@ -56,7 +56,7 @@ const routes = [
     {
         path: "/party",
         name: "Party",
-        component: ConvitePartyPage
+        component: PartyPage
     },
     {
         path: "/dados",
