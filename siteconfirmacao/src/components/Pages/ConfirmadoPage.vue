@@ -12,7 +12,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 
 body{
     background-color: rgba(85, 9, 156, 0.914);

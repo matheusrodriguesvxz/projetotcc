@@ -1,10 +1,12 @@
 <template>
   <form v-for="(form, index) in lista" :key="index" @submit.prevent="true">
+    <p v-if="index > 0" class="acomp-text">Preencha os dados do acompanhante:</p>
+
     <input type="text" v-model="form.name" placeholder="Nome"><br>
     <input type="number" v-model="form.age" placeholder="Idade"><br>
     <input type="text" v-model="form.contact" placeholder="Número de celular"><br>
-    <label>Sexo: </label>
-    <select v-model="form.sexy" name="sexo">
+    <select v-model="form.sexy" name="sexo" required>
+      <option value="" disabled selected>Sexo</option>
       <option value="F">Feminino</option>
       <option value="M">Masculino</option>
     </select><br>
@@ -12,8 +14,10 @@
 
   <div class="buttonsGuests">
     <button class="acomp" @click="adicionarAcompanhante">+Adicionar acompanhante</button>
-    <button class="envio" @click="enviarDados">Enviar</button>
+    <button class="acomp" @click="removerAcompanhante" :disabled="lista.length <= 1">-Remover acompanhante</button>
   </div>
+
+  <button class="envio" @click="enviarDados">Enviar</button>
 </template>
 
 <script>
@@ -21,16 +25,28 @@ export default {
   name: "FormComp",
   data() {
     return {
-      lista: [{ name: "", age: null, contact: "", sexy: "F" }],
+      eventDetails: JSON.parse(localStorage.getItem("eventDetails")) || {},
+      lista: [
+        { name: "", age: null, contact: "", sexy: "" }
+      ],
+      apiResponse: "",
+      jsonToSend: "",
     };
   },
   methods: {
     adicionarAcompanhante() {
-      this.lista.push({ name: "", age: null, contact: "", sexy: "F" });
+      this.lista.push({ name: "", age: null, contact: "", sexy: "" });
+    },
+    removerAcompanhante() {
+      if (this.lista.length > 1) {
+        this.lista.pop();
+      }
     },
     async enviarDados() {
-      const apiUrlEvent = "http://127.0.0.1:3333/events/v2q2yosrjo7ielyktwgqwbvr";
-      const apiUrlGuest = "http://127.0.0.1:3333/guest";
+
+
+      const apiUrlEvent = `http://192.168.0.4:3333/events/${this.eventDetails.id}`;
+      const apiUrlGuest = "http://192.168.0.4:3333/guest";
       const apiUrlCompanion = "http://192.168.0.4:3333/companion";
       const apiUrlGuestAndEvent = "http://192.168.0.4:3333/eventAndGuests";
 
@@ -52,8 +68,6 @@ export default {
         if (!userID) {
           throw new Error("userID não encontrado na resposta da API.");
         }
-
-        // Enviar o primeiro formulário para a tabela Guest
         const guestData = {
           name: this.lista[0].name,
           age: this.lista[0].age,
@@ -130,8 +144,9 @@ export default {
       }
     },
   },
-};
+}
 </script>
+
 <style scoped>
 * {
   box-sizing: border-box;
@@ -146,18 +161,21 @@ form {
   margin: 0 auto;
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-input,
+input[type=text],
+input[type=number],
 select {
-  margin-top: 15px;
   width: 100%;
-  max-width: 300px;
-  border: 1px solid #760BFF;
-  border-radius: 5px;
-  padding: 8px;
-  font-family: "Poppins", sans-serif;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: #760BFF;
+  border-bottom: 2px solid #760BFF;
+}
+
+select:invalid {
+  color: gray;
 }
 
 label {
@@ -168,12 +186,14 @@ label {
 .buttonsGuests {
   margin-top: 30px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   width: 100%;
+  text-align: center;
+  gap: 8px;
 }
 
 .envio {
-  width: 100px;
+  width: 150px;
   height: 40px;
   background-color: #760BFF;
   border-radius: 30px;
@@ -183,6 +203,10 @@ label {
   border: none;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  margin-top: 9%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .envio:hover {
@@ -204,5 +228,13 @@ label {
 .acomp:hover {
   background-color: #760BFF;
   color: white;
+}
+
+.acomp-text {
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 16px;
+  color: #760BFF;
+  font-family: "Poppins", sans-serif;
 }
 </style>

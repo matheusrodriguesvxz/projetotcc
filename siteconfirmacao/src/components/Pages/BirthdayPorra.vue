@@ -1,126 +1,240 @@
 <template>
-  <div class="invitation">
-    <div class="invitation-header">
-      <h1>Feliz Aniversário!</h1>
-      <p>É com muita alegria que convidamos você para comemorar o nosso dia especial:</p>
-    </div>
+  <form v-for="(form, index) in lista" :key="index" @submit.prevent="true">
+    <p v-if="index > 0" class="acomp-text">Preencha os dados do acompanhante:</p>
 
-    <div class="event-details">
-      <p><strong>Evento:</strong> {{ eventDetails.name }}</p>
-      <p><strong>Data:</strong> {{ formattedDate }}</p>
-      <p><strong>Local:</strong> {{ eventDetails.street }}</p>
-      <p><strong>Horário:</strong> 18:00</p>
-    </div>
+    <input type="text" v-model="form.name" placeholder="Nome"><br>
+    <input type="number" v-model="form.age" placeholder="Idade"><br>
+    <input type="text" v-model="form.contact" placeholder="Número de celular"><br>
+    <select v-model="form.sexy" name="sexo" required>
+      <option value="" disabled selected>Sexo</option>
+      <option value="F">Feminino</option>
+      <option value="M">Masculino</option>
+    </select><br>
+  </form>
 
-    <div class="invitation-body">
-      <p>Estamos ansiosos para celebrar este momento maravilhoso com você!</p>
-      <p>
-        Por favor, confirme sua presença para que possamos organizar tudo com carinho.
-      </p>
-    </div>
-
-    <div class="confirmation-section">
-      <DadosComp />
-    </div>
+  <div class="buttonsGuests">
+    <button class="acomp" @click="adicionarAcompanhante">+Adicionar acompanhante</button>
+    <button class="acomp" @click="removerAcompanhante" :disabled="lista.length <= 1">-Remover acompanhante</button>
   </div>
+
+  <button class="envio" @click="enviarDados">Enviar</button>
 </template>
 
 <script>
-/* eslint-disable */
-
-import DadosComp from "../DadosComp.vue";
-
 export default {
-  name: "Birthday",
-  components: {
-    DadosComp,
-  },
+  name: "FormComp",
   data() {
     return {
       eventDetails: JSON.parse(localStorage.getItem("eventDetails")) || {},
-      formattedDate: "", 
+      lista: [
+        { name: "", age: null, contact: "", sexy: "" }
+      ],
+      apiResponse: "",
+      jsonToSend: "",
     };
   },
-  mounted() {
-    // Log para verificar os dados carregados
-    console.log("Dados do evento carregados:", this.eventDetails);
-    
-    if (this.eventDetails.final_date) {
-      const date = new Date(this.eventDetails.final_date);
-      this.formattedDate = date.toLocaleDateString("pt-BR");
-      
-      // Log para verificar a data formatada
-      console.log("Data formatada:", this.formattedDate);
-    }
+  methods: {
+    adicionarAcompanhante() {
+      this.lista.push({ name: "", age: null, contact: "", sexy: "" });
+    },
+    removerAcompanhante() {
+      if (this.lista.length > 1) {
+        this.lista.pop();
+      }
+    },
+    async enviarDados() {
+
+
+      const apiUrlEvent = `http://192.168.0.4:3333/events/${this.eventDetails.id}`;
+      const apiUrlGuest = "http://192.168.0.4:3333/guest";
+      const apiUrlCompanion = "http://192.168.0.4:3333/companion";
+      const apiUrlGuestAndEvent = "http://192.168.0.4:3333/eventAndGuests";
+
+      if (this.lista.some((guest) => !guest.name || !guest.age || !guest.contact || !guest.sexy)) {
+        alert("Por favor, preencha todos os campos antes de enviar.");
+        return;
+      }
+
+      try {
+        // Obter o userID do evento
+        const responseEvent = await fetch(apiUrlEvent);
+        if (!responseEvent.ok) {
+          throw new Error("Erro ao buscar o userID do evento.");
+        }
+        console.log("responseEvent", responseEvent);
+        const eventData = await responseEvent.json();
+        const userID = eventData[0]?.userID;
+
+        if (!userID) {
+          throw new Error("userID não encontrado na resposta da API.");
+        }
+        const guestData = {
+          name: this.lista[0].name,
+          age: this.lista[0].age,
+          contact: this.lista[0].contact,
+          sexy: this.lista[0].sexy,
+          userID: userID,
+        };
+
+        const responseGuest = await fetch(apiUrlGuest, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(guestData),
+        });
+
+        if (!responseGuest.ok) {
+          throw new Error("Erro ao enviar os dados para a tabela Guest.");
+        }
+
+        const guestResponseData = await responseGuest.json();
+        const guestID = guestResponseData.id;
+        console.log("Guest adicionado:", guestID);
+        const eventAndGuestsData = {
+          id_guests: guestID,
+          userID: userID,
+          id_events: eventData[0].id,
+        };
+        console.log("eventAndGuestsData", eventAndGuestsData);
+
+        const responseGuestAndEvent = await fetch(apiUrlGuestAndEvent, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(eventAndGuestsData),
+        });
+        const companions = this.lista.slice(1);
+        for (const companion of companions) {
+          const companionData = {
+            name: companion.name,
+            age: companion.age,
+            contact: companion.contact,
+            sexy: companion.sexy,
+            id_guest: guestID,
+
+          };
+
+          const responseCompanion = await fetch(apiUrlCompanion, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(companionData),
+          });
+
+          if (!responseCompanion.ok) {
+            throw new Error(`Erro ao enviar acompanhante: ${companion.name}`);
+          }
+
+          const companionResponse = await responseCompanion.json();
+          console.log("Companion adicionado:", companionResponse);
+        }
+
+
+        if (!responseGuestAndEvent.ok) {
+          throw new Error("Erro ao enviar os dados para a tabela EventAndGuests.");
+        }
+
+        alert("Dados enviados com sucesso!");
+      } catch (error) {
+        console.error("Erro na comunicação com a API:", error);
+        alert("Erro ao enviar os dados. Verifique sua conexão.");
+      }
+    },
   },
-};
+}
 </script>
 
 <style scoped>
-.invitation {
-  max-width: 600px;
+* {
+  box-sizing: border-box;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 400px;
   margin: 0 auto;
-  padding: 30px;
-  font-family: "Arial", sans-serif;
-  text-align: center;
-  border: 1px solid #f1c40f;
-  border-radius: 20px;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
-  background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
+  padding: 20px;
+  border-radius: 10px;
 }
 
-.invitation-header {
-  margin-bottom: 30px;
+input[type=text],
+input[type=number],
+select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: #760BFF;
+  border-bottom: 2px solid #760BFF;
 }
 
-.invitation-header h1 {
-  font-size: 36px;
-  color: #f39c12;
-  font-weight: bold;
+select:invalid {
+  color: gray;
 }
 
-.invitation-header p {
-  font-size: 18px;
-  color: #7f8c8d;
+label {
+  font-family: "Poppins", sans-serif;
+  margin-top: 10px;
 }
 
-.event-details {
-  margin: 20px 0;
-  text-align: left;
-  padding: 15px;
-  background-color: #fff;
-  border-radius: 12px;
-  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.1);
-}
-
-.event-details p {
-  font-size: 18px;
-  margin: 10px 0;
-  color: #2c3e50;
-}
-
-.invitation-body {
-  margin: 20px 0;
-}
-
-.invitation-body p {
-  font-size: 16px;
-  color: #7f8c8d;
-  line-height: 1.6;
-}
-
-.confirmation-section {
+.buttonsGuests {
   margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  text-align: center;
+  gap: 8px;
 }
 
-.confirmation-section h3 {
-  font-size: 20px;
-  color: #f39c12;
-  font-weight: bold;
+.envio {
+  width: 150px;
+  height: 40px;
+  background-color: #760BFF;
+  border-radius: 30px;
+  color: white;
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 9%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.confirmation-section p {
+.envio:hover {
+  background-color: #5a0d8a;
+}
+
+.acomp {
+  width: 200px;
+  height: 40px;
+  background-color: #fff;
+  border: 1px solid #760BFF;
+  border-radius: 30px;
+  color: #760BFF;
+  font-family: "Poppins", sans-serif;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.acomp:hover {
+  background-color: #760BFF;
+  color: white;
+}
+
+.acomp-text {
+  text-align: center;
+  margin-bottom: 10px;
   font-size: 16px;
-  color: #7f8c8d;
+  color: #760BFF;
+  font-family: "Poppins", sans-serif;
 }
 </style>

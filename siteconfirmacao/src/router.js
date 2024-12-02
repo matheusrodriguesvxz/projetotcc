@@ -1,11 +1,11 @@
 import { createRouter, createWebHistory } from "vue-router";
-
 import DadosPage from "./components/Pages/DadosPage.vue";
 import ConfirmadoPage from "./components/Pages/ConfirmadoPage.vue";
 import QuePenaPage from "./components/Pages/QuePenaPage.vue";
-import Married from "./components/Pages/Marriedssssssssssss.vue";
 import BirthdayPorra from "./components/Pages/BirthdayPorra.vue";
-import PartyPorra from "./components/Pages/PartyPorra.vue";
+import PartyPage from "./components/Pages/PartyPage.vue";
+import MarriagePage from "./components/Pages/MarriagePage.vue";
+import TravelPage from "./components/Pages/TravelPage.vue";
 
 const routes = [
   {
@@ -19,7 +19,6 @@ const routes = [
         const response = await fetch(apiUrl, {
           method: "GET",
           headers: {
-            "ngrok-skip-browser-warning": "true",
             "Content-Type": "application/json",
           },
         });
@@ -32,13 +31,6 @@ const routes = [
 
         if (Array.isArray(data) && data.length > 0) {
           const eventType = data[0].type;
-          const eventDetails = {
-            id: data[0].id,
-            name: data[0].name,
-            date: data[0].date,
-            type: data[0].type,
-          };
-
           localStorage.setItem("eventDetails", JSON.stringify(data[0]));
 
           switch (eventType.toLowerCase()) {
@@ -46,7 +38,7 @@ const routes = [
               next({ path: "/marriage" });
               break;
             case "viagem":
-              next({ path: "/travel", state: eventDetails });
+              next({ path: "/travel"});
               break;
             case "aniversário":
               next({ path: "/birthday" });
@@ -55,7 +47,7 @@ const routes = [
               next({ path: "/party" });
               break;
             default:
-              next({ path: "/dados", state: eventDetails });
+              next({ path: "/dados"});
               break;
           }
         } else {
@@ -67,6 +59,11 @@ const routes = [
         next("/dados");
       }
     },
+  },
+  {
+    path: "/party",
+    name: "Party",
+    component: PartyPage,
   },
   {
     path: "/dados",
@@ -86,22 +83,17 @@ const routes = [
   {
     path: "/marriage",
     name: "Marriage",
-    component: Married,
+    component: MarriagePage,
   },
-  // {
-  //     path: "/travel",
-  //     name: "Travel",
-  //     component: TravelPage,
-  // },
+  {
+    path: "/travel",
+    name: "Travel",
+    component: TravelPage,
+  },
   {
     path: "/birthday",
     name: "Birthday",
     component: BirthdayPorra,
-  },
-  {
-    path: "/party",
-    name: "Party",
-    component: PartyPorra,
   },
 ];
 

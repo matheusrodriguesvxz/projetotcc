@@ -1,7 +1,6 @@
 <template>
     <NavComp></NavComp>
     <DadosComp></DadosComp>
-    <!-- <FooterComp></FooterComp> -->
 </template>
 
 <script>
