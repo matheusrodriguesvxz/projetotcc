@@ -182,8 +182,8 @@ export default function DetailsEvent() {
     try {
       const result = await Share.share({
         title: "EventEasy",
-        message: `Você foi convidado para o Evento: ${event.name} no dia ${shortDate} as 21h. Confirme sua presença!`,
-        url: `http://192.168.0.4:8080/event/${event.id}`,
+        message: `Você foi convidado para o Evento: ${event.name} no dia ${shortDate} as 21h. Confirme sua presença!  `,
+        url: `https://site-convidado.vercel.app/event/${event.id}`,
       });
     } catch (error: any) {
       alert(error.message);

@@ -46,7 +46,7 @@ export default function DetailsGuests() {
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     const fetchCompanions = async () => {
-      if (!guests) return; // Garante que guests está definido.
+      if (!guests) return; 
       const companionss = await companionsServices.getById(guests.id_guests);
       const companionsWithNumberAge = companionss.map((companion) => ({
         ...companion,
@@ -282,7 +282,7 @@ export default function DetailsGuests() {
                       </View>
                     </View>
                   </View>
-                ))
+                )) 
               )}
           </ScrollView>
             </View>

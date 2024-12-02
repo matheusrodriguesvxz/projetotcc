@@ -55,7 +55,7 @@ export default function SpotifyScreen() {
   async function getPlaylistTracks(playlistId: string) {
     try {
       const tokenResponse = await axios.get(
-        "http://192.168.0.4:3333/getTokenSpotify"
+        "https://568d-2804-14d-78a6-830d-91e2-ccf4-7fa7-1e43.ngrok-free.app/getTokenSpotify"
       );
       const token = tokenResponse.data.token;
       const response = await axios.get(
@@ -78,7 +78,7 @@ export default function SpotifyScreen() {
   async function getTopMusics() {
     try {
       const tokenResponse = await axios.get(
-        "http://192.168.0.4:3333/getTokenSpotify"
+        "https://568d-2804-14d-78a6-830d-91e2-ccf4-7fa7-1e43.ngrok-free.app/getTokenSpotify"
       );
       const token = tokenResponse.data.token;
 
@@ -117,7 +117,7 @@ export default function SpotifyScreen() {
   async function GetMusic() {
     try {
       const tokenResponse = await axios.get(
-        "http://192.168.0.4:3333/getTokenSpotify"
+        "https://568d-2804-14d-78a6-830d-91e2-ccf4-7fa7-1e43.ngrok-free.app/getTokenSpotify"
       );
       const token = tokenResponse.data.token;
 

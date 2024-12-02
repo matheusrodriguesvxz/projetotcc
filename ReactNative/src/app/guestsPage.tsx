@@ -245,17 +245,18 @@ export default function GuestsPage() {
             </View>
           </View>
         </View>
-        <View className=" bg-white w-full h-full rounded-[21px] bottom-4 items-center">
+        <View className="bg-white w-full h-full rounded-[21px] bottom-4 items-center">
           <Text style={style.convidadosConfirmados}>Convidados</Text>
 
-          {guests.map((guest, index) => {
-            return (
-              // biome-ignore lint/correctness/useJsxKeyInIterable: <explanation>
-              <TouchableOpacity onPress={() => onPressGuests(guest)}>
-                <View
-                  key={index}
-                  className="bg-gray-200 mt-10 h-[36px] ml-4 mr-4 rounded-[10] flex flex-row items-center w-[336px] gap-24 "
-                >
+          {guests.length === 0 ? (
+            <Text style={style.nomeConvidado}>Nenhum convidado encontrado</Text>
+          ) : (
+            guests.map((guest, index) => (
+              <TouchableOpacity
+                key={index}
+                onPress={() => onPressGuests(guest)}
+              >
+                <View className="bg-gray-200 mt-10 h-[36px] ml-4 mr-4 rounded-[10] flex flex-row items-center w-[336px] gap-24">
                   <View className="flex-1 ml-4">
                     <Text
                       style={{
@@ -272,7 +273,6 @@ export default function GuestsPage() {
                       {guest.nameGuest}
                     </Text>
                   </View>
-
                   <View className="flex flex-row justify-center items-center gap-3 mr-4">
                     <View className="flex flex-row justify-center items-center gap-1">
                       <Text
@@ -291,8 +291,8 @@ export default function GuestsPage() {
                   </View>
                 </View>
               </TouchableOpacity>
-            );
-          })}
+            ))
+          )}
         </View>
       </View>
     </ScrollView>

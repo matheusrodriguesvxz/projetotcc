@@ -13,12 +13,13 @@ const routes = [
     name: "Event",
     beforeEnter: async (to, from, next) => {
       const eventId = to.params.eventId;
-      const apiUrl = `http://192.168.0.4:3333/events/${eventId}`;
+      const apiUrl = `https://5615-2804-14d-78a6-830d-91e2-ccf4-7fa7-1e43.ngrok-free.app/events/${eventId}`;
 
       try {
         const response = await fetch(apiUrl, {
           method: "GET",
           headers: {
+            "ngrok-skip-browser-warning": "true",
             "Content-Type": "application/json",
           },
         });
@@ -38,7 +39,7 @@ const routes = [
               next({ path: "/marriage" });
               break;
             case "viagem":
-              next({ path: "/travel"});
+              next({ path: "/travel" });
               break;
             case "aniversário":
               next({ path: "/birthday" });
@@ -47,7 +48,7 @@ const routes = [
               next({ path: "/party" });
               break;
             default:
-              next({ path: "/dados"});
+              next({ path: "/dados" });
               break;
           }
         } else {

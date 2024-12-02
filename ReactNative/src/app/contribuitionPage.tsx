@@ -87,7 +87,7 @@ export default function ContribuitionPage() {
     try {
       setLoading(true);
       const response = await axios.post(
-        "http://192.168.0.4:3333/payment/preference",
+        "https://568d-2804-14d-78a6-830d-91e2-ccf4-7fa7-1e43.ngrok-free.app/payment/preference",
         {
           title: "Vaquinha Event Easy",
           quantity: 1,
@@ -116,7 +116,7 @@ export default function ContribuitionPage() {
   const handleCreatePixPayment = async () => {
     try {
       setLoading(true);
-      const response = await axios.post("http://192.168.0.4:3333/payment/pix", {
+      const response = await axios.post("https://568d-2804-14d-78a6-830d-91e2-ccf4-7fa7-1e43.ngrok-free.app/payment/pix", {
         transaction_amount: 120,
         description: "Pagamento via PIX",
         payment_method_id: "pix",

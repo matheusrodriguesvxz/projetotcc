@@ -45,10 +45,10 @@ export default {
     async enviarDados() {
 
 
-      const apiUrlEvent = `http://192.168.0.4:3333/events/${this.eventDetails.id}`;
-      const apiUrlGuest = "http://192.168.0.4:3333/guest";
-      const apiUrlCompanion = "http://192.168.0.4:3333/companion";
-      const apiUrlGuestAndEvent = "http://192.168.0.4:3333/eventAndGuests";
+      const apiUrlEvent = `https://5615-2804-14d-78a6-830d-91e2-ccf4-7fa7-1e43.ngrok-free.app/events/${this.eventDetails.id}`;
+      const apiUrlGuest = "https://5615-2804-14d-78a6-830d-91e2-ccf4-7fa7-1e43.ngrok-free.app/guest";
+      const apiUrlCompanion = "https://5615-2804-14d-78a6-830d-91e2-ccf4-7fa7-1e43.ngrok-free.app/companion";
+      const apiUrlGuestAndEvent = "https://5615-2804-14d-78a6-830d-91e2-ccf4-7fa7-1e43.ngrok-free.app/eventAndGuests";
 
       if (this.lista.some((guest) => !guest.name || !guest.age || !guest.contact || !guest.sexy)) {
         alert("Por favor, preencha todos os campos antes de enviar.");
@@ -57,7 +57,12 @@ export default {
 
       try {
         // Obter o userID do evento
-        const responseEvent = await fetch(apiUrlEvent);
+        const responseEvent = await fetch(apiUrlEvent, {
+          headers: {
+            'ngrok-skip-browser-warning': 'true',
+            "Content-Type": "application/json",
+          },
+        });
         if (!responseEvent.ok) {
           throw new Error("Erro ao buscar o userID do evento.");
         }
@@ -79,6 +84,7 @@ export default {
         const responseGuest = await fetch(apiUrlGuest, {
           method: "POST",
           headers: {
+            'ngrok-skip-browser-warning': 'true',
             "Content-Type": "application/json",
           },
           body: JSON.stringify(guestData),
@@ -101,6 +107,7 @@ export default {
         const responseGuestAndEvent = await fetch(apiUrlGuestAndEvent, {
           method: "POST",
           headers: {
+            'ngrok-skip-browser-warning': 'true',
             "Content-Type": "application/json",
           },
           body: JSON.stringify(eventAndGuestsData),
@@ -119,7 +126,8 @@ export default {
           const responseCompanion = await fetch(apiUrlCompanion, {
             method: "POST",
             headers: {
-              "Content-Type": "application/json",
+              'ngrok-skip-browser-warning': 'true',
+               "Content-Type": "application/json",
             },
             body: JSON.stringify(companionData),
           });

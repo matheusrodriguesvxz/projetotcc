@@ -37,7 +37,7 @@ export default function PlaylistPage() {
     try {
       console.log("Iniciando a requisição para obter o token...");
       const tokenResponse = await axios.get(
-        "http://192.168.0.5:3333/getTokenSpotify"
+        "https://568d-2804-14d-78a6-830d-91e2-ccf4-7fa7-1e43.ngrok-free.app/getTokenSpotify"
       );
       console.log("Token recebido:", tokenResponse.data.token);
 
