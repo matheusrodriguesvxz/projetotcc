@@ -1,4 +1,7 @@
 export class BuyLists {
+  reduce(arg0: (acc: any, item: any) => any, arg1: {}) {
+    throw new Error("Method not implemented.");
+  }
 	id!: string;
 	name!: string;
 	status!: string;

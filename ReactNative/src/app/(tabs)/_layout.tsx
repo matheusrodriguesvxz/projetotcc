@@ -87,7 +87,7 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="kittyPage"
+        name="bugdetPage"
         options={{
           headerStyle: {
             opacity: 0,

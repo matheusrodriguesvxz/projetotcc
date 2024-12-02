@@ -3,11 +3,9 @@ import WelcomeEventEasy, {
   BarraDePesquisa,
   CarosselImages,
   Comprinhas,
-  HappyHour,
   Invites,
   Payment,
   Playlist,
-  Viagens,
 } from "../../components/HomePage";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ScrollView } from "react-native";
@@ -59,9 +57,13 @@ export const Header = () => null;
 export default function HomePage() {
   const [index, setIndex] = useState(0);
   const [userIDs, setUserIDs] = useState<string>("");
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   const [festivals, setFestivals] = useState<any[]>([]);
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   const [hotels, setHotels] = useState<any[]>([]);
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   const [bar, setBars] = useState<any[]>([]);
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   const [restaurants, setRestaurants] = useState<any[]>([]);
 
   async function getRestaurantsInSaoPaulo() {
@@ -79,12 +81,8 @@ export default function HomePage() {
     try {
       const response = await axios.get(apiUrl, { params });
       setRestaurants(response.data.local_results || []);
-      console.log("Restaurantes em São Paulo:", response.data);
     } catch (error) {
-      console.error(
-        "Erro ao buscar restaurantes:",
-        error.response?.data || error.message
-      );
+      console.error("Erro ao buscar restaurantes:");
     }
   }
 
@@ -93,8 +91,8 @@ export default function HomePage() {
     const params = {
       engine: "google_hotels",
       q: "São Paulo Hotels",
-      check_in_date: "2024-11-29",
-      check_out_date: "2024-11-30",
+      check_in_date: "2024-12-14",
+      check_out_date: "2024-12-30",
       adults: 2,
       currency: "BRL",
       gl: "br",
@@ -107,10 +105,7 @@ export default function HomePage() {
       const response = await axios.get(apiUrl, { params });
       setHotels(response.data.properties || []);
     } catch (error) {
-      console.error(
-        "Erro ao buscar hotéis:",
-        error.response?.data || error.message
-      );
+      console.error("Erro ao buscar hotéis:");
     }
   }
 
@@ -129,12 +124,8 @@ export default function HomePage() {
     try {
       const response = await axios.get(apiUrl, { params });
       setBars(response.data.local_results || []);
-      console.log("Bares em São Paulo:", response.data.local_results);
     } catch (error) {
-      console.error(
-        "Erro ao buscar bares:",
-        error.response?.data || error.message
-      );
+      console.error("Erro ao buscar bares:");
     }
   }
 
@@ -173,7 +164,6 @@ export default function HomePage() {
     };
     fetchUserID();
   }, []);
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     console.log("userIDs atualizado:", userIDs);
   }, [userIDs]);
@@ -310,7 +300,7 @@ export default function HomePage() {
                         />
                         <View>
                           <Text
-                            numberOfLines={1} 
+                            numberOfLines={1}
                             style={{
                               fontSize: 16,
                               maxWidth: 200,
@@ -353,6 +343,7 @@ export default function HomePage() {
           {index === 3 && hotels.length > 0 && (
             <View>
               {hotels.map((house, index) => (
+                // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
                 <View key={index} style={style.festivalItem}>
                   <Pressable
                     onPress={async () => {
@@ -389,7 +380,7 @@ export default function HomePage() {
                           {house.name}
                         </Text>
                         <Text
-                          numberOfLines={1} 
+                          numberOfLines={1}
                           ellipsizeMode="tail"
                           style={{
                             maxWidth: 200,
@@ -421,6 +412,7 @@ export default function HomePage() {
 
           {index === 1 && bar.length > 0 ? (
             bar.map((barItem, index) => (
+              // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
               <View key={index} style={style.barItem}>
                 <Pressable
                   onPress={async () => {
@@ -477,7 +469,7 @@ export default function HomePage() {
                           marginTop: 5,
                         }}
                       >
-                        {barItem.description || "Descrição não disponível."}
+                        {barItem.description || "Descrição não disponível ppp."}
                       </Text>
                     </View>
                   </View>
@@ -485,11 +477,13 @@ export default function HomePage() {
               </View>
             ))
           ) : (
+            // biome-ignore lint/style/useSelfClosingElements: <explanation>
             <View></View>
           )}
 
           {index === 2 && restaurants.length > 0 ? (
             restaurants.map((restaurant, index) => (
+              // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
               <View key={index} style={style.barItem}>
                 <Pressable
                   onPress={async () => {
@@ -555,6 +549,7 @@ export default function HomePage() {
               </View>
             ))
           ) : (
+            // biome-ignore lint/style/useSelfClosingElements: <explanation>
             <View></View>
           )}
         </View>

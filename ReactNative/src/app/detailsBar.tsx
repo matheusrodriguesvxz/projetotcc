@@ -19,6 +19,7 @@ LogBox.ignoreLogs([]);
 export default function DetailsBar() {
   const [bar, setBar] = useState<BarDetailsType | null>(null);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     const fetchBar = async () => {
       const storedBar = await AsyncStorage.getItem("selectedBar");

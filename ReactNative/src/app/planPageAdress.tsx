@@ -96,11 +96,14 @@ export default function PlanPageAdress() {
         if (createdAdress?.id) {
           await AsyncStorage.setItem("address_id", createdAdress.id);
           console.log("ID do endereço salvo no AsyncStorage:", createdAdress.id);
+         
         } else {
           console.log("O endereço foi criado, mas não tem um ID.");
         }
       } catch (error) {
         console.error("Erro ao criar endereço:", error);
+      } finally {
+        router.push("/planPageFinish");
       }
     } catch (error) {
       console.error("Erro ao buscar o CEP:", error);
@@ -151,7 +154,7 @@ export default function PlanPageAdress() {
   const onSubmit: SubmitHandler<NewRegisterFormData> = (data) => {
     const address = getAdress(data);
     fetchCoordinates(address);
-    router.push("/planPageFinish");
+    
   };
 
   return (

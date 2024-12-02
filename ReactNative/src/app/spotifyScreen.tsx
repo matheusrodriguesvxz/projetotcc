@@ -2,7 +2,6 @@ import {
   View,
   Image,
   Text,
-  FlatList,
   ActivityIndicator,
   Animated,
   TouchableOpacity,
@@ -43,13 +42,9 @@ type SpotifyResponse = {
 };
 
 export default function SpotifyScreen() {
-  const [playlistImages, setPlaylistImages] = useState<Array<string | null>>(
-    []
-  );
+  const [playlistImages, setPlaylistImages] = useState<Array<string | null>>([]);
   const [playlistNames, setPlaylistNames] = useState<Array<string>>([]);
   const [loading, setLoading] = useState(true);
-  const [activeIndex, setActiveIndex] = useState(0);
-
   const [animations, setAnimations] = useState<Animated.Value[]>([]);
   const [index, setIndex] = useState(0);
   const [selectedPlaylistId, setSelectedPlaylistId] = useState<string | null>(
@@ -377,13 +372,13 @@ export default function SpotifyScreen() {
         />
       </Tab>
       {index === 0 ? (
-        <View>
+        <View className="flex flex-col mt-4 justify-center items-center">
           {loading ? (
             <ActivityIndicator size="large" color="#0000ff" />
           ) : topMusics.length > 0 ? (
             topMusics.map((item) => (
-              <View key={item.id} style={style.listaDeMusica}>
-                <View>
+              <View key={item.id} style={style.listaDeMusica} className="flex flex-col justify-center items-center">
+                <View className="">
                   {item.track.album.images.length > 0 ? (
                     <Image
                       source={{ uri: item.track.album.images[0]?.url }}
@@ -451,6 +446,7 @@ const style = StyleSheet.create({
     flexDirection: "row",
     borderRadius: 10,
     alignItems: "center",
+    justifyContent: "center",
   },
 
   imagem: {

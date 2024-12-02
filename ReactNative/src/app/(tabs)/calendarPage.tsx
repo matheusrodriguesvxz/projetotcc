@@ -1,8 +1,6 @@
 import {
   StyleSheet,
   View,
-  Image,
-  Pressable,
   Dimensions,
   ActivityIndicator,
 } from "react-native";
@@ -11,7 +9,6 @@ import { Calendar, LocaleConfig } from "react-native-calendars";
 import React, { useEffect, useState } from "react";
 import { Text } from "react-native";
 import dayjs from "dayjs";
-import EditButton from "@/src/components/Svgs";
 import { EventsRepository } from "@/src/repository/EventsRepository";
 import { EventsServices } from "@/src/service/EventsServices";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -42,22 +39,6 @@ export type EventType = {
   neighborhood: string;
   country: string;
 };
-
-const data = [
-  {
-    title: "Aniversário",
-    subtitle: "Diamon",
-    address: "Rua Engenheiro João Goulart, 1377, São Paulo",
-    countdown: "Faltam 3 dias.",
-  },
-  {
-    title: "Casamento",
-    subtitle: "Guigas",
-    address: "Rua Engenheiro João Goulart, 1377, São Paulo",
-    countdown: "Faltam 3 dias.",
-  },
-  // Adicione mais eventos aqui
-];
 
 export default function CalendarPage() {
   const [selected, setSelected] = useState("");
@@ -156,6 +137,7 @@ export default function CalendarPage() {
     const startDate = new Date(event.initial_date);
     const endDate = new Date(event.final_date);
 
+    // biome-ignore lint/style/useConst: <explanation>
     let currentDate = startDate;
     while (currentDate <= endDate) {
       const formattedDate = currentDate.toISOString().split("T")[0];

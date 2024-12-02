@@ -6,7 +6,7 @@ export class EventsRepository implements IBaseRepository<Events> {
 		const response = await fetch("http://192.168.0.4:3333/event", {
 			method: "POST",
 			headers: {
-					
+				"Content-Type": "application/json",
 			},
 			body: JSON.stringify(event),
 		});

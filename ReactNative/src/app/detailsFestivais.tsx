@@ -11,7 +11,6 @@ import {
 } from "react-native";
 import MapView from "react-native-maps/lib/MapView";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { router } from "expo-router";
 import type { EventsFestivais, EventsSearchResult } from "./(tabs)"; 
 
 LogBox.ignoreLogs([]); 
@@ -160,7 +159,7 @@ export default function FestivalDetails() {
           <View className="flex flex-col">
             <Text style={style.localizacao}>Localização</Text>
             <Text style={style.local}>
-              {event.address.join(",  ")} {/* Exibe o endereço completo */}
+              {event.address.join(",  ")}
             </Text>
             <View className="flex justify-center items-center">
               <MapView

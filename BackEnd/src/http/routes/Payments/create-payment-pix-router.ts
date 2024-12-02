@@ -54,6 +54,7 @@ export const createPaymentPix = async () => {
 					},
 				})
 				.then((result) => {
+					console.log(result.point_of_interaction);
 					reply.status(201).send({
 						message: "Pagamento criado com sucesso",
 						qr_code_base64: result.point_of_interaction?.transaction_data?.qr_code_base64,
