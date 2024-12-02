@@ -5,6 +5,8 @@ import ConfirmadoPage from "./components/Pages/ConfirmadoPage.vue";
 import QuePenaPage from "./components/Pages/QuePenaPage.vue";
 import BirthdayPorra from "./components/Pages/BirthdayPorra.vue";
 import PartyPage from "./components/Pages/PartyPage.vue";
+import MarriagePage from "./components/Pages/MarriagePage.vue";
+import TravelPage from "./components/Pages/TravelPage.vue";
 
 const routes = [
     {
@@ -73,16 +75,16 @@ const routes = [
         name: "Pena",
         component: QuePenaPage
     },
-    // {
-    //     path: "/marriage",
-    //     name: "Marriage",
-    //     component: () => import("./components/Pages/MarriagePage.vue") // Carregamento dinâmico
-    // },
-    // {
-    //     path: "/travel",
-    //     name: "Travel",
-    //     component: () => import("./components/Pages/TravelPage.vue") // Carregamento dinâmico
-    // },
+    {
+        path: "/marriage",
+        name: "Marriage",
+        component: MarriagePage
+    },
+    {
+        path: "/travel",
+        name: "Travel",
+        component: TravelPage
+    },
     {
         path: "/birthday",
         name: "Birthday",

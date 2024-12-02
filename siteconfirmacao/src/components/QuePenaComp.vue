@@ -7,9 +7,8 @@
     </svg>
   </button>
     <h2>Ah, que pena!</h2>
-    <h4>Sentimos muito que não poderá comparecer no evento :(</h4>
-    <p>mas contamos com você da proxima vez!</p>
-    <button class="concluido" @click="voltarPagina">Concluído</button>
+    <h4>Parece que ocorreu algum erro!</h4>
+    <p>Tente novamente</p>
 </template>
 
 <script>

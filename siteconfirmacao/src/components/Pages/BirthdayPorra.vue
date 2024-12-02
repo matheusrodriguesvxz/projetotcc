@@ -1,7 +1,7 @@
 <template>
   <div class="invitation">
     <div class="invitation-header">
-      <h1>Evento {{ eventDetails.name }}</h1>
+      <h1>{{ eventDetails.name }}</h1>
       <h2>Convite</h2>
       <p>Celebre meu aniversário comigo! Te espero lá!</p>
     </div>

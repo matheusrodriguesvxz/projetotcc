@@ -3,7 +3,7 @@
       <div class="invitation-header">
         <h1>{{ eventDetails.name }}</h1>
         <h2>Convite</h2>
-        <p>Celebre meu aniversário comigo! Te espero lá!</p>
+        <p>Venha ter uma experiência incrivel ao viajar comigo!</p>
       </div>
       
       <div class="Confirmation">
@@ -64,7 +64,7 @@
     height: 100vh;
     font-family: "Parisienne", cursive;
     text-align: center;
-    background-image: url('@/assets/festa.png');
+    background-image: url('@/assets/Viagem.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
