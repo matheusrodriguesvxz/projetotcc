@@ -4,8 +4,8 @@ import { Events } from "../../db/schemas/events";
 interface CreateEventRequest {
 	id_adress: string;
 	id_kitty?: string;
-	initial_date: Date;
-	final_date: Date;
+	initial_date: string;
+	final_date: string;
 	name: string;
 	userID: string;
 	type: string;

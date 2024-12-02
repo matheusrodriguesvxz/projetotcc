@@ -1,0 +1,1 @@
+ALTER TABLE "Eventos" ADD COLUMN "data_final" text NOT NULL;

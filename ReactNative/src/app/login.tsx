@@ -34,6 +34,13 @@ const onSubmit = async (data: NewLoginFormData) => {
     console.log("Usuário logado com sucesso:", user.uid);
     AsyncStorage.setItem("user", user.uid);
     router.push("/(tabs)");
+    await AsyncStorage.setItem(
+      "userLogin",
+      JSON.stringify({
+        uid: user.uid,
+        email: user.email,
+      })
+    );
   } catch (error) {
     Alert.alert(
       "Erro ao logar",
@@ -116,7 +123,7 @@ export default function LoginPage() {
       </View>
       <View className="h-[50%] w-full items-center mt-[-60]">
         <ButaoLogar onPress={handleSubmit(onSubmit)} />
-          <ForgotPassword/>
+        <ForgotPassword />
         <View className="justify-center items-center flex ">
           <Pressable className=" flex-row gap-20 mt-6 items-center">
             <View>

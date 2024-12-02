@@ -11,7 +11,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 
 h1{
     margin: 1% 2%;
@@ -19,17 +19,33 @@ h1{
     color: white;
     justify-content: center;
     font-size: 30px;
+    text-align: center;
 }
-nav{
+nav h1{
     display: flex;
-    align-items: center;
-    
 }
 img{
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     
     margin: 1%;
     width: 5%;
+}
+
+
+@media (max-width: 768px) {
+    nav h1{
+    display: flex;
+    align-items: center;
+    justify-items: center;
+}
+}
+
+@media (max-width: 480px) {
+    nav h1{
+    display: flex;
+    align-items: center;
+    justify-items: center;
+}
 }
 </style>

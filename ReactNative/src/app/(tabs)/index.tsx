@@ -3,14 +3,11 @@ import WelcomeEventEasy, {
   BarraDePesquisa,
   CarosselImages,
   Comprinhas,
-  HappyHour,
   Invites,
   Payment,
   Playlist,
-  Viagens,
 } from "../../components/HomePage";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { IconDrawer, IconMessage } from "../../components/Svgs";
 import { ScrollView } from "react-native";
 import { Tab } from "@rneui/base";
 import { useEffect, useState } from "react";
@@ -60,8 +57,79 @@ export const Header = () => null;
 export default function HomePage() {
   const [index, setIndex] = useState(0);
   const [userIDs, setUserIDs] = useState<string>("");
-  const [festivals, setFestivals] = useState<any[]>([]); 
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  const [festivals, setFestivals] = useState<any[]>([]);
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  const [hotels, setHotels] = useState<any[]>([]);
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  const [bar, setBars] = useState<any[]>([]);
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  const [restaurants, setRestaurants] = useState<any[]>([]);
 
+  async function getRestaurantsInSaoPaulo() {
+    const apiUrl = "https://serpapi.com/search.json";
+    const params = {
+      engine: "google_maps",
+      type: "search",
+      q: "restaurantes em São Paulo",
+      hl: "pt",
+      gl: "br",
+      api_key:
+        "60c40e33cda82fcfecac69e23543f9b38d735e616fdfe83907c82d61f5298d5f",
+    };
+
+    try {
+      const response = await axios.get(apiUrl, { params });
+      setRestaurants(response.data.local_results || []);
+    } catch (error) {
+      console.error("Erro ao buscar restaurantes:");
+    }
+  }
+
+  async function getHotelsInSaoPaulo() {
+    const apiUrl = "https://serpapi.com/search.json";
+    const params = {
+      engine: "google_hotels",
+      q: "São Paulo Hotels",
+      check_in_date: "2024-12-14",
+      check_out_date: "2024-12-30",
+      adults: 2,
+      currency: "BRL",
+      gl: "br",
+      hl: "pt",
+      api_key:
+        "60c40e33cda82fcfecac69e23543f9b38d735e616fdfe83907c82d61f5298d5f",
+    };
+
+    try {
+      const response = await axios.get(apiUrl, { params });
+      setHotels(response.data.properties || []);
+    } catch (error) {
+      console.error("Erro ao buscar hotéis:");
+    }
+  }
+
+  async function getBarsInSaoPaulo() {
+    const apiUrl = "https://serpapi.com/search.json";
+    const params = {
+      engine: "google_maps",
+      type: "search",
+      q: "bares em São Paulo",
+      hl: "pt",
+      gl: "br",
+      api_key:
+        "60c40e33cda82fcfecac69e23543f9b38d735e616fdfe83907c82d61f5298d5f",
+    };
+
+    try {
+      const response = await axios.get(apiUrl, { params });
+      setBars(response.data.local_results || []);
+    } catch (error) {
+      console.error("Erro ao buscar bares:");
+    }
+  }
+
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     const fetchFestivals = async () => {
       try {
@@ -84,18 +152,21 @@ export default function HomePage() {
     };
 
     fetchFestivals();
+    getHotelsInSaoPaulo();
+    getBarsInSaoPaulo();
+    getRestaurantsInSaoPaulo();
   }, []);
   useEffect(() => {
     const fetchUserID = async () => {
       const storedUserID = await AsyncStorage.getItem("user");
-      setUserIDs(storedUserID ?? ""); 
-      console.log("UserID recuperado:", storedUserID); 
+      setUserIDs(storedUserID ?? "");
+      console.log("UserID recuperado:", storedUserID);
     };
     fetchUserID();
-  }, []); 
+  }, []);
   useEffect(() => {
     console.log("userIDs atualizado:", userIDs);
-  }, [userIDs]); 
+  }, [userIDs]);
 
   const onPressEvent = async (evento: EventsFestivais) => {
     try {
@@ -216,34 +287,110 @@ export default function HomePage() {
             </Tab>
           </View>
           <View className="flex flex-row gap-14 mt-2">
-            <View>
-              {festivals.length > 0 &&
-                festivals.map((festival, index) => (
-                  <View
-                    key={index}
-                    style={style.festivalItem}
-                  >
+            {index === 0 && festivals.length > 0 && (
+              <View>
+                {festivals.map((festival, index) => (
+                  // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
+                  <View key={index} style={style.festivalItem}>
                     <Pressable onPress={() => onPressEvent(festival)}>
                       <View className="flex flex-row gap-12">
+                        <Image
+                          style={{ width: 120, height: 100, borderRadius: 12 }}
+                          source={{ uri: festival.thumbnail }}
+                        />
+                        <View>
+                          <Text
+                            numberOfLines={1}
+                            style={{
+                              fontSize: 16,
+                              maxWidth: 200,
+                              fontWeight: "bold",
+                              fontFamily: "Poppins",
+                              color: "black",
+                            }}
+                          >
+                            {festival.title}
+                          </Text>
+                          <Text
+                            style={{
+                              fontSize: 14,
+                              color: "#888",
+                              fontFamily: "Poppins",
+                              fontWeight: "bold",
+                            }}
+                          >
+                            {festival.date.start_date}
+                          </Text>
+                          <Text
+                            style={{
+                              fontSize: 14,
+                              color: "#888",
+                              fontFamily: "Poppins",
+                              width: 160,
+                              fontWeight: "bold",
+                            }}
+                          >
+                            {festival.date.when}
+                          </Text>
+                        </View>
+                      </View>
+                    </Pressable>
+                  </View>
+                ))}
+              </View>
+            )}
+          </View>
+          {index === 3 && hotels.length > 0 && (
+            <View>
+              {hotels.map((house, index) => (
+                // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
+                <View key={index} style={style.festivalItem}>
+                  <Pressable
+                    onPress={async () => {
+                      try {
+                        await AsyncStorage.setItem(
+                          "selectedHotel",
+                          JSON.stringify(house)
+                        );
+                        console.log("Hotel salvo com sucesso!");
 
+                        router.push("/detailsHotel");
+                      } catch (error) {
+                        console.error("Erro ao salvar o hotel:", error);
+                      }
+                    }}
+                  >
+                    <View className="flex flex-row gap-12">
                       <Image
-                        style={{
-                          width: 120,
-                          height: 100,
-                          borderRadius: 12,
-                        }}
-                        source={{ uri: festival.thumbnail }}
+                        style={{ width: 120, height: 100, borderRadius: 12 }}
+                        source={{ uri: house.images[0].thumbnail }}
                       />
                       <View>
                         <Text
+                          numberOfLines={1}
+                          ellipsizeMode="tail"
                           style={{
+                            maxWidth: 200,
                             fontSize: 16,
                             fontWeight: "bold",
                             fontFamily: "Poppins",
                             color: "black",
                           }}
                         >
-                          {festival.title}
+                          {house.name}
+                        </Text>
+                        <Text
+                          numberOfLines={1}
+                          ellipsizeMode="tail"
+                          style={{
+                            maxWidth: 200,
+                            fontSize: 14,
+                            color: "#888",
+                            fontFamily: "Poppins",
+                            fontWeight: "bold",
+                          }}
+                        >
+                          {house.description}
                         </Text>
                         <Text
                           style={{
@@ -253,27 +400,158 @@ export default function HomePage() {
                             fontWeight: "bold",
                           }}
                         >
-                          {festival.date.start_date}
-                        </Text>
-                        <Text
-                          style={{
-                            fontSize: 14,
-                            color: "#888",
-                            fontFamily: "Poppins",
-                            width: 160,
-                            fontWeight: "bold",
-                          }}
-                        >
-                          {festival.date.when}
+                          {house.rate_per_night.lowest}
                         </Text>
                       </View>
-                      </View>
-
-                    </Pressable>
-                  </View>
-                ))}
+                    </View>
+                  </Pressable>
+                </View>
+              ))}
             </View>
-          </View>
+          )}
+
+          {index === 1 && bar.length > 0 ? (
+            bar.map((barItem, index) => (
+              // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
+              <View key={index} style={style.barItem}>
+                <Pressable
+                  onPress={async () => {
+                    try {
+                      await AsyncStorage.setItem(
+                        "selectedBar",
+                        JSON.stringify(barItem)
+                      );
+                      console.log("Bar salvo com sucesso!");
+                      router.push("/detailsBar");
+                    } catch (error) {
+                      console.error("Erro ao salvar o bar:", error);
+                    }
+                  }}
+                >
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      gap: 12,
+                    }}
+                  >
+                    <Image
+                      style={{ width: 120, height: 100, borderRadius: 12 }}
+                      source={{
+                        uri:
+                          barItem.thumbnail ||
+                          "https://via.placeholder.com/120x100",
+                      }}
+                    />
+                    <View style={{ flexShrink: 1 }}>
+                      <Text
+                        numberOfLines={1}
+                        ellipsizeMode="tail"
+                        style={{
+                          maxWidth: 200,
+                          fontSize: 16,
+                          fontWeight: "bold",
+                          fontFamily: "Poppins",
+                          color: "black",
+                        }}
+                      >
+                        {barItem.title || "Nome indisponível"}
+                      </Text>
+                      <Text
+                        numberOfLines={1}
+                        ellipsizeMode="tail"
+                        style={{
+                          maxWidth: 200,
+                          fontSize: 14,
+                          color: "#888",
+                          fontFamily: "Poppins",
+                          fontWeight: "bold",
+                          marginTop: 5,
+                        }}
+                      >
+                        {barItem.description || "Descrição não disponível ppp."}
+                      </Text>
+                    </View>
+                  </View>
+                </Pressable>
+              </View>
+            ))
+          ) : (
+            // biome-ignore lint/style/useSelfClosingElements: <explanation>
+            <View></View>
+          )}
+
+          {index === 2 && restaurants.length > 0 ? (
+            restaurants.map((restaurant, index) => (
+              // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
+              <View key={index} style={style.barItem}>
+                <Pressable
+                  onPress={async () => {
+                    try {
+                      await AsyncStorage.setItem(
+                        "selectedRestaurant",
+                        JSON.stringify(restaurant)
+                      );
+                      console.log("Restaurante salvo com sucesso!");
+
+                      router.push("/detailsRestaurant");
+                    } catch (error) {
+                      console.error("Erro ao salvar o restaurante:", error);
+                    }
+                  }}
+                >
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      gap: 12,
+                    }}
+                  >
+                    <Image
+                      style={{ width: 120, height: 100, borderRadius: 12 }}
+                      source={{
+                        uri:
+                          restaurant.thumbnail ||
+                          "https://via.placeholder.com/120x100",
+                      }}
+                    />
+                    <View style={{ flexShrink: 1 }}>
+                      <Text
+                        numberOfLines={1}
+                        ellipsizeMode="tail"
+                        style={{
+                          maxWidth: 200,
+                          fontSize: 16,
+                          fontWeight: "bold",
+                          fontFamily: "Poppins",
+                          color: "black",
+                        }}
+                      >
+                        {restaurant.title || "Nome indisponível"}
+                      </Text>
+                      <Text
+                        numberOfLines={1}
+                        ellipsizeMode="tail"
+                        style={{
+                          maxWidth: 200,
+                          fontSize: 14,
+                          color: "#888",
+                          fontFamily: "Poppins",
+                          fontWeight: "bold",
+                          marginTop: 5,
+                        }}
+                      >
+                        {restaurant.description || "Descrição não disponível."}
+                      </Text>
+                    </View>
+                  </View>
+                </Pressable>
+              </View>
+            ))
+          ) : (
+            // biome-ignore lint/style/useSelfClosingElements: <explanation>
+            <View></View>
+          )}
         </View>
       </SafeAreaView>
     </ScrollView>
@@ -284,6 +562,13 @@ const style = StyleSheet.create({
   areaRoxa: {
     backgroundColor: "#760BFF",
     height: "100%",
+  },
+  barItem: {
+    padding: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: "#ddd",
+    flexDirection: "row",
+    alignItems: "center",
   },
 
   areaBranca: {
@@ -296,6 +581,7 @@ const style = StyleSheet.create({
   },
   festivalItem: {
     padding: 10,
+    flexWrap: "wrap",
     borderBottomWidth: 1,
     borderBottomColor: "#ddd",
   },

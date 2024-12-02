@@ -8,6 +8,7 @@ import { Guests } from "../../db/schemas/guests";
 export const getAllEventAndGuests = async () => {
 	const dataEventAndGuests = await db
 		.select({
+			id: eventsAndGuests.id,
 			name: Events.name,
 			description: Events.description,
 			pix: Events.pix,

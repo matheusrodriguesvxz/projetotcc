@@ -37,14 +37,25 @@ import { updatesCompanion } from "./routes/Companion/update-companion-route";
 import { getGuestsByIDCompanion } from "./routes/Companion/find-by-id-companion-route";
 import { getCompanion } from "./routes/Companion/get-all-companion-route";
 import { getBuyListByUserID } from "./routes/BuyList/get-buyList-by-eventID-route";
+import { createsGuestAndEvent } from "./routes/EventAndGuests/create-event-and-guests";
+import { getByIdEventsAndGuests } from "./routes/EventAndGuests/find-by-id-event-and-guests-route";
+import { createPaymentPix } from "./routes/Payments/create-payment-pix-router";
+import { createPaymentPreference } from "./routes/Payments/create-preferences-router";
+import { getSucessPayment } from "./routes/Payments/url-sucess-router";
+import { getFailedPayment } from "./routes/Payments/url-failed-router";
+import { getPendingPayment } from "./routes/Payments/url-pending-router";
+import { getGuestsByLengtCompanion } from "./routes/Companion/find-by-lenght-companion-route";
 
 export const app = fastify().withTypeProvider<ZodTypeProvider>();
 app.register(cors, {
-  origin: '*',
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
+	origin: "*",
+	methods: ["GET", "POST", "PUT", "DELETE"],
+	allowedHeaders: [
+		"Content-Type",
+		"Authorization",
+		"ngrok-skip-browser-warning",
+	],
 });
-
 
 app.listen({ port: 3333, host: "0.0.0.0" }, (err, address) => {
 	if (err) {
@@ -62,7 +73,7 @@ app.register(createEvent);
 app.register(updateEvent);
 app.register(DeleteEvent);
 app.register(getEventsByID);
-app.register(getEventsByUserID)
+app.register(getEventsByUserID);
 
 // Guests / Convidados
 app.register(getGuests);
@@ -92,13 +103,23 @@ app.register(getBuyListByUserID);
 
 // EventAndGuests / Eventos e Convidados
 app.register(getEventsAndGuests);
+app.register(createsGuestAndEvent);
+app.register(getByIdEventsAndGuests);
 
 //Spotify
 app.register(getTokenSpotifyy);
 
 // Companion
-app.register(createsCompanion)
-app.register(DeleteCompanion)
-app.register(getGuestsByIDCompanion)
-app.register(getCompanion)
-app.register(updatesCompanion)
+app.register(createsCompanion);
+app.register(DeleteCompanion);
+app.register(getGuestsByIDCompanion);
+app.register(getCompanion);
+app.register(updatesCompanion);
+app.register(getGuestsByLengtCompanion);
+
+//payment
+app.register(createPaymentPix);
+app.register(createPaymentPreference);
+app.register(getSucessPayment);
+app.register(getFailedPayment);
+app.register(getPendingPayment);

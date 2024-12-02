@@ -10,24 +10,8 @@ export const createEvent = async () => {
 				body: z.object({
 					id_adress: z.string(),
 					id_kitty: z.string().optional(),
-					initial_date: z.preprocess((arg) => {
-						if (typeof arg === "string") {
-							const date = new Date(arg);
-							if (!Number.isNaN(date.getTime())) {
-								return date;
-							}
-						}
-						return arg;
-					}, z.date()),
-					final_date: z.preprocess((arg) => {
-						if (typeof arg === "string") {
-							const date = new Date(arg);
-							if (!Number.isNaN(date.getTime())) {
-								return date;
-							}
-						}
-						return arg;
-					}, z.date()),
+					initial_date:z.string(),
+					final_date: z.string(),
 					name: z.string(),
 					userID: z.string(),
 					type: z.string(),
@@ -52,7 +36,7 @@ export const createEvent = async () => {
 				pix,
 				type,
 			} = request.body;
-
+			console.log("Dados recebidos:", request.body); 
 			const idEvent = await createEvents({
 				id_adress,
 				id_kitty,

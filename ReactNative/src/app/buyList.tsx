@@ -83,7 +83,7 @@ export default function BuyList() {
         console.error("Erro ao recuperar usuário:", error);
       }
     };
-    fetchUserID()
+    fetchUserID();
   }, [eventID]);
 
   const fetchBuyList = async () => {
@@ -117,7 +117,7 @@ export default function BuyList() {
 
     const updatedBuyList = new BuyLists({
       name: list.name,
-      status: isChecked ? "pending" : "buyed", 
+      status: isChecked ? "pending" : "buyed",
       id_events: list.id_events,
       quantity: list.quantity,
       userID: userID,
@@ -184,7 +184,7 @@ export default function BuyList() {
             {buyList
               .filter((item) => item.status === "pending")
               .reduce(
-                (sum, item) => sum + Number.parseFloat(item.totalPrice || 0),
+                (sum, item) => sum + Number.parseFloat(item.totalPrice),
                 0
               )
               .toFixed(2)}{" "}
@@ -256,7 +256,7 @@ export default function BuyList() {
           </Tab>
           {buyList
             .filter((list) => {
-              console.log("Filtrando:", list.status); 
+              console.log("Filtrando:", list.status);
               return index === 0
                 ? list.status === "pending"
                 : list.status === "buyed";

@@ -54,7 +54,8 @@ export default function RegisterPage() {
       });
 
       console.log("Usuário adicionado com sucesso!");
-      router.replace("/homePage");
+      console.log("Usuário:", user.uid);
+      router.replace("/login");
     } catch (error) {
       Alert.alert(
         "Erro ao registrar usuário",
@@ -183,7 +184,7 @@ export default function RegisterPage() {
           />
         </View>
       </View>
-      <ButaoRegistro onPress={() => handleSubmit(onSubmit)()} />
+      <ButaoRegistro onPress={handleSubmit(onSubmit)} />
     </View>
   );
 }
