@@ -3,7 +3,7 @@
       <div class="invitation-header">
         <h1>{{ eventDetails.name }}</h1>
         <h2>Convite</h2>
-        <p>Celebre meu aniversário comigo! Te espero lá!</p>
+        <p>Venha celebrar uma festa comigo! Contamos com sua presença!</p>
       </div>
       
       <div class="Confirmation">
@@ -46,7 +46,6 @@
   </script>
   
   <style scoped>
-  
   html, body {
     height: 100%;
     margin: 0;
@@ -94,7 +93,7 @@
   }
   
   .location {
-    color: white;
+ 
     margin-bottom: 40px;
   }
   
