@@ -25,6 +25,7 @@ export default {
   name: "FormComp",
   data() {
     return {
+      eventDetails: JSON.parse(localStorage.getItem("eventDetails")) || {},
       lista: [
         { name: "", age: null, contact: "", sexy: "" }
       ],
@@ -42,76 +43,108 @@ export default {
       }
     },
     async enviarDados() {
-      const apiUrlEvent = "http://127.0.0.1:3333/events/fstt8mhvifucax0krvqd05mz";
-      const apiUrlGuest = "http://127.0.0.1:3333/guest";
 
-      if (this.lista.some(guest => !guest.name || !guest.age || !guest.contact || !guest.sexy)) {
+
+      const apiUrlEvent = `http://192.168.0.4:3333/events/${this.eventDetails.id}`;
+      const apiUrlGuest = "http://192.168.0.4:3333/guest";
+      const apiUrlCompanion = "http://192.168.0.4:3333/companion";
+      const apiUrlGuestAndEvent = "http://192.168.0.4:3333/eventAndGuests";
+
+      if (this.lista.some((guest) => !guest.name || !guest.age || !guest.contact || !guest.sexy)) {
         alert("Por favor, preencha todos os campos antes de enviar.");
+        return;
       }
 
       try {
+        // Obter o userID do evento
         const responseEvent = await fetch(apiUrlEvent);
         if (!responseEvent.ok) {
           throw new Error("Erro ao buscar o userID do evento.");
         }
-
+        console.log("responseEvent", responseEvent);
         const eventData = await responseEvent.json();
-        const userID = eventData[0].userID;
+        const userID = eventData[0]?.userID;
 
         if (!userID) {
           throw new Error("userID não encontrado na resposta da API.");
         }
-
-        this.apiResponse = `userID: ${userID}`;
-
-        const guestsWithUserID = this.lista.map(guest => ({
-          name: guest.name,
-          age: guest.age,
-          contact: guest.contact,
-          sexy: guest.sexy,
+        const guestData = {
+          name: this.lista[0].name,
+          age: this.lista[0].age,
+          contact: this.lista[0].contact,
+          sexy: this.lista[0].sexy,
           userID: userID,
-        }));
+        };
 
-        this.jsonToSend = JSON.stringify(guestsWithUserID[0], null, 2);
-        console.log("JSON a ser enviado:", this.jsonToSend);
-        console.log("Dados a serem enviados:", guestsWithUserID);
-
-        class Guest {
-          constructor(name, age, contact, sexy, userID) {
-            this.name = name;
-            this.age = age;
-            this.contact = contact;
-            this.sexy = sexy;
-            this.userID = userID;
-          }
-        }
-
-        const guest1 = new Guest(guestsWithUserID[0].name, guestsWithUserID[0].age, guestsWithUserID[0].contact, guestsWithUserID[0].sexy, userID);
         const responseGuest = await fetch(apiUrlGuest, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(guest1),
+          body: JSON.stringify(guestData),
         });
 
-        const data = await responseGuest.json();
-        if (responseGuest.ok) {
-          console.log("Dados enviados:", data);
-          alert("Convidados adicionados com sucesso!");
-
-          this.$router.push({ name: 'ConfirmadoPage' }); 
-        } else {
-          console.error("Erro ao enviar os dados:", responseGuest.statusText);
-          alert("Erro ao enviar os dados.");
+        if (!responseGuest.ok) {
+          throw new Error("Erro ao enviar os dados para a tabela Guest.");
         }
+
+        const guestResponseData = await responseGuest.json();
+        const guestID = guestResponseData.id;
+        console.log("Guest adicionado:", guestID);
+        const eventAndGuestsData = {
+          id_guests: guestID,
+          userID: userID,
+          id_events: eventData[0].id,
+        };
+        console.log("eventAndGuestsData", eventAndGuestsData);
+
+        const responseGuestAndEvent = await fetch(apiUrlGuestAndEvent, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(eventAndGuestsData),
+        });
+        const companions = this.lista.slice(1);
+        for (const companion of companions) {
+          const companionData = {
+            name: companion.name,
+            age: companion.age,
+            contact: companion.contact,
+            sexy: companion.sexy,
+            id_guest: guestID,
+
+          };
+
+          const responseCompanion = await fetch(apiUrlCompanion, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(companionData),
+          });
+
+          if (!responseCompanion.ok) {
+            throw new Error(`Erro ao enviar acompanhante: ${companion.name}`);
+          }
+
+          const companionResponse = await responseCompanion.json();
+          console.log("Companion adicionado:", companionResponse);
+        }
+
+
+        if (!responseGuestAndEvent.ok) {
+          throw new Error("Erro ao enviar os dados para a tabela EventAndGuests.");
+        }
+
+        alert("Dados enviados com sucesso!");
       } catch (error) {
         console.error("Erro na comunicação com a API:", error);
         alert("Erro ao enviar os dados. Verifique sua conexão.");
       }
-    }
+    },
   },
-};
+}
 </script>
 
 <style scoped>
@@ -130,7 +163,9 @@ form {
   border-radius: 10px;
 }
 
-input[type=text], input[type=number], select {
+input[type=text],
+input[type=number],
+select {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
@@ -170,8 +205,8 @@ label {
   transition: background-color 0.3s ease;
   margin-top: 9%;
   display: block;
-  margin-left: auto;  
-  margin-right: auto; 
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .envio:hover {
