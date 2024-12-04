@@ -662,3 +662,22 @@ export function Failed(){
 
   )
 }
+export function WhiteAiPage(){
+  return(
+    <View className="z-10">
+      <Svg.Svg width="390" height="177" viewBox="0 0 390 177" fill="none">
+      <Svg.Path d="M0 45C0 20.1472 20.1472 0 45 0H345C369.853 0 390 20.1472 390 45V177H0V45Z" fill="white"/>
+      </Svg.Svg>
+    </View>
+    
+
+  );
+}
+export function GreyAiPage(){
+  return(
+  
+      <Svg.Svg width="189" height="100" viewBox="0 0 189 100" fill="none">
+    <Svg.Rect width="189" height="100" rx="28" fill="#505050"/>
+      </Svg.Svg>    
+  );
+}

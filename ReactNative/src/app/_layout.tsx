@@ -56,6 +56,7 @@ export default function RootLayout() {
         <Stack.Screen name="detailsBar" options={{ headerShown: false }} />
         <Stack.Screen name="detailsHotel" options={{ headerShown: false }} />
         <Stack.Screen name="contribuitionPage" options={{ headerShown: false }} />
+        <Stack.Screen name="aiPage" options={{ headerShown: false }} />
         <Stack.Screen
           name="detailsFestivais"
           options={{ headerShown: false }}

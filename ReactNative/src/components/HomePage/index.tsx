@@ -115,6 +115,11 @@ const data = [
     text: "Segunda Aba",
     image: require("../../../assets/image6.png"),
   },
+  {
+    key: "3",
+    text: "Segunda Aba",
+    image: require("../../../assets/image6.png"),
+  }
 ];
 
 const { width } = Dimensions.get("window");
@@ -179,7 +184,7 @@ export function Payment() {
 export function Playlist() {
   return (
     <View className="items-center">
-      <Pressable onPress={() => router.push("/spotifyScreen")}>
+      <Pressable onPress={() => router.push("/aiPage")}>
         <View
           className="w-20 h-20 items-center justify-center"
           style={{ backgroundColor: "#F0F0F0", borderRadius: 20 }}
@@ -295,6 +300,6 @@ const styles = StyleSheet.create({
   image: {
     width: "90%",
     height: 180,
-    borderRadius: 10,
+    borderRadius: 35,
   },
 });

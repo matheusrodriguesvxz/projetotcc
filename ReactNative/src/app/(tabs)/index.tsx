@@ -193,10 +193,7 @@ export default function HomePage() {
             <CarosselImages />
           </View>
           <View className="flex flex-row gap-6 mt-1">
-            <Invites />
-            <Comprinhas />
-            <Payment />
-            <Playlist />
+            <Playlist/>
           </View>
           <View>
             <Text

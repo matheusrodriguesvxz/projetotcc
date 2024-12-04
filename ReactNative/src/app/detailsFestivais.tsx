@@ -63,7 +63,7 @@ export default function FestivalDetails() {
     },
     descricao: {
       fontFamily: "Poppins",
-      fontWeight: "bold",
+      fontWeight: "400",
       color: "#909090",
       width: 350,
       fontSize: 14,
@@ -82,11 +82,11 @@ export default function FestivalDetails() {
     },
     local: {
       fontFamily: "Poppins",
-      fontWeight: "bold",
+      fontWeight: "200",
       color: "#909090",
       width: 350,
       fontSize: 16,
-      marginLeft: 20,
+      marginLeft: 20
     },
     mapa: {
       height: 166,
