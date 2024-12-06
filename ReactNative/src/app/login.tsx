@@ -70,10 +70,10 @@ export default function LoginPage() {
   });
 
   return (
-    <KeyboardAwareScrollView enableOnAndroid={true} style={{ flex: 1
-    }}>
+    <KeyboardAwareScrollView  enableOnAndroid={false} style={{ flex: 1
+     }}>
 
-          <View style={{ }}>
+          <View style={{ flex:1}}>
             <View className="bg-white">
               <View className=" w-full">
                 <RoxoLogin />

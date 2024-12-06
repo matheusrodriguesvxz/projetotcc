@@ -4,7 +4,7 @@ import type { IBaseRepository } from "./IBaseRepository";
 export class KittyRepository implements IBaseRepository<Kitty> {
 	async create(kitty: Kitty): Promise<Kitty> {
 		const response = await fetch(
-			"http://192.168.1.52:3333/Kitty",
+			"https://7e40-2804-47e4-8879-8400-2d14-62e4-5bc8-a69d.ngrok-free.app/Kitty",
 			{
 				method: "POST",
 				headers: {
@@ -22,7 +22,7 @@ export class KittyRepository implements IBaseRepository<Kitty> {
 	}
 	async update(kitty: Kitty, id: string): Promise<Kitty> {
 		const response = await fetch(
-			`http://192.168.1.52:3333/Kitty/${id}`,
+			`https://7e40-2804-47e4-8879-8400-2d14-62e4-5bc8-a69d.ngrok-free.app/Kitty/${id}`,
 			{
 				method: "PUT",
 				headers: {
@@ -41,7 +41,7 @@ export class KittyRepository implements IBaseRepository<Kitty> {
 	}
 	async delete(id: string): Promise<true | Kitty> {
 		const response = await fetch(
-			`http://192.168.1.52:3333/Kitty/${id}`,
+			`https://7e40-2804-47e4-8879-8400-2d14-62e4-5bc8-a69d.ngrok-free.app/Kitty/${id}`,
 			{
 				method: "DELETE",
 				headers: {
@@ -56,7 +56,7 @@ export class KittyRepository implements IBaseRepository<Kitty> {
 	}
 	async getAll(): Promise<Kitty[]> {
 		const response = await fetch(
-			"http://192.168.1.52:3333/Kittys",
+			"https://7e40-2804-47e4-8879-8400-2d14-62e4-5bc8-a69d.ngrok-free.app/Kittys",
 			{
 				headers: {
 					"ngrok-skip-browser-warning": "true",
@@ -68,7 +68,7 @@ export class KittyRepository implements IBaseRepository<Kitty> {
 	}
 	async getById(id: string): Promise<Kitty> {
 		const response = await fetch(
-			`http://192.168.1.52:3333/Kitty/${id}`,
+			`https://7e40-2804-47e4-8879-8400-2d14-62e4-5bc8-a69d.ngrok-free.app/Kitty/${id}`,
 			{
 				headers: {
 					"ngrok-skip-browser-warning": "true",

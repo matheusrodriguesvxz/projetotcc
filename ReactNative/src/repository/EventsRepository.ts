@@ -4,7 +4,7 @@ import type { IBaseRepository } from "./IBaseRepository";
 export class EventsRepository implements IBaseRepository<Events> {
 	async create(event: Events): Promise<Events> {
 		const response = await fetch(
-			"http://192.168.1.52:3333/event",
+			"https://7e40-2804-47e4-8879-8400-2d14-62e4-5bc8-a69d.ngrok-free.app/event",
 			{
 				method: "POST",
 				headers: {
@@ -22,7 +22,7 @@ export class EventsRepository implements IBaseRepository<Events> {
 	}
 	async update(event: Events, id: string): Promise<Events> {
 		const response = await fetch(
-			`http://192.168.1.52:3333/event/${id}`,
+			`https://7e40-2804-47e4-8879-8400-2d14-62e4-5bc8-a69d.ngrok-free.app/event/${id}`,
 			{
 				method: "PUT",
 				headers: {
@@ -40,7 +40,7 @@ export class EventsRepository implements IBaseRepository<Events> {
 	}
 	async delete(id: string): Promise<Events | true> {
 		const response = await fetch(
-			`http://192.168.1.52:3333/event/${id}`,
+			`https://7e40-2804-47e4-8879-8400-2d14-62e4-5bc8-a69d.ngrok-free.app/event/${id}`,
 			{
 				method: "DELETE",
 				headers: {
@@ -53,7 +53,7 @@ export class EventsRepository implements IBaseRepository<Events> {
 
 	async getAll(): Promise<Events[]> {
 		const response = await fetch(
-			"http://192.168.1.52:3333/event",
+			"https://7e40-2804-47e4-8879-8400-2d14-62e4-5bc8-a69d.ngrok-free.app/event",
 			{
 				headers: {
 					"ngrok-skip-browser-warning": "true",
@@ -67,7 +67,7 @@ export class EventsRepository implements IBaseRepository<Events> {
 
 	async getById(id: string): Promise<Events> {
 		const response = await fetch(
-			`http://192.168.1.52:3333/events/${id}`,{
+			`https://7e40-2804-47e4-8879-8400-2d14-62e4-5bc8-a69d.ngrok-free.app/events/${id}`,{
 			headers: {
 				"ngrok-skip-browser-warning": "true",
 			},
@@ -77,7 +77,7 @@ export class EventsRepository implements IBaseRepository<Events> {
 	}
 	async getByUserId(userID: string): Promise<Events> {
 		const response = await fetch(
-			`http://192.168.1.52:3333/${userID}/events`,{
+			`https://7e40-2804-47e4-8879-8400-2d14-62e4-5bc8-a69d.ngrok-free.app/${userID}/events`,{
 			headers: {
 				"ngrok-skip-browser-warning": "true",
 			},

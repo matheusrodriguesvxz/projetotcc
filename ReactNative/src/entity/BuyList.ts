@@ -9,6 +9,7 @@ export class BuyLists {
 	quantity!: string;
 	userID!: string;
 	totalPrice!: string;
+	category!:string
 
 	constructor(props: Omit<BuyLists, "id">, id?: string) {
 		Object.assign(this, props);

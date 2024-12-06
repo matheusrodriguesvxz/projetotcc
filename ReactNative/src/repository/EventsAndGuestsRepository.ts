@@ -7,7 +7,7 @@ export class EventAndGuestsRepository
 {
 	async create(event: EventAndGuests): Promise<EventAndGuests> {
 		const response = await fetch(
-			"http:/192.168.1.52:3333/eventAndGuests",
+			"https://7e40-2804-47e4-8879-8400-2d14-62e4-5bc8-a69d.ngrok-free.app/eventAndGuests",
 			{
 				method: "POST",
 				headers: {
@@ -25,7 +25,7 @@ export class EventAndGuestsRepository
 	}
 	async update(event: EventAndGuests, id: string): Promise<EventAndGuests> {
 		const response = await fetch(
-			`http:/192.168.1.52:3333/event/${id}`,
+			`https://7e40-2804-47e4-8879-8400-2d14-62e4-5bc8-a69d.ngrok-free.app/event/${id}`,
 			{
 				method: "PUT",
 				headers: {
@@ -43,7 +43,7 @@ export class EventAndGuestsRepository
 	}
 	async delete(id: string): Promise<EventAndGuests | true> {
 		const response = await fetch(
-			`http:/192.168.1.52:3333/event/${id}`,
+			`https://7e40-2804-47e4-8879-8400-2d14-62e4-5bc8-a69d.ngrok-free.app/event/${id}`,
 			{
 				method: "DELETE",
 				headers: {
@@ -56,7 +56,7 @@ export class EventAndGuestsRepository
 
 	async getAll(): Promise<EventAndGuests[]> {
 		const response = await fetch(
-			"http:/192.168.1.52:3333/eventsAndGuests",
+			"https://7e40-2804-47e4-8879-8400-2d14-62e4-5bc8-a69d.ngrok-free.app/eventsAndGuests",
 			{
 				headers: {
 					"ngrok-skip-browser-warning": "true",
@@ -70,7 +70,7 @@ export class EventAndGuestsRepository
 
 	async getById(id: string): Promise<EventAndGuests> {
 		const response = await fetch(
-			`http:/192.168.1.52:3333/eventsAndGuests/${id}`,{
+			`https://7e40-2804-47e4-8879-8400-2d14-62e4-5bc8-a69d.ngrok-free.app/eventsAndGuests/${id}`,{
 			headers: {
 				"ngrok-skip-browser-warning": "true",
 			},

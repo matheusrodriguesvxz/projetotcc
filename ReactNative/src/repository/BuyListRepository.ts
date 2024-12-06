@@ -3,7 +3,7 @@ import type { IBaseRepository } from "./IBaseRepository";
 
 export class BuyListRepository implements IBaseRepository<BuyLists> {
 	async create(buyList: BuyLists): Promise<BuyLists> {
-		const response = await fetch("http://192.168.1.52:3333/buyList", {
+		const response = await fetch("https://7e40-2804-47e4-8879-8400-2d14-62e4-5bc8-a69d.ngrok-free.app/buyList", {
 			method: "POST",
 			headers: {
 				'ngrok-skip-browser-warning': 'true',
@@ -18,7 +18,7 @@ export class BuyListRepository implements IBaseRepository<BuyLists> {
 		return buyListCreated;
 	}
 	async update(buyList: BuyLists, id: string): Promise<BuyLists> {
-		const response = await fetch(`http://192.168.1.52:3333/buyList/${id}`, {
+		const response = await fetch(`https://7e40-2804-47e4-8879-8400-2d14-62e4-5bc8-a69d.ngrok-free.app/buyList/${id}`, {
 			method: "PUT",
 			headers: {
 				'ngrok-skip-browser-warning': 'true',
@@ -33,7 +33,7 @@ export class BuyListRepository implements IBaseRepository<BuyLists> {
 		return updatedBuyList;
 	}
 	async delete(id: string): Promise<true | BuyLists> {
-		const response = await fetch(`http://192.168.1.52:3333/buyList/${id}`, {
+		const response = await fetch(`https://7e40-2804-47e4-8879-8400-2d14-62e4-5bc8-a69d.ngrok-free.app/buyList/${id}`, {
 			method: "DELETE",
 			headers: {
 				'ngrok-skip-browser-warning': 'true',
@@ -46,7 +46,7 @@ export class BuyListRepository implements IBaseRepository<BuyLists> {
 		return response.status === 204 ? true : await response.json();
 	}
 	async getAll(): Promise<BuyLists[]> {
-		const response = await fetch("http://192.168.1.52:3333/buyList", {
+		const response = await fetch("https://7e40-2804-47e4-8879-8400-2d14-62e4-5bc8-a69d.ngrok-free.app/buyList", {
 			headers: {
 				'ngrok-skip-browser-warning': 'true',
 			},
@@ -58,7 +58,7 @@ export class BuyListRepository implements IBaseRepository<BuyLists> {
 		return buyList;
 	}
 	async getById(id: string): Promise<BuyLists> {
-		const response = await fetch(`http://192.168.1.52:3333/buyList/${id}`, {
+		const response = await fetch(`https://7e40-2804-47e4-8879-8400-2d14-62e4-5bc8-a69d.ngrok-free.app/buyList/${id}`, {
 			headers: {
 				'ngrok-skip-browser-warning': 'true',
 			},
@@ -70,7 +70,7 @@ export class BuyListRepository implements IBaseRepository<BuyLists> {
 		return buyList;
 	}
 	async getByEventID(userID: string): Promise<BuyLists> {
-		const response = await fetch(`http:/192.168.1.52:3333/buyList/${userID}`, {
+		const response = await fetch(`https://7e40-2804-47e4-8879-8400-2d14-62e4-5bc8-a69d.ngrok-free.app/buyList/${userID}`, {
 			headers: {
 				'ngrok-skip-browser-warning': 'true',
 			},

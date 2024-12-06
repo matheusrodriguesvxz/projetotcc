@@ -4,7 +4,7 @@ import type { IBaseRepository } from "./IBaseRepository";
 export class AdressRepository implements IBaseRepository<Adress> {
 	async create(adress: Adress): Promise<Adress> {
 		const response = await fetch(
-			"https://0ca7-2804-47e4-8879-8400-2d14-62e4-5bc8-a69d.ngrok-free.app4/adress",
+			"https://7e40-2804-47e4-8879-8400-2d14-62e4-5bc8-a69d.ngrok-free.app/adress",
 			{
 				method: "POST",
 				headers: {
@@ -22,7 +22,7 @@ export class AdressRepository implements IBaseRepository<Adress> {
 		return creatdAdress;
 	}
 	async update(adress: Adress, id: string): Promise<Adress> {
-		const response = await fetch(`http://192.168.1.52:3333/adress/${id}`, {
+		const response = await fetch(`https://7e40-2804-47e4-8879-8400-2d14-62e4-5bc8-a69d.ngrok-free.app/adress/${id}`, {
 			method: "PUT",
 			headers: {
 				"ngrok-skip-browser-warning": "true",
@@ -37,7 +37,7 @@ export class AdressRepository implements IBaseRepository<Adress> {
 		return updatedAdress;
 	}
 	async delete(id: string): Promise<true | Adress> {
-		const response = await fetch(`http://192.168.1.52:3333/adress/${id}`, {
+		const response = await fetch(`https://7e40-2804-47e4-8879-8400-2d14-62e4-5bc8-a69d.ngrok-free.app/adress/${id}`, {
 			headers: {
 				"ngrok-skip-browser-warning": "true",
 			},
@@ -61,7 +61,7 @@ export class AdressRepository implements IBaseRepository<Adress> {
 		return adresses;
 	}
 	async getById(id: string): Promise<Adress> {
-		const response = await fetch(`http://192.168.1.52:3333/adress/${id}`, {
+		const response = await fetch(`https://7e40-2804-47e4-8879-8400-2d14-62e4-5bc8-a69d.ngrok-free.app/adress/${id}`, {
 			headers: {
 				"ngrok-skip-browser-warning": "true",
 			},
