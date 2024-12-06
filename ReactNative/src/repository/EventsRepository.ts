@@ -4,7 +4,7 @@ import type { IBaseRepository } from "./IBaseRepository";
 export class EventsRepository implements IBaseRepository<Events> {
 	async create(event: Events): Promise<Events> {
 		const response = await fetch(
-			"https://568d-2804-14d-78a6-830d-91e2-ccf4-7fa7-1e43.ngrok-free.app/event",
+			"http://192.168.1.52:3333/event",
 			{
 				method: "POST",
 				headers: {
@@ -22,7 +22,7 @@ export class EventsRepository implements IBaseRepository<Events> {
 	}
 	async update(event: Events, id: string): Promise<Events> {
 		const response = await fetch(
-			`https://568d-2804-14d-78a6-830d-91e2-ccf4-7fa7-1e43.ngrok-free.app/event/${id}`,
+			`http://192.168.1.52:3333/event/${id}`,
 			{
 				method: "PUT",
 				headers: {
@@ -40,7 +40,7 @@ export class EventsRepository implements IBaseRepository<Events> {
 	}
 	async delete(id: string): Promise<Events | true> {
 		const response = await fetch(
-			`https://568d-2804-14d-78a6-830d-91e2-ccf4-7fa7-1e43.ngrok-free.app/event/${id}`,
+			`http://192.168.1.52:3333/event/${id}`,
 			{
 				method: "DELETE",
 				headers: {
@@ -53,7 +53,7 @@ export class EventsRepository implements IBaseRepository<Events> {
 
 	async getAll(): Promise<Events[]> {
 		const response = await fetch(
-			"https://568d-2804-14d-78a6-830d-91e2-ccf4-7fa7-1e43.ngrok-free.app/event",
+			"http://192.168.1.52:3333/event",
 			{
 				headers: {
 					"ngrok-skip-browser-warning": "true",
@@ -67,7 +67,7 @@ export class EventsRepository implements IBaseRepository<Events> {
 
 	async getById(id: string): Promise<Events> {
 		const response = await fetch(
-			`https://568d-2804-14d-78a6-830d-91e2-ccf4-7fa7-1e43.ngrok-free.app/events/${id}`,{
+			`http://192.168.1.52:3333/events/${id}`,{
 			headers: {
 				"ngrok-skip-browser-warning": "true",
 			},
@@ -77,7 +77,7 @@ export class EventsRepository implements IBaseRepository<Events> {
 	}
 	async getByUserId(userID: string): Promise<Events> {
 		const response = await fetch(
-			`https://568d-2804-14d-78a6-830d-91e2-ccf4-7fa7-1e43.ngrok-free.app/${userID}/events`,{
+			`http://192.168.1.52:3333/${userID}/events`,{
 			headers: {
 				"ngrok-skip-browser-warning": "true",
 			},

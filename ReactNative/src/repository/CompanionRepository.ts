@@ -3,7 +3,7 @@ import type { IBaseRepository } from "./IBaseRepository";
 
 export class CompanionRepository {
 	async create(companion: Companion): Promise<Companion> {
-		const companions = await fetch("https://568d-2804-14d-78a6-830d-91e2-ccf4-7fa7-1e43.ngrok-free.app/companion", {
+		const companions = await fetch("http://192.168.1.52:3333/companion", {
 			method: "POST",
 			headers: {
 				"ngrok-skip-browser-warning": "true",
@@ -19,7 +19,7 @@ export class CompanionRepository {
 		return createdCompanion;
 	}
 	async update(companion: Companion, id: string): Promise<Companion> {
-		const response = await fetch(`https://568d-2804-14d-78a6-830d-91e2-ccf4-7fa7-1e43.ngrok-free.app/companion/${id}`, {
+		const response = await fetch(`http://192.168.1.52:3333/companion/${id}`, {
 			method: "PUT",
 			headers: {
 				"ngrok-skip-browser-warning": "true",
@@ -33,7 +33,7 @@ export class CompanionRepository {
 		return companions;
 	}
 	async delete(id: string): Promise<true | Companion> {
-		const response = await fetch(`https://568d-2804-14d-78a6-830d-91e2-ccf4-7fa7-1e43.ngrok-free.app/companion/${id}`, {
+		const response = await fetch(`http://192.168.1.52:3333/companion/${id}`, {
 			method: "DELETE",
 			headers: {
 				"ngrok-skip-browser-warning": "true",
@@ -46,7 +46,7 @@ export class CompanionRepository {
 		return response.status === 204 ? true : await response.json();
 	}
 	async getAll(): Promise<Companion[]> {
-		const response = await fetch("https://568d-2804-14d-78a6-830d-91e2-ccf4-7fa7-1e43.ngrok-free.app/companions", {
+		const response = await fetch("http://192.168.1.52:3333/companions", {
 			headers: {
 				"ngrok-skip-browser-warning": "true",
 			},
@@ -58,7 +58,7 @@ export class CompanionRepository {
 		return companions;
 	}
 	async getById(id: string): Promise<Companion[]> {
-		const response = await fetch(`https://568d-2804-14d-78a6-830d-91e2-ccf4-7fa7-1e43.ngrok-free.app/companion/${id}`, {
+		const response = await fetch(`http://192.168.1.52:3333/companion/${id}`, {
 			headers: {
 				"ngrok-skip-browser-warning": "true",
 			},
@@ -71,7 +71,7 @@ export class CompanionRepository {
 	async countByGuestId(idGuest: string): Promise<number> {
 		try {
 			const response = await fetch(
-				`https://568d-2804-14d-78a6-830d-91e2-ccf4-7fa7-1e43.ngrok-free.app/companion/lenght/${idGuest}`,
+				`http://192.168.1.52:3333/companion/lenght/${idGuest}`,
 				{
 					method: "GET",
 					headers: {

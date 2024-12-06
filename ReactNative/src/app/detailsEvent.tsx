@@ -182,7 +182,7 @@ export default function DetailsEvent() {
     try {
       const result = await Share.share({
         title: "EventEasy",
-        message: `Você foi convidado para o Evento: ${event.name} no dia ${shortDate} as 21h. Confirme sua presença!  `,
+        message: `Você foi convidado para o Evento: ${event.name} no dia ${shortDate} as 21h. Confirme sua presença! https://site-convidado.vercel.app/event/${event.id} `,
         url: `https://site-convidado.vercel.app/event/${event.id}`,
       });
     } catch (error: any) {
@@ -195,7 +195,7 @@ export default function DetailsEvent() {
       <View>
         <View className="flex justify-start items-center">
           <Image
-            className="w-[395] h-[302]"
+            className="w-[400] h-[335] relative bottom-2"
             source={require("../../assets/download (1) 1.png")}
           />
           <View
@@ -205,7 +205,7 @@ export default function DetailsEvent() {
               flexDirection: "row",
               justifyContent: "space-between",
               alignItems: "center",
-              marginTop: 48,
+              marginTop: 25,
               width: "100%",
               paddingHorizontal: 10,
             }}

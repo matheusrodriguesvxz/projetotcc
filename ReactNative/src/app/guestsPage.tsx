@@ -224,7 +224,7 @@ export default function GuestsPage() {
       <View>
         <View className="flex justify-end items-center">
           <Image
-            className="w-[415] h-[302]"
+            className="w-[424] h-[333] relative bottom-2"
             source={require("../../assets/download (1) 1.png")}
           />
           <View className="absolute bottom-6 left-4 w-[200]">

@@ -16,7 +16,7 @@ export const transactions = pgTable("transactions", {
 		.$defaultFn(() => createId()),
 	paymentId: text("payment_id")
 		.notNull()
-		.references(() => payments.id, { onDelete: "cascade" }),
+		.references(() => payments.id),
 	transactionId: varchar("transaction_id", { length: 255 }).notNull(),
 	transactionAmount: decimal("transaction_amount", {
 		precision: 10,

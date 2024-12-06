@@ -58,11 +58,11 @@ async function seed() {
         pix: '123712893712',
         userID:"If01rBv6vraMm4XUH4lgQjIA3Rs2",
         type: 'Role',
-        initial_date: lasyDayofWeek.toDate(),
-        final_date: lasyDayofMouth.toDate(),
+        initial_date: lasyDayofWeek.toDate().toISOString(),
+        final_date: lasyDayofMouth.toDate().toISOString(),
         budget: '1900',
         olderOfAge: true,
-      },
+      }
     ])
     .returning()
 
