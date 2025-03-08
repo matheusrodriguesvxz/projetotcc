@@ -1,7 +1,7 @@
 // biome-ignore lint/style/noVar: <explanation>
-var client_id = '9e98697b9bf4450b8db0df626dbf24c0';
+var client_id = '';
 // biome-ignore lint/style/noVar: <explanation>
-var client_secret = '34379547e0ab45fca72caa8249fa21a0';
+var client_secret = '';
 
 export const authOptions = {
   url: 'https://accounts.spotify.com/api/token',
